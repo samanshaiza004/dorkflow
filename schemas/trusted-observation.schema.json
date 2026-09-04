@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dorkflow/trusted-observation.schema.json",
+  "title": "Dorkflow trusted observation bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "viewports", "elements", "values", "relationships", "inventoryStats"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "viewports": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/viewport" } },
+    "elements": { "type": "array", "items": { "$ref": "#/$defs/element" } },
+    "values": { "type": "array", "items": { "$ref": "#/$defs/value" } },
+    "relationships": { "type": "array", "items": { "$ref": "#/$defs/relationship" } },
+    "inventoryStats": { "$ref": "#/$defs/inventoryStats" }
+  },
+  "$defs": {
+    "elementId": { "type": "string", "pattern": "^el_[a-z0-9]{8,64}$" },
+    "pageKey": { "type": "string", "pattern": "^pg_[a-z0-9]{8,64}$" },
+    "viewportKey": { "type": "string", "pattern": "^vp_[a-z0-9]{8,64}$" },
+    "evidenceId": { "type": "string", "pattern": "^ev_[a-z0-9]{8,64}$" },
+    "valueId": { "type": "string", "pattern": "^obs_[a-z0-9]{8,64}$" },
+    "relationshipId": { "type": "string", "pattern": "^rel_[a-z0-9]{8,64}$" },
+    "componentKey": { "type": "string", "pattern": "^cmp_[a-z0-9]{8,64}$" },
+    "viewport": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "width", "height", "deviceScaleFactor", "label"],
+      "properties": {
+        "id": { "$ref": "#/$defs/viewportKey" },
+        "width": { "type": "integer", "exclusiveMinimum": 0 },
+        "height": { "type": "integer", "exclusiveMinimum": 0 },
+        "deviceScaleFactor": { "type": "number", "exclusiveMinimum": 0 },
+        "label": { "enum": ["mobile", "tablet", "desktop"] }
+      }
+    },
+    "geometry": {
+      "type": "object", "additionalProperties": false,
+      "required": ["x", "y", "width", "height"],
+      "properties": {
+        "x": { "type": "number" }, "y": { "type": "number" },
+        "width": { "type": "number", "minimum": 0 }, "height": { "type": "number", "minimum": 0 }
+      }
+    },
+    "typography": {
+      "type": "object", "additionalProperties": false,
+      "required": ["familyFingerprint", "fontSize", "fontWeight", "lineHeight", "letterSpacing", "textAlign", "textTransform"],
+      "properties": {
+        "familyFingerprint": { "type": "string", "pattern": "^fp_font_[a-z0-9]{8,64}$" },
+        "fontSize": { "type": "number", "minimum": 0 }, "fontWeight": { "type": "integer", "minimum": 1, "maximum": 1000 },
+        "lineHeight": { "type": "number", "minimum": 0 }, "letterSpacing": { "type": "number" },
+        "textAlign": { "enum": ["left", "center", "right", "justify", "start", "end"] },
+        "textTransform": { "enum": ["none", "uppercase", "lowercase", "capitalize"] }
+      }
+    },
+    "paint": {
+      "type": "object", "additionalProperties": false,
+      "required": ["color", "backgroundColor", "border", "radius", "shadow", "opacity"],
+      "properties": {
+        "color": { "$ref": "#/$defs/cssColor" }, "backgroundColor": { "$ref": "#/$defs/cssColor" },
+        "border": { "$ref": "#/$defs/border" }, "radius": { "$ref": "#/$defs/radius" },
+        "shadow": { "anyOf": [{ "$ref": "#/$defs/shadow" }, { "type": "null" }] },
+        "opacity": { "type": "number", "minimum": 0, "maximum": 1 }
+      }
+    },
+    "cssColor": { "type": "string", "pattern": "^(#[0-9a-f]{6}|rgba?\\([^\\n]{1,100}\\))$" },
+    "border": {
+      "type": "object", "additionalProperties": false, "required": ["width", "style", "color"],
+      "properties": { "width": { "type": "number", "minimum": 0 }, "style": { "enum": ["none", "solid", "dashed", "dotted", "double", "other"] }, "color": { "$ref": "#/$defs/cssColor" } }
+    },
+    "radius": {
+      "type": "object", "additionalProperties": false, "required": ["topLeft", "topRight", "bottomRight", "bottomLeft"],
+      "properties": { "topLeft": { "type": "number", "minimum": 0 }, "topRight": { "type": "number", "minimum": 0 }, "bottomRight": { "type": "number", "minimum": 0 }, "bottomLeft": { "type": "number", "minimum": 0 } }
+    },
+    "shadow": {
+      "type": "object", "additionalProperties": false, "required": ["offsetX", "offsetY", "blur", "spread", "color"],
+      "properties": { "offsetX": { "type": "number" }, "offsetY": { "type": "number" }, "blur": { "type": "number", "minimum": 0 }, "spread": { "type": "number" }, "color": { "$ref": "#/$defs/cssColor" } }
+    },
+    "spacing": {
+      "type": "object", "additionalProperties": false, "required": ["top", "right", "bottom", "left"],
+      "properties": { "top": { "type": "number" }, "right": { "type": "number" }, "bottom": { "type": "number" }, "left": { "type": "number" } }
+    },
+    "layout": {
+      "type": "object", "additionalProperties": false,
+      "required": ["display", "position", "parentId", "componentKey", "gap", "padding", "margin", "flexDirection", "alignItems", "justifyContent"],
+      "properties": {
+        "display": { "enum": ["block", "inline", "inline-block", "flex", "grid", "table", "none", "other"] },
+        "position": { "enum": ["static", "relative", "absolute", "fixed", "sticky"] },
+        "parentId": { "anyOf": [{ "$ref": "#/$defs/elementId" }, { "type": "null" }] },
+        "componentKey": { "anyOf": [{ "$ref": "#/$defs/componentKey" }, { "type": "null" }] },
+        "gap": { "type": "number" }, "padding": { "$ref": "#/$defs/spacing" }, "margin": { "$ref": "#/$defs/spacing" },
+        "flexDirection": { "enum": ["row", "row-reverse", "column", "column-reverse", "none"] },
+        "alignItems": { "enum": ["normal", "start", "end", "center", "stretch", "baseline", "other"] },
+        "justifyContent": { "enum": ["normal", "start", "end", "center", "space-between", "space-around", "space-evenly", "other"] }
+      }
+    },
+    "contentMetrics": {
+      "type": "object", "additionalProperties": false, "required": ["characterCount", "lineCount", "wraps"],
+      "properties": { "characterCount": { "type": "integer", "minimum": 0 }, "lineCount": { "type": "integer", "minimum": 0 }, "wraps": { "type": "boolean" } }
+    },
+    "element": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "pageKey", "viewportKey", "state", "role", "geometry", "typography", "paint", "layout", "contentMetrics", "evidenceIds"],
+      "properties": {
+        "id": { "$ref": "#/$defs/elementId" }, "pageKey": { "$ref": "#/$defs/pageKey" }, "viewportKey": { "$ref": "#/$defs/viewportKey" },
+        "state": { "enum": ["default", "hover", "focus-visible", "active", "disabled", "aria-disabled", "open", "closed"] },
+        "role": { "enum": ["page", "region", "header", "banner", "navigation", "main", "footer", "heading", "paragraph", "link", "button", "card", "image", "form", "input", "list", "listitem", "generic"] },
+        "geometry": { "$ref": "#/$defs/geometry" }, "typography": { "$ref": "#/$defs/typography" }, "paint": { "$ref": "#/$defs/paint" },
+        "layout": { "$ref": "#/$defs/layout" }, "contentMetrics": { "$ref": "#/$defs/contentMetrics" },
+        "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceId" } }
+      }
+    },
+    "value": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "kind", "normalizedValue", "units", "occurrenceCount", "pageCount", "viewportCount", "elementCount", "roles", "states", "componentKeys", "evidenceIds"],
+      "properties": {
+        "id": { "$ref": "#/$defs/valueId" }, "kind": { "enum": ["color", "font-family", "font-size", "font-weight", "line-height", "letter-spacing", "spacing", "dimension", "radius", "border", "shadow", "opacity"] },
+        "normalizedValue": { "type": ["string", "number"] }, "units": { "enum": ["px", "ratio", "unitless", "color", "fingerprint", "none"] },
+        "occurrenceCount": { "type": "integer", "minimum": 1 }, "pageCount": { "type": "integer", "minimum": 1 }, "viewportCount": { "type": "integer", "minimum": 1 }, "elementCount": { "type": "integer", "minimum": 1 },
+        "roles": { "type": "array", "items": { "$ref": "#/$defs/element/properties/role" } }, "states": { "type": "array", "items": { "$ref": "#/$defs/element/properties/state" } },
+        "componentKeys": { "type": "array", "items": { "$ref": "#/$defs/componentKey" } }, "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceId" } }
+      }
+    },
+    "relationship": {
+      "type": "object", "additionalProperties": false, "required": ["id", "type", "subjectIds", "objectIds", "evidenceIds", "magnitude"],
+      "properties": {
+        "id": { "$ref": "#/$defs/relationshipId" }, "type": { "enum": ["same-observed-value", "repeated-pattern", "parent-child", "alignment", "spacing", "state-delta", "responsive-change", "co-occurrence"] },
+        "subjectIds": { "type": "array", "minItems": 1, "items": { "anyOf": [{ "$ref": "#/$defs/elementId" }, { "$ref": "#/$defs/valueId" }] } },
+        "objectIds": { "type": "array", "minItems": 1, "items": { "anyOf": [{ "$ref": "#/$defs/elementId" }, { "$ref": "#/$defs/valueId" }] } },
+        "evidenceIds": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceId" } }, "magnitude": { "type": ["number", "null"] }
+      }
+    },
+    "inventoryStats": {
+      "type": "object", "additionalProperties": false, "required": ["elementCount", "valueCount", "relationshipCount", "pageCount", "viewportCount", "stateCount"],
+      "properties": { "elementCount": { "type": "integer", "minimum": 0 }, "valueCount": { "type": "integer", "minimum": 0 }, "relationshipCount": { "type": "integer", "minimum": 0 }, "pageCount": { "type": "integer", "minimum": 1 }, "viewportCount": { "type": "integer", "minimum": 1 }, "stateCount": { "type": "integer", "minimum": 1 } }
+    }
+  }
+}

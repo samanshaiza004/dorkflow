@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dorkflow/proposal.schema.json",
+  "title": "Dorkflow design-system proposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "primitives", "semanticTokens", "componentTokens", "decisions", "uncertainties"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "primitives": { "type": "array", "items": { "$ref": "#/$defs/primitive" } },
+    "semanticTokens": { "type": "array", "items": { "$ref": "#/$defs/semantic" } },
+    "componentTokens": { "type": "array", "items": { "$ref": "#/$defs/component" } },
+    "decisions": { "type": "array", "items": { "$ref": "#/$defs/decision" } },
+    "uncertainties": { "type": "array", "items": { "$ref": "#/$defs/decision" } }
+  },
+  "$defs": {
+    "proposalId": { "type": "string", "pattern": "^prop_[a-z0-9]{8,64}$" },
+    "valueId": { "type": "string", "pattern": "^obs_[a-z0-9]{8,64}$" },
+    "evidenceId": { "type": "string", "pattern": "^ev_[a-z0-9]{8,64}$" },
+    "relationshipId": { "type": "string", "pattern": "^rel_[a-z0-9]{8,64}$" },
+    "componentKey": { "type": "string", "pattern": "^cmp_[a-z0-9]{8,64}$" },
+    "name": { "type": "string", "pattern": "^[a-z][a-z0-9._-]{1,80}$" },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "classification": { "enum": ["token", "intentional-decision", "incidental", "unknown"] },
+    "evidence": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/evidenceId" } },
+    "primitive": {
+      "type": "object", "additionalProperties": false, "required": ["id", "name", "valueRef", "confidence", "classification", "evidenceIds"],
+      "properties": { "id": { "$ref": "#/$defs/proposalId" }, "name": { "$ref": "#/$defs/name" }, "valueRef": { "$ref": "#/$defs/valueId" }, "confidence": { "$ref": "#/$defs/confidence" }, "classification": { "$ref": "#/$defs/classification" }, "evidenceIds": { "$ref": "#/$defs/evidence" } }
+    },
+    "semantic": {
+      "type": "object", "additionalProperties": false, "required": ["id", "name", "valueRef", "roles", "confidence", "classification", "evidenceIds"],
+      "properties": { "id": { "$ref": "#/$defs/proposalId" }, "name": { "$ref": "#/$defs/name" }, "valueRef": { "$ref": "#/$defs/valueId" }, "roles": { "type": "array", "minItems": 1, "items": { "enum": ["text", "surface", "action", "border", "focus", "layout", "status", "unknown"] } }, "confidence": { "$ref": "#/$defs/confidence" }, "classification": { "$ref": "#/$defs/classification" }, "evidenceIds": { "$ref": "#/$defs/evidence" } }
+    },
+    "component": {
+      "type": "object", "additionalProperties": false, "required": ["id", "name", "componentKey", "slot", "valueRef", "relationshipRefs", "confidence", "classification", "evidenceIds"],
+      "properties": { "id": { "$ref": "#/$defs/proposalId" }, "name": { "$ref": "#/$defs/name" }, "componentKey": { "$ref": "#/$defs/componentKey" }, "slot": { "enum": ["background", "foreground", "border", "radius", "shadow", "padding", "gap", "font", "focus", "layout", "unknown"] }, "valueRef": { "anyOf": [{ "$ref": "#/$defs/valueId" }, { "type": "null" }] }, "relationshipRefs": { "type": "array", "items": { "$ref": "#/$defs/relationshipId" } }, "confidence": { "$ref": "#/$defs/confidence" }, "classification": { "$ref": "#/$defs/classification" }, "evidenceIds": { "$ref": "#/$defs/evidence" } }
+    },
+    "decision": {
+      "type": "object", "additionalProperties": false, "required": ["id", "subjectRefs", "classification", "confidence", "evidenceIds"],
+      "properties": { "id": { "$ref": "#/$defs/proposalId" }, "subjectRefs": { "type": "array", "minItems": 1, "items": { "anyOf": [{ "$ref": "#/$defs/proposalId" }, { "$ref": "#/$defs/valueId" }] } }, "classification": { "enum": ["intentional", "incidental", "uncertain"] }, "confidence": { "$ref": "#/$defs/confidence" }, "evidenceIds": { "$ref": "#/$defs/evidence" } }
+    }
+  }
+}

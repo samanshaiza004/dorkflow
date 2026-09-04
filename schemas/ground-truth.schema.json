@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "dorkflow/ground-truth.schema.json",
+  "title": "Dorkflow exercised ground truth",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "benchmarkRole", "benchmarkVersion", "concepts"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "benchmarkRole": { "enum": ["calibration", "development", "sealed-holdout"] },
+    "benchmarkVersion": { "type": "string", "minLength": 1 },
+    "concepts": { "type": "array", "minItems": 1, "items": { "$ref": "#/$defs/concept" } }
+  },
+  "$defs": {
+    "concept": {
+      "type": "object", "additionalProperties": false,
+      "required": ["id", "layer", "classification", "valueKind", "canonicalValue", "semanticRole", "componentRole", "componentSlot", "importanceWeight", "major", "exercisedEvidenceIds"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^gt_[a-z0-9]{8,64}$" },
+        "layer": { "enum": ["primitive", "semantic", "component"] },
+        "classification": { "enum": ["intentional", "incidental"] },
+        "valueKind": { "enum": ["color", "font-family", "font-size", "font-weight", "line-height", "letter-spacing", "spacing", "dimension", "radius", "border", "shadow", "opacity"] },
+        "canonicalValue": { "type": ["string", "number"] },
+        "semanticRole": { "type": "string", "minLength": 1 },
+        "componentRole": { "type": ["string", "null"] },
+        "componentSlot": { "type": ["string", "null"] },
+        "importanceWeight": { "type": "number", "exclusiveMinimum": 0 },
+        "major": { "type": "boolean" },
+        "exercisedEvidenceIds": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+      }
+    }
+  }
+}
