@@ -1,4 +1,5 @@
 node_modules/
 artifacts/*
 !artifacts/.gitkeep
+benchmarks/calibration/uswds-v3.14.0/source/package/
 .DS_Store

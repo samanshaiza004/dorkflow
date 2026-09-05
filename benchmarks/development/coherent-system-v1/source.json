@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "benchmarkId": "bench_hidden_development",
+  "benchmarkVersion": "coherent-system-v1-development",
+  "generatorVersion": "hidden-recipe-v1",
+  "seed": "development-seed-v1",
+  "identifiers": {
+    "page": "x27d9338fcf",
+    "shell": "x2db854bca3",
+    "header": "x1edc02ce7a",
+    "nav": "x6e820994f9",
+    "hero": "x8eec609e74",
+    "grid": "x5323f4ba69",
+    "card": "x8bb8fb619b",
+    "featureCard": "x246a1c36a5",
+    "primary": "xc4ac21dc17",
+    "quiet": "x4dfc0fda9d",
+    "debrisOne": "xa2a64a65d2",
+    "debrisTwo": "x4d6a5c6a0a",
+    "badge": "x60f56982c2",
+    "localOverride": "x65be7dec0a"
+  },
+  "tokenDefinitions": {
+    "cssVariables": {
+      "ink": "--x3343187ef8",
+      "surface": "--x01dcfd42b5",
+      "raised": "--x8ccf35f635",
+      "primary": "--xe1e2598132",
+      "primaryHover": "--x66ef6d3c6a",
+      "border": "--x4267a6df06",
+      "focus": "--xb9eacc5712",
+      "quiet": "--xb84771794d",
+      "unit": "--xdfc80f136f",
+      "mobileGutter": "--xfa373d14ff",
+      "radiusSmall": "--xf48be4d610",
+      "radiusFeature": "--x7feb9e1b2d",
+      "shadowCard": "--x875fcc6028"
+    },
+    "colors": {
+      "ink": "#1d2334",
+      "surface": "#f9f9fb",
+      "raised": "#eceff3",
+      "border": "#c6cadd",
+      "primary": "#19749f",
+      "primaryHover": "#145e80",
+      "focus": "#4f12d3",
+      "quiet": "#586289",
+      "debrisSingleton": "#7cae47",
+      "debrisRepeated": "#d0bebe",
+      "nearDuplicate": "#c1cbdc"
+    },
+    "spacing": {
+      "unit": 4,
+      "small": 8,
+      "medium": 12,
+      "large": 20,
+      "section": 32,
+      "mobileGutter": 12,
+      "localOverride": 13,
+      "nearDuplicate": 17
+    },
+    "radii": {
+      "small": 4,
+      "feature": 14,
+      "pill": 999
+    },
+    "shadows": {
+      "card": "0 3px 11px rgba(20, 35, 60, 0.12)",
+      "oneOff": "0 7px 13px rgba(18, 25, 45, 0.27)"
+    },
+    "typography": {
+      "body": "Public Sans",
+      "heading": "Public Sans",
+      "bodySize": 16,
+      "headingSize": 36
+    }
+  },
+  "pages": [
+    "home.html",
+    "library.html",
+    "contact.html"
+  ],
+  "groundTruthIds": [
+    "gt_35e35f7a6870eb28",
+    "gt_38a2c8d4f5760dd9",
+    "gt_5702202ede8d1524",
+    "gt_4f82cea7695d6b7d",
+    "gt_d933eb8c42ae2d38",
+    "gt_db10c961bf098ab2",
+    "gt_8fb98fa373a2b88f",
+    "gt_33ba219ef75c9b56",
+    "gt_0181dd3f41f3162d",
+    "gt_ae6f6e8e035718ab",
+    "gt_6d17a1d8dc1c1d4f",
+    "gt_0cb9625e3d95efdc",
+    "gt_29504b9594d7c3f5",
+    "gt_7e4f9e834b26c3a6",
+    "gt_6f505ccff5c9a8ac",
+    "gt_ab050c02592ef772",
+    "gt_0ce83327c842bcbc",
+    "gt_e7d831c9f88d00a8",
+    "gt_251b6ac47b7bcb84",
+    "gt_9691205e6fc19b64"
+  ]
+}

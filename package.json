@@ -3,16 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "packageManager": "bun@1.3.14",
   "scripts": {
-    "test": "bun test",
+    "test": "bun test tests/*.test.ts",
     "check": "tsc --noEmit",
-    "a0:smoke": "bun run src/cli/a0-smoke.ts"
+    "a0:smoke": "bun run src/cli/a0-smoke.ts",
+    "a1:capture-environment": "bun run src/cli/capture-environment.ts",
+    "a1:freeze-calibration": "bun run src/cli/freeze-calibration.ts",
+    "a1:generate-hidden": "bun run src/cli/generate-hidden.ts"
   },
   "dependencies": {
-    "playwright": "^1.52.0",
-    "zod": "^3.24.1"
+    "playwright": "1.62.1",
+    "zod": "3.25.76"
   },
   "devDependencies": {
-    "bun-types": "^1.3.14"
+    "bun-types": "1.4.1"
   }
 }

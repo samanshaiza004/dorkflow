@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Program landing page</title>
+    <link rel="stylesheet" href="../assets/uswds/css/uswds.css">
+    <script src="../assets/uswds/js/uswds-init.min.js"></script>
+  </head>
+  <body>
+    <div class="usa-banner" aria-label="Official website of the United States government">
+      <div class="usa-accordion">
+        <header class="usa-banner__header">
+          <div class="usa-banner__inner">
+            <div class="grid-col-auto"><img class="usa-banner__header-flag" src="../assets/uswds/img/us_flag_small.png" alt=""></div>
+            <div class="grid-col-fill tablet:grid-col-auto">
+              <p class="usa-banner__header-text">An official website of the United States government</p>
+              <p class="usa-banner__header-action">Here’s how you know</p>
+            </div>
+            <button type="button" class="usa-accordion__button usa-banner__button" aria-expanded="false" aria-controls="gov-banner">
+              <span class="usa-banner__button-text">Here’s how you know</span>
+            </button>
+          </div>
+        </header>
+        <div class="usa-banner__content usa-accordion__content" id="gov-banner">
+          <div class="grid-row grid-gap-lg">
+            <div class="usa-banner__guidance tablet:grid-col-6"><p><strong>The .gov means it’s official.</strong><br>Government websites use a .gov domain.</p></div>
+            <div class="usa-banner__guidance tablet:grid-col-6"><p><strong>The site is secure.</strong><br>Secure connections protect information.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <header class="usa-header usa-header--extended">
+      <div class="usa-navbar">
+        <div class="usa-logo"><em class="usa-logo__text"><a href="./landing.html">Program title</a></em></div>
+        <button type="button" class="usa-menu-btn">Menu</button>
+      </div>
+      <nav class="usa-nav" aria-label="Primary navigation">
+        <button type="button" class="usa-nav__close"><img src="../assets/uswds/img/close.svg" alt="Close"></button>
+        <ul class="usa-nav__primary usa-accordion">
+          <li class="usa-nav__primary-item"><a class="usa-nav__link usa-current" href="#overview"><span>Overview</span></a></li>
+          <li class="usa-nav__primary-item"><a class="usa-nav__link" href="#services"><span>Services</span></a></li>
+          <li class="usa-nav__primary-item"><a class="usa-nav__link" href="#about"><span>About</span></a></li>
+        </ul>
+        <form class="usa-search usa-search--small" role="search"><label class="usa-sr-only" for="search">Search</label><input class="usa-input" id="search" type="search"><button class="usa-button" type="submit"><span class="usa-sr-only">Search</span></button></form>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="usa-hero" aria-label="Introduction">
+        <div class="grid-container">
+          <div class="grid-row grid-gap">
+            <div class="usa-hero__callout tablet:grid-col-6">
+              <h1 class="usa-hero__heading"><span class="usa-hero__heading--alt">A clear public service</span> for every community</h1>
+              <p>Learn how this program helps people find trustworthy information and practical support.</p>
+              <a class="usa-button" href="#services">Explore services</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="grid-container usa-section" id="overview">
+        <div class="grid-row grid-gap">
+          <div class="tablet:grid-col-4"><h2>Designed for people</h2></div>
+          <div class="tablet:grid-col-8"><p class="usa-intro">Simple tools and clear guidance help visitors take the next useful step.</p></div>
+        </div>
+      </section>
+
+      <section class="grid-container" id="services">
+        <ul class="usa-card-group">
+          <li class="tablet:grid-col-4 usa-card"><div class="usa-card__container"><header class="usa-card__header"><h2 class="usa-card__heading">Find information</h2></header><div class="usa-card__body"><p>Browse current guidance organized around common questions.</p></div><div class="usa-card__footer"><a class="usa-button" href="#">Learn more</a></div></div></li>
+          <li class="tablet:grid-col-4 usa-card"><div class="usa-card__container"><header class="usa-card__header"><h2 class="usa-card__heading">Get support</h2></header><div class="usa-card__body"><p>Connect with a program team when you need additional help.</p></div><div class="usa-card__footer"><a class="usa-button" href="#">Contact us</a></div></div></li>
+          <li class="tablet:grid-col-4 usa-card"><div class="usa-card__container"><header class="usa-card__header"><h2 class="usa-card__heading">Stay informed</h2></header><div class="usa-card__body"><p>Choose updates that make it easier to plan your next action.</p></div><div class="usa-card__footer"><a class="usa-button" href="#">Sign up</a></div></div></li>
+        </ul>
+      </section>
+
+      <section class="grid-container usa-section" id="about">
+        <div class="usa-prose"><h2>Work with us</h2><p>Use this space for a concise statement about the agency, project, or public benefit.</p><a class="usa-button usa-button--outline" href="#">Learn about the program</a></div>
+      </section>
+    </main>
+
+    <footer class="usa-footer">
+      <div class="usa-footer__primary-section"><div class="grid-container"><nav class="usa-footer__nav" aria-label="Footer navigation"><ul class="grid-row grid-gap"><li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content"><a class="usa-footer__primary-link" href="#">About</a></li><li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content"><a class="usa-footer__primary-link" href="#">Accessibility</a></li><li class="mobile-lg:grid-col-4 desktop:grid-col-auto usa-footer__primary-content"><a class="usa-footer__primary-link" href="#">Contact</a></li></ul></nav></div></div>
+      <div class="usa-footer__secondary-section"><div class="grid-container"><div class="grid-row grid-gap"><div class="usa-footer__logo mobile-lg:grid-col-6"><p class="usa-footer__logo-heading">Program agency</p></div><div class="usa-footer__contact-links mobile-lg:grid-col-6"><p class="usa-footer__contact-heading">Program contact center</p><address class="usa-footer__address"><a href="tel:1-800-555-0100">(800) 555-0100</a></address></div></div></div></div>
+    </footer>
+    <script src="../assets/uswds/js/uswds.min.js"></script>
+  </body>
+</html>

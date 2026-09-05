@@ -23,5 +23,9 @@ tokens. The ground-truth authoring record identifies every debris case and
 its expected classification before evaluation is locked.
 
 The development seed may be revealed after scoring. Sealed holdout seeds
-remain inaccessible until the result is finalized. A changed pipeline burns
-the evaluated holdout and requires a newly generated holdout version.
+remain inaccessible until the result is finalized. For a sealed holdout,
+the rendered HTML/CSS/assets bundle is externalized with the private inputs;
+the repository contains only public metadata and hashes. A changed
+pipeline burns the evaluated holdout and requires a newly generated holdout
+version. Existing sealed benchmark directories are write-once and cannot be
+reused.

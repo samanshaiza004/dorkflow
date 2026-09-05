@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "benchmarkId": "bench_hidden_001",
+  "role": "sealed-holdout",
+  "state": "SEALED",
+  "benchmarkVersion": "coherent-system-v1-holdout",
+  "createdAt": "2026-09-05T12:58:35.242Z",
+  "seedRecordPath": "bench_hidden_001/seed.json",
+  "sourceRecordPath": "bench_hidden_001/source.json",
+  "groundTruthPath": "bench_hidden_001/ground-truth.json",
+  "bundleHash": "a22a7c2d18f20f652127f6d7ad70f9d706fd2641be3eaa567bcc8e8461ec7e1b",
+  "evaluationLockHash": null,
+  "resultHash": null
+}

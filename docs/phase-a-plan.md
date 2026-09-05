@@ -85,6 +85,13 @@ bundle contains the exact HTML, CSS, assets, fonts, and runtime inputs,
 plus content hashes and browser/viewport metadata. A hash mismatch aborts
 the run.
 
+For a sealed holdout, the rendered bundle is private input too: it lives
+alongside the seed, instantiated source, and ground truth under the
+external `DORKFLOW_SEALED_STORE/<benchmark-id>/` directory. Only the
+isolated crawler is granted access to that directory. The coding agent and
+inference process receive no raw rendered files; the inference process gets
+only the sanitized observation artifact.
+
 Live USWDS pages are used only to intentionally create a new calibration
 bundle version. A7/A8 never depends on the live site or Storybook.
 

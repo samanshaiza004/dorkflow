@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "benchmarkId": "bench_hidden_development",
+  "benchmarkVersion": "coherent-system-v1-development",
+  "seed": "development-seed-v1"
+}

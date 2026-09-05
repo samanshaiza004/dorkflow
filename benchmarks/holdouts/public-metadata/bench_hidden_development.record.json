@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "benchmarkId": "bench_hidden_development",
+  "role": "development",
+  "state": "CREATED",
+  "benchmarkVersion": "coherent-system-v1-development",
+  "createdAt": "2026-09-05T12:57:58.969Z",
+  "seedRecordPath": "benchmarks/development/coherent-system-v1/seed.json",
+  "sourceRecordPath": "benchmarks/development/coherent-system-v1/source.json",
+  "groundTruthPath": "benchmarks/development/coherent-system-v1/ground-truth.json",
+  "bundleHash": "e8ef145a04eaadda04fef41ebb740e7c1a842e55903479a5007e3c9838dac2fa",
+  "evaluationLockHash": null,
+  "resultHash": null
+}

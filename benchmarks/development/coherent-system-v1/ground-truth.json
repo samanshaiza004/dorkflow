@@ -1,0 +1,307 @@
+{
+  "schemaVersion": 1,
+  "benchmarkRole": "development",
+  "benchmarkVersion": "coherent-system-v1-development",
+  "concepts": [
+    {
+      "id": "gt_35e35f7a6870eb28",
+      "layer": "primitive",
+      "classification": "intentional",
+      "valueKind": "color",
+      "canonicalValue": "#19749f",
+      "semanticRole": "action.primary",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 3,
+      "major": true,
+      "exercisedEvidenceIds": [
+        "authoring:high-reuse:primitive.primary"
+      ]
+    },
+    {
+      "id": "gt_38a2c8d4f5760dd9",
+      "layer": "primitive",
+      "classification": "intentional",
+      "valueKind": "color",
+      "canonicalValue": "#1d2334",
+      "semanticRole": "text.primary",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 3,
+      "major": true,
+      "exercisedEvidenceIds": [
+        "authoring:high-reuse:primitive.ink"
+      ]
+    },
+    {
+      "id": "gt_5702202ede8d1524",
+      "layer": "primitive",
+      "classification": "intentional",
+      "valueKind": "color",
+      "canonicalValue": "#f9f9fb",
+      "semanticRole": "surface.page",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 3,
+      "major": true,
+      "exercisedEvidenceIds": [
+        "authoring:high-reuse:primitive.surface"
+      ]
+    },
+    {
+      "id": "gt_4f82cea7695d6b7d",
+      "layer": "primitive",
+      "classification": "intentional",
+      "valueKind": "color",
+      "canonicalValue": "#c6cadd",
+      "semanticRole": "border.default",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 2,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:repeated:primitive.border"
+      ]
+    },
+    {
+      "id": "gt_d933eb8c42ae2d38",
+      "layer": "primitive",
+      "classification": "intentional",
+      "valueKind": "spacing",
+      "canonicalValue": 4,
+      "semanticRole": "space.unit",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 3,
+      "major": true,
+      "exercisedEvidenceIds": [
+        "authoring:high-reuse:primitive.spacing-unit"
+      ]
+    },
+    {
+      "id": "gt_db10c961bf098ab2",
+      "layer": "primitive",
+      "classification": "intentional",
+      "valueKind": "radius",
+      "canonicalValue": 4,
+      "semanticRole": "radius.small",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 2,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:repeated:primitive.radius-small"
+      ]
+    },
+    {
+      "id": "gt_8fb98fa373a2b88f",
+      "layer": "primitive",
+      "classification": "intentional",
+      "valueKind": "shadow",
+      "canonicalValue": "0 3px 11px rgba(20, 35, 60, 0.12)",
+      "semanticRole": "shadow.card",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 2,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:repeated:primitive.shadow-card"
+      ]
+    },
+    {
+      "id": "gt_33ba219ef75c9b56",
+      "layer": "semantic",
+      "classification": "intentional",
+      "valueKind": "color",
+      "canonicalValue": "#eceff3",
+      "semanticRole": "surface.raised",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 2,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:repeated:semantic.surface-raised"
+      ]
+    },
+    {
+      "id": "gt_0181dd3f41f3162d",
+      "layer": "semantic",
+      "classification": "intentional",
+      "valueKind": "color",
+      "canonicalValue": "#586289",
+      "semanticRole": "text.quiet",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 2,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:legitimate-singleton:semantic.text-quiet-singleton"
+      ]
+    },
+    {
+      "id": "gt_ae6f6e8e035718ab",
+      "layer": "semantic",
+      "classification": "intentional",
+      "valueKind": "spacing",
+      "canonicalValue": 12,
+      "semanticRole": "layout.mobile-gutter",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 2,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:responsive-only:semantic.mobile-gutter"
+      ]
+    },
+    {
+      "id": "gt_6d17a1d8dc1c1d4f",
+      "layer": "semantic",
+      "classification": "intentional",
+      "valueKind": "color",
+      "canonicalValue": "#4f12d3",
+      "semanticRole": "focus.ring",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 2,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:state-only:semantic.focus-ring"
+      ]
+    },
+    {
+      "id": "gt_0cb9625e3d95efdc",
+      "layer": "component",
+      "classification": "intentional",
+      "valueKind": "radius",
+      "canonicalValue": 14,
+      "semanticRole": "card.feature",
+      "componentRole": "card",
+      "componentSlot": "radius",
+      "importanceWeight": 2,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:legitimate-singleton:component.card-feature-radius"
+      ]
+    },
+    {
+      "id": "gt_29504b9594d7c3f5",
+      "layer": "component",
+      "classification": "intentional",
+      "valueKind": "color",
+      "canonicalValue": "#19749f",
+      "semanticRole": "button.primary",
+      "componentRole": "button",
+      "componentSlot": "background",
+      "importanceWeight": 3,
+      "major": true,
+      "exercisedEvidenceIds": [
+        "authoring:repeated:component.button-primary-background"
+      ]
+    },
+    {
+      "id": "gt_7e4f9e834b26c3a6",
+      "layer": "primitive",
+      "classification": "incidental",
+      "valueKind": "color",
+      "canonicalValue": "#7cae47",
+      "semanticRole": "unknown",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 1,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:accidental-singleton:incidental.singleton-color"
+      ]
+    },
+    {
+      "id": "gt_6f505ccff5c9a8ac",
+      "layer": "primitive",
+      "classification": "incidental",
+      "valueKind": "color",
+      "canonicalValue": "#d0bebe",
+      "semanticRole": "unknown",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 1,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:repeated-accident:incidental.repeated-color"
+      ]
+    },
+    {
+      "id": "gt_ab050c02592ef772",
+      "layer": "component",
+      "classification": "incidental",
+      "valueKind": "spacing",
+      "canonicalValue": 13,
+      "semanticRole": "unknown",
+      "componentRole": "card",
+      "componentSlot": "padding",
+      "importanceWeight": 1,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:local-override:incidental.local-padding"
+      ]
+    },
+    {
+      "id": "gt_0ce83327c842bcbc",
+      "layer": "primitive",
+      "classification": "incidental",
+      "valueKind": "spacing",
+      "canonicalValue": 17,
+      "semanticRole": "unknown",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 1,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:near-duplicate:incidental.near-spacing"
+      ]
+    },
+    {
+      "id": "gt_e7d831c9f88d00a8",
+      "layer": "primitive",
+      "classification": "incidental",
+      "valueKind": "color",
+      "canonicalValue": "#c1cbdc",
+      "semanticRole": "unknown",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 1,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:near-duplicate:incidental.near-color"
+      ]
+    },
+    {
+      "id": "gt_251b6ac47b7bcb84",
+      "layer": "component",
+      "classification": "incidental",
+      "valueKind": "shadow",
+      "canonicalValue": "0 7px 13px rgba(18, 25, 45, 0.27)",
+      "semanticRole": "unknown",
+      "componentRole": "badge",
+      "componentSlot": "shadow",
+      "importanceWeight": 1,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:one-off-shadow:incidental.oneoff-shadow"
+      ]
+    },
+    {
+      "id": "gt_9691205e6fc19b64",
+      "layer": "primitive",
+      "classification": "incidental",
+      "valueKind": "font-family",
+      "canonicalValue": "browser-default",
+      "semanticRole": "unknown",
+      "componentRole": null,
+      "componentSlot": null,
+      "importanceWeight": 1,
+      "major": false,
+      "exercisedEvidenceIds": [
+        "authoring:inherited-default:incidental.inherited-default"
+      ]
+    }
+  ]
+}

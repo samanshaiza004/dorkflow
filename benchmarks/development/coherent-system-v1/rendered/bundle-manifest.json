@@ -1,0 +1,758 @@
+{
+  "schemaVersion": 1,
+  "benchmarkId": "bench_hidden_development",
+  "benchmarkRole": "development",
+  "benchmarkVersion": "coherent-system-v1-development",
+  "createdAt": "2026-09-05T12:57:58.969Z",
+  "renderingEnvironmentSha256": "d42270bf8d7c6a20ff3d9be1e033b16efb170956346863cd2f5c1b1ec1f401f3",
+  "files": [
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Black.ttf",
+      "sha256": "cfee4f0d4a5ad6d7fd7eb404645247968854d95b69bba4a4d3fe85d98e52cb2e",
+      "bytes": 47828
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Black.woff",
+      "sha256": "ee72cf4e8cc94038d897c2eef10a7348440e51fe060df801eaaf1161fdbbd84c",
+      "bytes": 26568
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Black.woff2",
+      "sha256": "12cc00b43099d96b79625ae0f0ec9054e3c008e6613d3d83ae9bbb432c47718e",
+      "bytes": 21036
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-BlackItalic.ttf",
+      "sha256": "86391f1077a43343496446838e313b0d3bb25cc40a29eb26dc0066fee3c1b164",
+      "bytes": 41000
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-BlackItalic.woff",
+      "sha256": "68d9e1a641e8003cc73960aa5bc18dab557a1c6846cd5f72099784ef9783733d",
+      "bytes": 24324
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-BlackItalic.woff2",
+      "sha256": "da2bbf036591326793a9a2068ee680548096f0453492faad9eb109cce8769fe6",
+      "bytes": 19384
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Bold.ttf",
+      "sha256": "3d5195230d70d24d37617e6d4c65aec4d45ef34dbe3e5a286051adc7adf055d1",
+      "bytes": 47228
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Bold.woff",
+      "sha256": "31ac3086c758e8082b42c188a4028ea782dfa0c9c39a9c134242479b148c7812",
+      "bytes": 26892
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Bold.woff2",
+      "sha256": "398a409837c168a3682ce84a232d851bcb0b0163adfbead86f465e81f397169c",
+      "bytes": 21308
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-BoldItalic.ttf",
+      "sha256": "9c522e6c3442a8964b418c044636dc65ebccb0bd97afd3716534ea45ff33e62d",
+      "bytes": 40472
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-BoldItalic.woff",
+      "sha256": "744a8b2d072d7b01617680b18fd829933b4f316a71bf971b7364539602f180d1",
+      "bytes": 24464
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-BoldItalic.woff2",
+      "sha256": "47048032d06310b2299e57b6e2b3d943ceb4ce0220f5a2793d003d0d252e3127",
+      "bytes": 19568
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Italic.ttf",
+      "sha256": "84b86e1a2f283a45d800b3b3c0e00c1c01f849e4537c369e1485dfd06058c86b",
+      "bytes": 39480
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Italic.woff",
+      "sha256": "99c4fcc227bc330f02658f5a77f4de0de380e9053b3377c01dc313c8d1491c45",
+      "bytes": 24152
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Italic.woff2",
+      "sha256": "a0e8dae2dc7ab025ac207636ae3aa95c6d2b80ce21b61b6b7896381f0dcbe7e0",
+      "bytes": 19252
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Light.ttf",
+      "sha256": "5a37cfbeaf7bf03f10b5f55878927075e95d9fcaf0ccb82eebd07c2ca0ac7ca3",
+      "bytes": 49164
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Light.woff",
+      "sha256": "7d237c2ce9a0fc0a16f089f746ac7457cb6d5d273968fdbd8fabd62053fb79e5",
+      "bytes": 26988
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Light.woff2",
+      "sha256": "85e700ae1f982bdbea741c30df4d18d0eab430efa43013252694937704421bc4",
+      "bytes": 21260
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-LightItalic.ttf",
+      "sha256": "c992544f0e288a94023d9926aafbae6fcf206834083ba5d2b73b25bf4319ea11",
+      "bytes": 39456
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-LightItalic.woff",
+      "sha256": "1275c33f64e5332f0c1c6cce7bf78c7afe715746248493780e15187d54557b15",
+      "bytes": 23808
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-LightItalic.woff2",
+      "sha256": "d755b8363b9a1fc90262a947b3a9a5528a5a79fc7bf6d59710ba30ad88b80943",
+      "bytes": 18976
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Regular.ttf",
+      "sha256": "babc82d71e2f0b44e60693f1bf49fe79837088f3b7cb54ecf43bd53fec9b02ed",
+      "bytes": 49484
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Regular.woff",
+      "sha256": "bf534a2ba29317b46ad1fcab142105c1d0e1a70191ef55f4e1b29c786c8ad824",
+      "bytes": 27512
+    },
+    {
+      "path": "assets/fonts/merriweather/Latin-Merriweather-Regular.woff2",
+      "sha256": "928176d961dffa8369643f8f09728083e21d46492f65383a28b4822d342d13ff",
+      "bytes": 21692
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Black.ttf",
+      "sha256": "5f3758c0af43011d49d9ff1db0014381844f30b16a4ac4d9463824e10d00a0ac",
+      "bytes": 79168
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Black.woff",
+      "sha256": "d1dd10158e2b8fac8de8d59e636f97ed34645451e7cb657658c481d91139bfbf",
+      "bytes": 38904
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Black.woff2",
+      "sha256": "51d786e896169e40ae7305633382f2fd2fe77a493c5a2dec7089c129f84fcb1b",
+      "bytes": 31584
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-BlackItalic.ttf",
+      "sha256": "a4ab2f31b82e3e2ab3a7924468ca01b33a9d9e0e3f3d6df7830026a213d39ec1",
+      "bytes": 79016
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-BlackItalic.woff",
+      "sha256": "bec715f52d04be4af98d1befbdd7656797087c20af939f9fae5c86859d677f35",
+      "bytes": 39580
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-BlackItalic.woff2",
+      "sha256": "28638889cf1129da98bbd5631786b3c0bb5611347f8e1bf388418bc5f05d3253",
+      "bytes": 32192
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Bold.ttf",
+      "sha256": "133c72e536037c61df8813189cec9cfe968a7827a66092af119ed33b4bc8bc74",
+      "bytes": 79468
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Bold.woff",
+      "sha256": "d74b9670c6ac2f984ac7c29c33a2e4438036b6425fe804648d2a3cabd06fedcb",
+      "bytes": 40048
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Bold.woff2",
+      "sha256": "970fbaaebe5403cae84370f17f4303f91b317c0e7d44607fb2c7fed7571c013f",
+      "bytes": 32404
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-BoldItalic.ttf",
+      "sha256": "f229b6209e0db861cefe76427303214a0c7e10e051460cc3556dfc9a2a409f07",
+      "bytes": 79272
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-BoldItalic.woff",
+      "sha256": "bc984e5f238e97699faaaa7ca34b037eea307a3e31c3b170819f154bcab64c80",
+      "bytes": 40672
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-BoldItalic.woff2",
+      "sha256": "088626f1ff1469d40df6b624cfa0628c78972d9f72ad2b53845441f3afa12b5a",
+      "bytes": 33212
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ExtraBold.ttf",
+      "sha256": "607e860d86acc5951652304403c229f678d3538574069957ed7b87970f6b991f",
+      "bytes": 79904
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ExtraBold.woff",
+      "sha256": "611370bb11f3f84c3dc91dc4745d71eeb0d9c61a1fe420de2e177bc71809a59e",
+      "bytes": 40144
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ExtraBold.woff2",
+      "sha256": "7562cd5b08a16c642748b247bb4b5801ad8507e0db6be2da91490acaf812f9d0",
+      "bytes": 32700
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ExtraBoldItalic.ttf",
+      "sha256": "1e61f468c13f5bbc77c645b15e824692fe0cfe47ad7ee2cea3ea7baa4697ec9e",
+      "bytes": 79768
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ExtraBoldItalic.woff",
+      "sha256": "0e83639555a34e4bf22289f88d57659f459eb01a811db378bfac6de83850f828",
+      "bytes": 40660
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ExtraBoldItalic.woff2",
+      "sha256": "f8946b4ca447eacbec8ddc169614b9bdd712457354bcc60642d60308f62f0abc",
+      "bytes": 33160
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ExtraLight.ttf",
+      "sha256": "223d605cea285ad2aa3dd296bccb9e6e438906cf14a955cbd73e39213ab42578",
+      "bytes": 80400
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ExtraLight.woff",
+      "sha256": "c6ab625347f53a5698b64954d1eb3df039704aab90c3f8c86e563b9c9d3f079d",
+      "bytes": 40036
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ExtraLight.woff2",
+      "sha256": "eadd211347537f23e2de2602c0bc4c73550377215e10570397fc01b1439ccfe9",
+      "bytes": 32480
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ExtraLightItalic.ttf",
+      "sha256": "1bcd79f2b4558a0f04c4fcb1ec4e0728a6fc106d922c15de76ee435b9b54b680",
+      "bytes": 80296
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ExtraLightItalic.woff",
+      "sha256": "0b3d57a65aba320414f929393a6113b4227e5d75f25c2d807830fed00dd1f8f6",
+      "bytes": 40504
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ExtraLightItalic.woff2",
+      "sha256": "fb66c8b97b19afa4ad6ae7aa1117b296daa293d5e0d3dbb84f86083011cbcb10",
+      "bytes": 33044
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Italic.ttf",
+      "sha256": "b0feaf8489518bb5f6f4ffe7bb9775b38a015cc6b967b10d0f743ffb3ef08040",
+      "bytes": 79568
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Italic.woff",
+      "sha256": "13dba306f68cf23cc80b51321e90c60fc95e0f5d81fd1550c57a88cd19349b9a",
+      "bytes": 40524
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Italic.woff2",
+      "sha256": "e71bfa91c378d7ae6ac44c07700112050b42c8f26266453b1d9d097cf40b0bb0",
+      "bytes": 33036
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Light.ttf",
+      "sha256": "ddcd6d3fa75485fc272de97b620cc5acfa5e3e4734dc01915f674f68f9dec612",
+      "bytes": 79784
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Light.woff",
+      "sha256": "8e3559587c41bf3991c1e67f89bf029ffad1361b4d122648acf94d8fee4fac71",
+      "bytes": 40168
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Light.woff2",
+      "sha256": "cbe1f708107d44b5a5c9bc9486fcda5f7c091a261dc725a24697687f878bf150",
+      "bytes": 32608
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-LightItalic.ttf",
+      "sha256": "8e6d219b50f99a041a8802027c29f3bbfeca9216b5e3b4c51ecf1a97282b1fa3",
+      "bytes": 79296
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-LightItalic.woff",
+      "sha256": "691e42ce6c9ef955a8780fb611e7f590131755a7f30fdb56f6f5cc8c8ee297c0",
+      "bytes": 40480
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-LightItalic.woff2",
+      "sha256": "cbb417e666b8a56de5251971831d6bb1f64e46b1e028456809941be869f6881c",
+      "bytes": 32916
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Medium.ttf",
+      "sha256": "a1b05447bfb957030012bff0c71221b32cb623c3c088fff0f946c91526961eb6",
+      "bytes": 79904
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Medium.woff",
+      "sha256": "aef4ee4a08a8ffc45d91e1dfb79eeeddadab74f858b68440ac06003d7f7bb1e7",
+      "bytes": 40244
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Medium.woff2",
+      "sha256": "eb2423d9ac27b2c8974304b1bcdfc5031a84f3d5f22b31cb888127967c6bd906",
+      "bytes": 32688
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-MediumItalic.ttf",
+      "sha256": "226223c002ceabeed8f5aa7edf4f3d7e1765699fbb93f0bff187769045973eb8",
+      "bytes": 79372
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-MediumItalic.woff",
+      "sha256": "3eb278c82878d8b5b03a00a24b1aa9433a8b99997c63ff41b2910a4020248ee5",
+      "bytes": 40500
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-MediumItalic.woff2",
+      "sha256": "6765016f0643c76fe0063fca33343cd3db5aec8a215cc2ed345522a0fea256e6",
+      "bytes": 33088
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Regular.ttf",
+      "sha256": "ba2376b695ea27a53a175a6d373d3b14351e879f3171e840b6625af32e2f71d1",
+      "bytes": 79904
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Regular.woff",
+      "sha256": "5a6a6198f23f6e3342de3ecfb5506cade475b4514cf76e02efd13c993265ef9c",
+      "bytes": 40112
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Regular.woff2",
+      "sha256": "bea988eeadc7c0ddf9644c2dce7efb35f1767eac0187c0967f8a2567473cbbfe",
+      "bytes": 32548
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-SemiBold.ttf",
+      "sha256": "a1560439eaebba19ca1ed7fcfa4e3708c8fe340d786f6e5a5c35cf9a1f85cd9b",
+      "bytes": 79296
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-SemiBold.woff",
+      "sha256": "2e9d07a35c634046e74745df6da9d72c8fa58dd568e3af875feb91919ceed0a6",
+      "bytes": 40084
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-SemiBold.woff2",
+      "sha256": "44077e6ceb62b989c9ef0d4659d5b6a261c31fdec49e317e8833a9fb9550e02c",
+      "bytes": 32588
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-SemiBoldItalic.ttf",
+      "sha256": "ccdc4cc670dbcf28d6465961592dfbdace863b5521de4aa727f69b7b95b40679",
+      "bytes": 79352
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-SemiBoldItalic.woff",
+      "sha256": "e9f8df3a76292eaf537002b35fedc22231a90f382f32747a0bf225fcbdad8a1a",
+      "bytes": 40532
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-SemiBoldItalic.woff2",
+      "sha256": "89bf32390f3cef4ffc6e582c279dbecaf9d810c9018141700efe894e899beb82",
+      "bytes": 33060
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Thin.ttf",
+      "sha256": "8d389c99ec211e10e5bc147e4381c0d34429a591a32bea70e07c6efb60b5c60b",
+      "bytes": 77708
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Thin.woff",
+      "sha256": "0ebc00116197c8e8a1731e0a12015cf6ff87ac73740659f5bcf6ed18f57bcae9",
+      "bytes": 38480
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-Thin.woff2",
+      "sha256": "2d34be5a380f823082e5773e15f3019b196c42fabe72dab8995d07059243a399",
+      "bytes": 31120
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ThinItalic.ttf",
+      "sha256": "a7b82baf06a02952bdddfdf3e14c281a2557e3043521bfb1b219d7d882d24a16",
+      "bytes": 76964
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ThinItalic.woff",
+      "sha256": "8e6865e7e3e9e26b0d1430bffa871858449bb2430fec66f92ffafa7ce1457604",
+      "bytes": 38908
+    },
+    {
+      "path": "assets/fonts/public-sans/PublicSans-ThinItalic.woff2",
+      "sha256": "fcf7fcbcd1d4cde67e6756de9724ef8a642b84ea3f716c0ab8f18a49605f3ad9",
+      "bytes": 31608
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-100.ttf",
+      "sha256": "6da74d2aa150b48f56d019c5a3e1e35f8b2397b92df025c09b3a2b61d930ed86",
+      "bytes": 31836
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-100.woff",
+      "sha256": "975c1c270d778fb1bb5c6c045fbf541fa24743823f919f15e48f41c4ee632ef8",
+      "bytes": 20080
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-100.woff2",
+      "sha256": "4254c4c637fd6af47742fa1f747512db2d80f61a74a3429ea7e21a13398dec90",
+      "bytes": 16656
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-100italic.ttf",
+      "sha256": "c9bfc170dc93a9b1c7740c35385992e176d01af8f33fef352475b9e34bb16e13",
+      "bytes": 31808
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-100italic.woff",
+      "sha256": "43560006ae9ba3550a23516b251a330b3592e91ab2c44d896bb58a80f2f3f41c",
+      "bytes": 20716
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-100italic.woff2",
+      "sha256": "416d4c2e2d936c68d70465c435d7c5c23c50277f264ca5552ab3c5d039b2d740",
+      "bytes": 17008
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-300.ttf",
+      "sha256": "8510bafa8affb45a401cac64e9b4f190a08f3ec8b938e452a289c4d24c606c46",
+      "bytes": 32160
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-300.woff",
+      "sha256": "6daf957ac25014b46d93935e94346f8a99f6fa5f72a80e619b1e21863857b4f3",
+      "bytes": 19884
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-300.woff2",
+      "sha256": "b77be948382a7dd16518c74f31313cee430c53c8b6ffbfb7ad076ad90bf57c6a",
+      "bytes": 16380
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-300italic.ttf",
+      "sha256": "52f7a1909badc08ec61606ac532598256c3414c1f2c0bfacbbfb65799065fa77",
+      "bytes": 32596
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-300italic.woff",
+      "sha256": "174b0d75f14db127a515b3009c4c981c48a7ab59418df874f999fb77c9153e36",
+      "bytes": 21052
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-300italic.woff2",
+      "sha256": "71dce22bf267202812b0721e77889c253182f9239d8f6857649e4e5916a4413d",
+      "bytes": 17340
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-500.ttf",
+      "sha256": "69f31f4c16ee429a1e1531ee9e574c4a6f312c73566e07ac8f4be66c8fbb3dee",
+      "bytes": 31168
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-500.woff",
+      "sha256": "ac14a8f4634999c94e9889decc757b33cb48565a66a5145ac069c5ef5adaac91",
+      "bytes": 19656
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-500.woff2",
+      "sha256": "19b6102474f0dca68d4edbcec1602edd99ff26d407276865b058eccad522f392",
+      "bytes": 16016
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-500italic.ttf",
+      "sha256": "aea1f2c4ae3e6021d0242a200a959e28b8cbd8e20dad031ef5e2d1f8f6a700a6",
+      "bytes": 32816
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-500italic.woff",
+      "sha256": "47e93d472e7ec65bcfed8456dec93927c824c149a696572e64096bfe33eae8a5",
+      "bytes": 21128
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-500italic.woff2",
+      "sha256": "3ed273181befc4a73040e42f2d803cda23802686a085f51d2be5e9791e3dac13",
+      "bytes": 17480
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-700.ttf",
+      "sha256": "1af0d8eac2d4696c3fef4d41c624063147853ee8a62b5c2797e82cb2e33c78a4",
+      "bytes": 31092
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-700.woff",
+      "sha256": "813a783635766ce5c543a898746f5e6cd8e97445a69d97e4e009e464618c6848",
+      "bytes": 19564
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-700.woff2",
+      "sha256": "8a46001feb21ce68c18ff9a19f13a5b5f3ed743f764d7a9876dc47b4f4798149",
+      "bytes": 15956
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-700italic.ttf",
+      "sha256": "6966cae9ef5cd59216ee0005108aa255576b05ac2acebad9371ac972a2319bd0",
+      "bytes": 32564
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-700italic.woff",
+      "sha256": "f4a2263863d048088d2a095f3f3d80022aae01f82d9f61d4aae437d08a95baff",
+      "bytes": 21132
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-700italic.woff2",
+      "sha256": "3fc14b71e8fdbb0726a2c5cb66f4f7a228b65007c0dea1e2701dce1cfc95cef3",
+      "bytes": 17336
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-italic.ttf",
+      "sha256": "cabd2fc3c765a9541625b649e98276b691fe7feb559e5a2c6248c9c954743f07",
+      "bytes": 32336
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-italic.woff",
+      "sha256": "db0472f4f4234c2fec9966f9f72e442494f2cb812f3955af539065498aaafa6f",
+      "bytes": 21096
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-italic.woff2",
+      "sha256": "6328a2e976a33a7d2c939cb9823550f175dd52bd6b531cb2a8b66f1e606ec5ac",
+      "bytes": 17312
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-regular.ttf",
+      "sha256": "731053060dcfe4d4ec37176984800029e28f80021b830dcdbc61dcde883888de",
+      "bytes": 31052
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-regular.woff",
+      "sha256": "1ca041bab45677f6eb83c9c9ae2ae1bd9f4042f721ccf0c98415960d8ca0dff0",
+      "bytes": 19576
+    },
+    {
+      "path": "assets/fonts/roboto-mono/roboto-mono-v5-latin-regular.woff2",
+      "sha256": "e432bb825ca3e0267d628fadb6a8ca63b0cca3fc7345f15c7f080f7a8b82165e",
+      "bytes": 16028
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-black-webfont.ttf",
+      "sha256": "54ec5b2ee8d6d28dc841fff2760262becbfb2cb978087c3d0c98f4abaa985556",
+      "bytes": 54096
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-black-webfont.woff",
+      "sha256": "645ad83620cdc9f60485d6f11ec0152cc4f8cc7214af5bf6e6623741506b86d2",
+      "bytes": 24888
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-black-webfont.woff2",
+      "sha256": "f5962d8e35984f2fa187508f1469396ea5c473131e62a9df4a4032b46a78415d",
+      "bytes": 19560
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-blackitalic-webfont.ttf",
+      "sha256": "2e5e187aac7455e682666431d9776cadf57c11f912c33d2563eedeea3aa1c835",
+      "bytes": 38784
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-blackitalic-webfont.woff",
+      "sha256": "10bbc4ee4476d4e3e6f9b772f0fb220f3d1bfe52a83cc831a662e293e23781cb",
+      "bytes": 19540
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-blackitalic-webfont.woff2",
+      "sha256": "2574acb0db3d15e4aa6551061e854fe6163a278d6bc1511e58a2a05f3bbd37b6",
+      "bytes": 15636
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-bold-webfont.ttf",
+      "sha256": "839a2a8e104cc43e14d3594c6f777a7fd97e6333f08214eddf1cd57bb4eac842",
+      "bytes": 54340
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-bold-webfont.woff",
+      "sha256": "48406bac7ebb5b06ca30657a669d330cf25ea052a8ffd801369fa792367a14a0",
+      "bytes": 26040
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-bold-webfont.woff2",
+      "sha256": "83f67df68dac5c435d964be278d39f70ad8605265b6b99918a46451b77552e92",
+      "bytes": 20368
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-bolditalic-webfont.ttf",
+      "sha256": "1ef450e72a783038088eb590c1bcb3948d38716d73524b4cbd4aa34754862be6",
+      "bytes": 38760
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-bolditalic-webfont.woff",
+      "sha256": "0e3f88097cb18c4b1bf6dc48e22a500fcee50fe691c56bf1087aca509dc30152",
+      "bytes": 20164
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-bolditalic-webfont.woff2",
+      "sha256": "a33113771d3c777aac563e996042ba93dd85265f39eb2dfe79dc9b925f29fec2",
+      "bytes": 16416
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-extralight-webfont.ttf",
+      "sha256": "2be0e97c4b57c2cd6f49b78e78daf4b27a0cdb112e16862d87adeb32a6fc8290",
+      "bytes": 53996
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-extralight-webfont.woff",
+      "sha256": "ed8ad4bef5c07b24418c5d2b62bdf5087cf093217941d03a09ff121aad9022e6",
+      "bytes": 25184
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-extralight-webfont.woff2",
+      "sha256": "096005738f1d48c3d5d806bbc5c206303368c78d33048308500f93923fd7b8f7",
+      "bytes": 19772
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-extralightitalic-webfont.ttf",
+      "sha256": "2df1cbb09509104056fb9a5bee2eb09b38d4d1411dec9a6c776ecae0fe8357b3",
+      "bytes": 39120
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-extralightitalic-webfont.woff",
+      "sha256": "9e16f56cd06369d79d18f969539ebecf2700427774ced0d5fa2509a2c7ba1a67",
+      "bytes": 19548
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-extralightitalic-webfont.woff2",
+      "sha256": "63e96a71f59539896ac5d424e04554a063f314b6b94e039de02671795ae4e7bf",
+      "bytes": 15728
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-italic-webfont.ttf",
+      "sha256": "930cb8e7ac2fceb160a3c820a068a14d2a33dea2157c36bbdb4f96ceffe549cb",
+      "bytes": 38848
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-italic-webfont.woff",
+      "sha256": "af192c0f11ecfabb552397400e5cf40dd571c42373ce60a8b4721c4491405e15",
+      "bytes": 20204
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-italic-webfont.woff2",
+      "sha256": "8a6e1d4b336524d25462b8f966760a40624f8416d5fdc6c226db2edbf67443e8",
+      "bytes": 16372
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-light-webfont.ttf",
+      "sha256": "3be8fc1bfb39ec76f675a0edac33f0109694d3a2f477dfbe9d5b5b5c60f77789",
+      "bytes": 54504
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-light-webfont.woff",
+      "sha256": "9cd6677981d8b53e162ff6f74d1fd84131b93a1afd8603666c6cd6121815d5f5",
+      "bytes": 25956
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-light-webfont.woff2",
+      "sha256": "45a3eaa23260c83e04f31e20ae6fc3573375097b9af2080c0356d9554ecf5e4a",
+      "bytes": 20412
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-lightitalic-webfont.ttf",
+      "sha256": "13c7bd5db6ad0c0a6b84d637c3179c6e1c6a4ffb79ee02ff8fd125a352bb271f",
+      "bytes": 39144
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-lightitalic-webfont.woff",
+      "sha256": "ae4aa077e7150a6a2f01797c2c0b56850bfbab1b334cfc61019b0e80da44608a",
+      "bytes": 20256
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-lightitalic-webfont.woff2",
+      "sha256": "0efc29b21bbaf33705773493e62152dbebbb28c90f3462fa1b6a9627e2379948",
+      "bytes": 16316
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-regular-webfont.ttf",
+      "sha256": "690908e095a27862f1f2a93f2b549308058e16069adbaa612e49023f58f3fa23",
+      "bytes": 54432
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-regular-webfont.woff",
+      "sha256": "74ac2f10f1eceaa80be679e67d878f29e39fe64be78a85f91b0b008e4962ba90",
+      "bytes": 26140
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-regular-webfont.woff2",
+      "sha256": "8792619becd8b285e78f14bfcf1ad66e2adbae0f5ec8ad131246621f806ac535",
+      "bytes": 20540
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-semibold-webfont.ttf",
+      "sha256": "5919e912808f20e8ffb190ea6b5b53d2e37b65a1cd0911e0d538c63b20705443",
+      "bytes": 54400
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-semibold-webfont.woff",
+      "sha256": "94b5886185ad3c4350bc1ee99b2e7aae1a8f60f6fb163ae4247ecee41fc43700",
+      "bytes": 26144
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-semibold-webfont.woff2",
+      "sha256": "d6ed6562ea657562b33b75cdfccef314d836a0bede8d34e9e75cdbfa80dede5d",
+      "bytes": 20500
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-semibolditalic-webfont.ttf",
+      "sha256": "9847834cd65d893e109d7be5c329da567df10e2dfba1d73506d1abf6b08de8b4",
+      "bytes": 38848
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-semibolditalic-webfont.woff",
+      "sha256": "9afc9eceac4360889e5726582217754abc049bb9d1440c23939929f3dc77fbcb",
+      "bytes": 20084
+    },
+    {
+      "path": "assets/fonts/source-sans-pro/sourcesanspro-semibolditalic-webfont.woff2",
+      "sha256": "2464db5067fb18271bc742c67bc9af3384bc0c50f532877efc52825317730343",
+      "bytes": 16404
+    },
+    {
+      "path": "assets/runtime.js",
+      "sha256": "eefd2048d7015a081039926e210bd731e47bbc92949be116cf17918dd3e2c5b1",
+      "bytes": 56
+    },
+    {
+      "path": "assets/system.css",
+      "sha256": "052b9e611492febf23305ba47daa294e73dc92e9989d69824dbf028b7dcf6efe",
+      "bytes": 3255
+    },
+    {
+      "path": "pages/contact.html",
+      "sha256": "40d77fb8a8cd6b560033b1cc20d11268431c213faacbf07239d8bf92480970ad",
+      "bytes": 1273
+    },
+    {
+      "path": "pages/home.html",
+      "sha256": "2b2d445ca35e7347cd26a4e557adab1837242be36f6be639706d733e8970a976",
+      "bytes": 1708
+    },
+    {
+      "path": "pages/library.html",
+      "sha256": "e9b34cd2dedbf896150622fbc74847c620914c33caaf50ab29bcbf0acffe7cc9",
+      "bytes": 1357
+    }
+  ],
+  "bundleSha256": "e8ef145a04eaadda04fef41ebb740e7c1a842e55903479a5007e3c9838dac2fa",
+  "sourcePackage": null,
+  "privateInputsOutsideWorkspace": false
+}
