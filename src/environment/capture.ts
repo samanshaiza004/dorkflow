@@ -64,6 +64,6 @@ export async function captureEnvironment(fontDirectory: string): Promise<Renderi
 export async function writeEnvironment(path: string, fontDirectory: string): Promise<RenderingEnvironment> {
   const environment = await captureEnvironment(fontDirectory);
   await mkdir(dirname(path), { recursive: true });
-  await writeFile(path, `${JSON.stringify(environment, null, 2)}\n`, "utf8");
+  await writeFile(path, `${JSON.stringify(environment, null, 2)}\n`, { encoding: "utf8", flag: "wx", mode: 0o600 });
   return environment;
 }

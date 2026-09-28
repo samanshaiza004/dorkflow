@@ -10,7 +10,9 @@
     "a0:smoke": "bun run src/cli/a0-smoke.ts",
     "a1:capture-environment": "bun run src/cli/capture-environment.ts",
     "a1:freeze-calibration": "bun run src/cli/freeze-calibration.ts",
-    "a1:generate-hidden": "bun run src/cli/generate-hidden.ts"
+    "a1:generate-hidden": "bun run src/cli/generate-hidden.ts",
+    "b1:serve-demo": "bun run src/cli/serve-phase-b-demo.ts",
+    "b1:capture-states": "bun run src/cli/capture-state-matrix.ts"
   },
   "dependencies": {
     "playwright": "1.62.1",

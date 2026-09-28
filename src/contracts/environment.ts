@@ -44,7 +44,7 @@ export const RenderingEnvironment = z
         colorScheme: z.enum(["light", "dark", "no-preference"]),
         reducedMotion: z.enum(["reduce", "no-preference"]),
         forcedColors: z.enum(["active", "none"]),
-        contrast: z.enum(["more", "less", "no-preference"]),
+        contrast: z.enum(["more", "no-preference"]),
         javaScriptEnabled: z.boolean(),
         hasTouch: z.boolean(),
         isMobile: z.boolean(),

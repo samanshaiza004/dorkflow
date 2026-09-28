@@ -64,6 +64,21 @@
     },
     {
       "schemaVersion": 1,
+      "id": "st_a701ce5d",
+      "pagePath": "/index.html",
+      "viewport": { "label": "desktop", "width": 1440, "height": 900 },
+      "setupActions": [
+        { "type": "mouse-down", "selector": "[data-testid='submit-button']" }
+      ],
+      "targetSelector": "[data-testid='submit-button']",
+      "stateKind": "active",
+      "settleMs": 0,
+      "assertions": [
+        { "selector": "[data-testid='submit-button']", "condition": "active" }
+      ]
+    },
+    {
+      "schemaVersion": 1,
       "id": "st_6d2e90af",
       "pagePath": "/index.html",
       "viewport": { "label": "mobile", "width": 375, "height": 812 },
