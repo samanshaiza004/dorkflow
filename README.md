@@ -41,9 +41,11 @@ database, GUI, or design canvas.
   workflow and tests whether its artifacts and review gates improve an
   actual redesign over the same agent using a strong frontend-design prompt.
   Phase B can use an incomplete System Recovery result as an optional input.
-  Its first B2-B4 slice validates exact intent/reference citations, gates
+  Its first B2-B5 slice validates exact intent/reference citations, gates
   direction diversity before critique, and reports unsupported-choice
-  diagnostics; model providers remain caller-supplied.
+  diagnostics. Each model call and run is fingerprinted; a file-based B5
+  packet records human decisions against the exact reviewed directions and
+  captures. Model providers remain caller-supplied, with tools disabled.
 - **Phase C — Productization:** considered only after the subsystem and
   product-level experiments succeed.
 

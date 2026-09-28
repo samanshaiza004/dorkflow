@@ -72,13 +72,36 @@ resolution. The critic classifies each choice as supported, weakly supported,
 or unsupported/default-like. A familiar visual pattern is not inherently
 wrong; the question is whether this product's intent supports it. The
 unsupported-choice rate is a diagnostic, not a universal taste score or
-ground-truth judgment.
+ground-truth judgment. Choice assessments accept only source-grounding
+references; a generated choice cannot cite itself or another generated choice
+as proof of its own support. `citationCompleteCount` means only that every
+choice has a structurally valid source citation; the critic separately judges
+whether that citation supports the choice.
+
+### Model invocation and run records
+
+Each generation and critique call records its role, provider/model/version,
+prompt version and hash, complete input hash, raw output hash, sampling
+settings, token usage, tool permissions, and start/finish timestamps. The
+manifest records whether the proposer and critic used the same model identity.
+The current slice requires tools disabled. Artifacts and prompt text are
+written to a create-once `design-process/<run-id>/` folder with content hashes;
+the model context stores hashes and local capture paths rather than duplicate
+base64 image payloads. This is a narrow record contract, not a provider
+framework.
 
 ### B5 — Human review and decisions
 
-The human manually accepts, rejects, revises, or prefers directions and
-records reasons. Support pairwise preference with rationale; do not reduce
-it to a universal taste score.
+The human reviews a JSON packet pairing each direction with its critique,
+attributed intent/references, trust-mode metadata, and only the cited
+model-facing captures. Captures are copied from verified model-facing bytes
+into the process-run folder; the packet also validates their hashes before
+read/write. `review/packet.json` is paired with a canonical `packet.sha256`.
+A create-once `review/decision.json` can hold multiple
+accept/reject/revise/prefer decisions, each with rationale and resolvable
+subjects; pairwise choices cite both directions. The record carries the
+packet hash so decisions cannot silently drift onto a changed review. No GUI
+or universal taste score is involved.
 
 ### B6 — Decision graph and consolidation
 
@@ -161,19 +184,26 @@ system during Phase B.
 
 The current working slice implements versioned B0 contracts, a narrow B2-B4
 model seam, exact intent/reference provenance, a deterministic three-direction
-strategy-category gate, per-choice evidence critique, and a B1 Playwright
-state-capture path. The B1 demo exercises desktop/mobile default,
+strategy-category gate, per-choice evidence critique, invocation records,
+run artifact persistence, and file-based B5 review packets/decisions. Each
+invocation is recorded separately so self-critique is identifiable from an
+independent critic. The B1 Playwright demo exercises desktop/mobile default,
 hover, focus-visible, open-menu, and form-error states. Original pixels are
 quarantined for sanitized-external mode; model-facing evidence contains
 light-DOM geometry-placeholder renders, suppressed Shadow DOM text, and safe
 state/viewport/trigger metadata. Shadow DOM text-derived geometry may collapse.
+The process writer copies only verified model-facing image bytes into its
+immutable run folder and records their hashes; it never copies quarantine
+files.
 The run records and checks the exact current browser, OS, and font fingerprint;
 Chromium sandboxing, an origin allowlist, GET/HEAD-only requests, blocked
 WebSockets, and capture-size limits are also recorded as capture policy.
 The current runner is loopback-only; remote reference ingestion remains
 disabled until a network-isolated crawler boundary is available.
 
-This slice does not yet provide a model provider adapter, artifact writer,
-human-review, implementation, or verification stages. Structural Phase A
-measurements are not yet paired with these captures. The Phase B product
-hypothesis has not been tested.
+This slice does not yet provide a model provider adapter, implementation, or
+verification stages. Structural Phase A measurements are not yet paired with
+these captures. The repository contains a synthetic Phase B demo fixture but
+no selected real product interface, so the B2-B5 workflow has not yet been
+exercised on a real redesign. The Phase B product hypothesis has not been
+tested.

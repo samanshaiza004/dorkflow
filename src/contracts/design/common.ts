@@ -29,6 +29,7 @@ export const DesignDirectionId = opaque("dir");
 export const DirectionChoiceId = opaque("choice");
 export const CritiqueReportId = opaque("crit");
 export const CritiqueFindingId = opaque("finding");
+export const ModelInvocationId = opaque("inv");
 export const HumanDecisionId = opaque("hdec");
 export const DesignDecisionGraphId = opaque("graph");
 export const DecisionNodeId = opaque("node");
@@ -58,8 +59,10 @@ export const ArtifactRef = z.union([
   SystemModelId,
   SystemTokenId,
   DesignDirectionId,
+  DirectionChoiceId,
   CritiqueReportId,
   CritiqueFindingId,
+  ModelInvocationId,
   HumanDecisionId,
   DesignDecisionGraphId,
   DecisionNodeId,

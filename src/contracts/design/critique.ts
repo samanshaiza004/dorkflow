@@ -25,6 +25,16 @@ export const CritiqueSupportRef = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("direction-choice"), id: DirectionChoiceId }).strict(),
 ]);
 
+/** Choice assessments must cite source material, not the generated choice they assess. */
+export const ChoiceGroundingRef = z.discriminatedUnion("kind", [
+  z.object({ kind: z.literal("intent-statement"), id: IntentStatementId }).strict(),
+  z.object({ kind: z.literal("reference-aspect"), id: ReferenceAspectId }).strict(),
+  z.object({ kind: z.literal("state-evidence"), id: CaptureId }).strict(),
+  z.object({ kind: z.literal("system-model"), id: SystemModelId }).strict(),
+  z.object({ kind: z.literal("system-token"), id: SystemTokenId }).strict(),
+  z.object({ kind: z.literal("human-decision"), id: HumanDecisionId }).strict(),
+]);
+
 export const CritiqueFinding = z
   .object({
     id: CritiqueFindingId,
@@ -51,7 +61,7 @@ export const ChoiceSupportAssessment = z
   .object({
     choiceRef: DirectionChoiceId,
     assessment: z.enum(["supported", "weakly-supported", "unsupported-default-like"]),
-    supportRefs: z.array(CritiqueSupportRef).min(1),
+    supportRefs: z.array(ChoiceGroundingRef).min(1),
     rationale: NonEmptyText,
   })
   .strict();
@@ -70,6 +80,7 @@ export const CritiqueReport = z
   .strict();
 
 export type CritiqueSupportRef = z.infer<typeof CritiqueSupportRef>;
+export type ChoiceGroundingRef = z.infer<typeof ChoiceGroundingRef>;
 export type CritiqueFinding = z.infer<typeof CritiqueFinding>;
 export type ChoiceSupportAssessment = z.infer<typeof ChoiceSupportAssessment>;
 export type CritiqueReport = z.infer<typeof CritiqueReport>;

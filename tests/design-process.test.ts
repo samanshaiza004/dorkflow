@@ -1,5 +1,5 @@
 import { describe, expect, test } from "bun:test";
-import { mkdir, mkdtemp, rm, writeFile } from "node:fs/promises";
+import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import type {
@@ -8,6 +8,7 @@ import type {
   DesignModelInput,
 } from "../src/contracts/design/index.ts";
 import { DesignModelInput as DesignModelInputSchema } from "../src/contracts/design/model-input.ts";
+import { DesignProcessManifest } from "../src/contracts/design/invocation.ts";
 import { sha256Bytes } from "../src/environment/hash.ts";
 import {
   createDesignModelInput,
@@ -15,7 +16,10 @@ import {
   runDirectionCritiqueSlice,
   type DesignProcessArtifacts,
   type DesignProcessModel,
+  type ModelCallResponse,
 } from "../src/design/process.ts";
+import { persistDesignProcessRun } from "../src/design/artifacts.ts";
+import { readReviewDecision, readReviewPacket, reviewPacketSha256, writeReviewDecision } from "../src/design/review.ts";
 
 const samplePng = new Uint8Array(24);
 samplePng.set([137, 80, 78, 71, 13, 10, 26, 10]);
@@ -153,6 +157,20 @@ function createCritiques(directions: DesignDirection[]): CritiqueReport[] {
   }));
 }
 
+function modelResponse(output: unknown): ModelCallResponse {
+  return {
+    provider: "fixture-provider",
+    model: "fixture-model",
+    modelVersion: "fixture-v1",
+    sampling: { temperature: 0, topP: null, seed: 17, maxOutputTokens: 4000 },
+    tokenUsage: { inputTokens: 100, outputTokens: 200, totalTokens: 300 },
+    toolPermissions: { enabled: false, allowedTools: [] },
+    startedAt: "2026-09-28T12:00:00.000Z",
+    finishedAt: "2026-09-28T12:00:01.000Z",
+    rawOutput: JSON.stringify(output),
+  };
+}
+
 async function withFixtureRun<T>(
   run: (artifacts: DesignProcessArtifacts, modelInput: DesignModelInput) => Promise<T>,
 ): Promise<T> {
@@ -202,13 +220,13 @@ function fakeModel(
     proposeDirections: async (modelInput, request) => {
       expect(modelInput).toEqual(expectedInput);
       expect(request.instructions).toBe(DIRECTIONS_INSTRUCTIONS);
-      return directions;
+      return modelResponse(directions);
     },
     critiqueDirections: async ({ context, directions: returnedDirections }) => {
       expect(context).toEqual(expectedInput);
       expect(returnedDirections).toEqual(directions);
       critiqueCallback?.();
-      return createCritiques(returnedDirections);
+      return modelResponse(createCritiques(returnedDirections));
     },
   };
 }
@@ -239,13 +257,20 @@ describe("B2-B4 design process slice", () => {
       expect(result.status).toBe("critiqued");
       if (result.status !== "critiqued") return;
       expect(result.inputSha256).toMatch(/^[a-f0-9]{64}$/);
+      expect(result.runId).toMatch(/^run_[a-f0-9]{32}$/);
+      expect(result.modelInvocations).toHaveLength(2);
+      expect(result.modelInvocations.map((item) => item.role)).toEqual(["direction-generation", "critique"]);
+      expect(result.modelInvocations[0]?.promptSha256).toMatch(/^[a-f0-9]{64}$/);
+      expect(result.modelInvocations[0]?.inputSha256).toMatch(/^[a-f0-9]{64}$/);
+      expect(result.modelInvocations[0]?.outputSha256).toMatch(/^[a-f0-9]{64}$/);
+      expect(result.modelRelationship).toBe("same-model");
       expect(result.directions).toHaveLength(3);
       expect(result.diversity.passed).toBe(true);
       expect(result.critiques).toHaveLength(3);
       expect(result.intentionality).toEqual([
         expect.objectContaining({
           choiceCount: 1,
-          formallyGroundedCount: 1,
+          citationCompleteCount: 1,
           criticSupportedCount: 1,
           weaklySupportedCount: 0,
           unsupportedDefaultLikeCount: 0,
@@ -254,6 +279,52 @@ describe("B2-B4 design process slice", () => {
         expect.objectContaining({ weaklySupportedCount: 1, unsupportedChoiceRate: 0 }),
         expect.objectContaining({ unsupportedDefaultLikeCount: 1, unsupportedChoiceRate: 1 }),
       ]);
+    });
+  });
+
+  test("persists a frozen process run, model invocations, review packet, and human decision", async () => {
+    await withFixtureRun(async (artifacts, modelInput) => {
+      const result = await runDirectionCritiqueSlice(artifacts, fakeModel(modelInput));
+      expect(result.status).toBe("critiqued");
+      if (result.status !== "critiqued") return;
+
+      const persisted = await persistDesignProcessRun(artifacts, result);
+      const manifestValue = JSON.parse(await readFile(persisted.manifestPath, "utf8"));
+      const manifest = DesignProcessManifest.parse(manifestValue);
+      expect(manifest.modelInputSha256).toBe(result.inputSha256);
+      expect(manifest.invocationRefs).toEqual(result.modelInvocations.map(({ id }) => id));
+      expect(manifest.artifactDigests.map(({ path }) => path)).toContain("review/packet.json");
+      expect(manifest.artifactDigests.map(({ path }) => path)).toContain("review/packet.sha256");
+      expect(manifest.artifactDigests.map(({ path }) => path)).toContain("perceptual/captures/cap_12345678.png");
+
+      const context = await readFile(join(persisted.directory, "model-context.json"), "utf8");
+      expect(context).not.toContain("imageBase64");
+      expect(context).not.toContain("quarantine");
+      expect(context).not.toContain("IGNORE_PREVIOUS_INSTRUCTIONS_REFERENCE_NAME");
+      const packet = await readReviewPacket(persisted.directory);
+      expect(packet.directionReviews).toHaveLength(3);
+      expect(packet.captures[0]?.path).toBe("perceptual/captures/cap_12345678.png");
+
+      const decision = {
+        schemaVersion: 1,
+        runRef: result.runId,
+        packetSha256: reviewPacketSha256(packet),
+        decisions: [{
+          schemaVersion: 1,
+          id: "hdec_87654321",
+          subjectRefs: [result.directions[0]!.id, result.directions[1]!.id, result.directions[0]!.choices[0]!.id],
+          disposition: "prefer",
+          rationale: "The first direction best supports the review job.",
+          pairwiseComparison: {
+            preferredDirectionRef: result.directions[0]!.id,
+            otherDirectionRef: result.directions[1]!.id,
+            rationale: "The first keeps the task hierarchy clearer.",
+          },
+        }],
+      };
+      await writeReviewDecision(persisted.directory, decision);
+      expect((await readReviewDecision(persisted.directory)).decisions[0]!.id).toBe("hdec_87654321");
+      await expect(persistDesignProcessRun(artifacts, result)).rejects.toThrow();
     });
   });
 
@@ -269,7 +340,34 @@ describe("B2-B4 design process slice", () => {
     await withFixtureRun(async (artifacts, modelInput) => {
       const result = await runDirectionCritiqueSlice(artifacts, fakeModel(modelInput, directions, () => { critiqueCalled = true; }));
       expect(result.status).toBe("direction-gate-failed");
+      expect(result.modelInvocations).toHaveLength(1);
+      expect(result.modelRelationship).toBe("not-compared");
       expect(critiqueCalled).toBe(false);
+    });
+  });
+
+  test("refuses model calls with tools enabled", async () => {
+    await withFixtureRun(async (artifacts, modelInput) => {
+      const model = fakeModel(modelInput);
+      model.proposeDirections = async () => ({
+        ...modelResponse(createDirections()),
+        toolPermissions: { enabled: true, allowedTools: ["filesystem"] },
+      });
+      await expect(runDirectionCritiqueSlice(artifacts, model)).rejects.toThrow("must not have tools enabled");
+    });
+  });
+
+  test("records when the critic uses a different model identity", async () => {
+    await withFixtureRun(async (artifacts, modelInput) => {
+      const model = fakeModel(modelInput);
+      model.critiqueDirections = async ({ directions }) => ({
+        ...modelResponse(createCritiques(directions)),
+        provider: "independent-provider",
+        model: "critic-model",
+      });
+      const result = await runDirectionCritiqueSlice(artifacts, model);
+      expect(result.status).toBe("critiqued");
+      if (result.status === "critiqued") expect(result.modelRelationship).toBe("different-model");
     });
   });
 
@@ -298,7 +396,7 @@ describe("B2-B4 design process slice", () => {
           supportRefs: [{ kind: "intent-statement", id: "istat_12345678" }],
           rationale: "This assessment points to no choice in the current direction.",
         }];
-        return critiques;
+        return modelResponse(critiques);
       };
       await expect(runDirectionCritiqueSlice(artifacts, model)).rejects.toThrow("assess every direction choice exactly once");
     });
@@ -313,7 +411,7 @@ describe("B2-B4 design process slice", () => {
           kind: "state-evidence",
           id: "cap_missing1",
         }];
-        return critiques;
+        return modelResponse(critiques);
       };
       await expect(runDirectionCritiqueSlice(artifacts, model)).rejects.toThrow("unavailable state-evidence");
     });
@@ -328,7 +426,7 @@ describe("B2-B4 design process slice", () => {
           kind: "state-evidence",
           id: "cap_12345678",
         }];
-        return critiques;
+        return modelResponse(critiques);
       };
       const result = await runDirectionCritiqueSlice(artifacts, model);
       expect(result.status).toBe("critiqued");

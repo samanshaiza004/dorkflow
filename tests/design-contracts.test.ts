@@ -425,6 +425,10 @@ describe("Phase B design artifact contracts", () => {
     intentOnlyCritique.findings[0]!.supportRefs = [{ kind: "intent-statement", id: ids.intentStatement }];
     expect(CritiqueReport.parse(intentOnlyCritique)).toBeTruthy();
 
+    const selfSupportedChoice = structuredClone(critique);
+    selfSupportedChoice.choiceAssessments[0]!.supportRefs = [{ kind: "direction-choice", id: ids.choice }];
+    expect(() => CritiqueReport.parse(selfSupportedChoice)).toThrow();
+
     expect(() => ReferenceSet.parse({
       schemaVersion: 2,
       id: ids.referenceSet,

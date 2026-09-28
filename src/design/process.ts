@@ -1,17 +1,22 @@
 import { z } from "zod";
+import { randomBytes } from "node:crypto";
 import {
   ChoiceSupportAssessment,
   CritiqueReport,
   DesignDirection,
   DesignModelInput,
+  ModelInvocation,
+  ModelInvocationMetadata,
+  ModelInvocationRole,
 } from "../contracts/design/index.ts";
-import type { CaptureFileRef, PerceptualEvidence } from "../contracts/design/evidence.ts";
+import type { ModelInvocation as ModelInvocationArtifact } from "../contracts/design/invocation.ts";
 import type { DesignIntent } from "../contracts/design/intent.ts";
 import type { ReferenceSet } from "../contracts/design/reference.ts";
 import type { SystemModel } from "../contracts/design/system-model.ts";
 import { loadPerceptualInput } from "../capture/perceptual-input.ts";
 import { sha256Bytes, sha256Text } from "../environment/hash.ts";
 import { validateDirectionDiversity, type DirectionDiversityReport } from "./direction-diversity.ts";
+import { DesignRunId } from "../contracts/design/common.ts";
 
 export const DIRECTIONS_PROMPT_VERSION = "dorkflow-directions-v2";
 export const CRITIQUE_PROMPT_VERSION = "dorkflow-critique-v2";
@@ -55,13 +60,15 @@ export type CritiqueRequest = {
   responseShape: "three-critique-reports";
 };
 
+export type ModelCallResponse = ModelInvocationMetadata & { rawOutput: string };
+
 /** The only model seam for this slice; a provider adapter can implement these two calls. */
 export interface DesignProcessModel {
-  proposeDirections(input: DesignModelInput, request: DirectionRequest): Promise<unknown>;
+  proposeDirections(input: DesignModelInput, request: DirectionRequest): Promise<ModelCallResponse>;
   critiqueDirections(
     input: { context: DesignModelInput; directions: DesignDirection[] },
     request: CritiqueRequest,
-  ): Promise<unknown>;
+  ): Promise<ModelCallResponse>;
 }
 
 export type DesignProcessArtifacts = {
@@ -111,7 +118,7 @@ const Critiques = z.array(CritiqueReport).length(3);
 export type IntentionalityDiagnostic = {
   directionRef: string;
   choiceCount: number;
-  formallyGroundedCount: number;
+  citationCompleteCount: number;
   criticSupportedCount: number;
   weaklySupportedCount: number;
   unsupportedDefaultLikeCount: number;
@@ -120,7 +127,10 @@ export type IntentionalityDiagnostic = {
 
 export type DirectionStageResult = {
   status: "direction-gate-failed";
+  runId: z.infer<typeof DesignRunId>;
   inputSha256: string;
+  modelInvocations: ModelInvocationArtifact[];
+  modelRelationship: "not-compared";
   promptVersions: { directions: string; critique: string };
   directions: DesignDirection[];
   diversity: DirectionDiversityReport;
@@ -128,7 +138,10 @@ export type DirectionStageResult = {
 
 export type CritiquedStageResult = {
   status: "critiqued";
+  runId: z.infer<typeof DesignRunId>;
   inputSha256: string;
+  modelInvocations: ModelInvocationArtifact[];
+  modelRelationship: "same-model" | "different-model";
   promptVersions: { directions: string; critique: string };
   directions: DesignDirection[];
   diversity: DirectionDiversityReport;
@@ -140,6 +153,51 @@ export type DesignProcessResult = DirectionStageResult | CritiquedStageResult;
 
 function requireReferences(valid: boolean, message: string): void {
   if (!valid) throw new Error(message);
+}
+
+function parseModelOutput<T>(rawOutput: string, schema: z.ZodType<T>): T {
+  let output: unknown;
+  try {
+    output = JSON.parse(rawOutput);
+  } catch {
+    throw new Error("Model response must be strict JSON");
+  }
+  return schema.parse(output);
+}
+
+function recordInvocation(
+  role: ModelInvocationRole,
+  request: DirectionRequest | CritiqueRequest,
+  input: unknown,
+  response: ModelCallResponse,
+): ModelInvocationArtifact {
+  const { rawOutput, ...metadata } = response;
+  const validatedMetadata = ModelInvocationMetadata.parse(metadata);
+  requireReferences(
+    !validatedMetadata.toolPermissions.enabled && validatedMetadata.toolPermissions.allowedTools.length === 0,
+    "B2-B4 model calls must not have tools enabled",
+  );
+  return ModelInvocation.parse({
+    schemaVersion: 1,
+    id: `inv_${randomBytes(16).toString("hex")}`,
+    role,
+    ...validatedMetadata,
+    promptVersion: request.promptVersion,
+    promptSha256: sha256Text(request.instructions),
+    inputSha256: sha256Text(JSON.stringify(input)),
+    outputSha256: sha256Text(rawOutput),
+  });
+}
+
+function compareModels(
+  directions: ModelInvocationArtifact,
+  critique: ModelInvocationArtifact,
+): "same-model" | "different-model" {
+  return directions.provider === critique.provider &&
+    directions.model === critique.model &&
+    directions.modelVersion === critique.modelVersion
+    ? "same-model"
+    : "different-model";
 }
 
 function validateModelImages(input: DesignModelInput): void {
@@ -283,7 +341,7 @@ function summarizeIntentionality(direction: DesignDirection, critique: CritiqueR
   return {
     directionRef: direction.id,
     choiceCount,
-    formallyGroundedCount: choiceCount,
+    citationCompleteCount: choiceCount,
     criticSupportedCount: assessmentCount("supported"),
     weaklySupportedCount: assessmentCount("weakly-supported"),
     unsupportedDefaultLikeCount,
@@ -296,40 +354,62 @@ export async function runDirectionCritiqueSlice(
   artifacts: DesignProcessArtifacts,
   model: DesignProcessModel,
 ): Promise<DesignProcessResult> {
+  const runId = DesignRunId.parse(`run_${randomBytes(16).toString("hex")}`);
   const trustedInput = await createDesignModelInput(artifacts);
   validateModelImages(trustedInput);
   const inputSha256 = sha256Text(JSON.stringify(trustedInput));
-  const parsedDirections = Directions.parse(await model.proposeDirections(trustedInput, {
+  const directionsRequest: DirectionRequest = {
     promptVersion: DIRECTIONS_PROMPT_VERSION,
     instructions: DIRECTIONS_INSTRUCTIONS,
     responseShape: "three-design-directions",
-  }));
+  };
+  const directionsContext = { input: trustedInput, request: directionsRequest };
+  const directionsResponse = await model.proposeDirections(trustedInput, directionsRequest);
+  const directionInvocation = recordInvocation(
+    "direction-generation",
+    directionsRequest,
+    directionsContext,
+    directionsResponse,
+  );
+  const parsedDirections = parseModelOutput(directionsResponse.rawOutput, Directions);
   validateDirections(trustedInput, parsedDirections);
 
   const diversity = validateDirectionDiversity(parsedDirections);
   if (!diversity.passed) {
     return {
       status: "direction-gate-failed",
+      runId,
       inputSha256,
+      modelInvocations: [directionInvocation],
+      modelRelationship: "not-compared",
       promptVersions: { directions: DIRECTIONS_PROMPT_VERSION, critique: CRITIQUE_PROMPT_VERSION },
       directions: parsedDirections,
       diversity,
     };
   }
 
-  const critiques = Critiques.parse(await model.critiqueDirections({
-    context: trustedInput,
-    directions: parsedDirections,
-  }, {
+  const critiqueInput = { context: trustedInput, directions: parsedDirections };
+  const critiqueRequest: CritiqueRequest = {
     promptVersion: CRITIQUE_PROMPT_VERSION,
     instructions: CRITIQUE_INSTRUCTIONS,
     responseShape: "three-critique-reports",
-  }));
+  };
+  const critiqueResponse = await model.critiqueDirections(critiqueInput, critiqueRequest);
+  const critiqueInvocation = recordInvocation(
+    "critique",
+    critiqueRequest,
+    { input: critiqueInput, request: critiqueRequest },
+    critiqueResponse,
+  );
+  const critiques = parseModelOutput(critiqueResponse.rawOutput, Critiques);
   validateCritiques(trustedInput, parsedDirections, critiques);
 
   return {
     status: "critiqued",
+    runId,
     inputSha256,
+    modelInvocations: [directionInvocation, critiqueInvocation],
+    modelRelationship: compareModels(directionInvocation, critiqueInvocation),
     promptVersions: { directions: DIRECTIONS_PROMPT_VERSION, critique: CRITIQUE_PROMPT_VERSION },
     directions: parsedDirections,
     diversity,
