@@ -4,13 +4,20 @@ This is documentation only. Phase A does not load or execute design skills.
 
 The intended division of responsibility is:
 
-- HUMAN owns taste, references, art direction, and subjective approval;
-- SKILLS/AI provide design-engineering craft, critique, and candidate
-  generation;
+- HUMAN owns taste, references, art direction, and final aesthetic approval.
+- SKILLS/AI provide design-engineering craft, candidate generation, and
+  critique against human intent and evidence.
+- DORKFLOW preserves intent, constraints, evidence, decisions, and project
+  history across replaceable agents.
 - DETERMINISTIC CODE performs extraction, measurement, preservation checks,
-  accessibility checks, and verification.
+  accessibility checks, and objective verification.
 
 The skills repository at
 https://github.com/jakubkrehel/skills may be used in a later, unprivileged
-design/review context. Real client copy must remain quarantined from that
-context; placeholder content is used for design exploration.
+design/review context. Real client copy remains quarantined from visual
+design exploration; placeholder content is used there. Copy editing that
+requires the original text runs in a separate unprivileged writing context.
+Visual review uses a separate perceptual evidence path with an explicit
+trust mode. External reference pages are sanitized to remove text and other
+instruction-bearing content before visual analysis. Phase A system-recovery
+inference remains limited to sanitized structural observations.

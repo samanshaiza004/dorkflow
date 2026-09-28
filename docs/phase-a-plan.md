@@ -1,5 +1,12 @@
 # dorkflow Phase A plan
 
+This plan covers the system-recovery subsystem of the broader
+design-process harness. Passing its hidden benchmark establishes only that
+the inference pipeline can recover exercised design-system concepts under
+the frozen benchmark conditions; it does not establish that Dorkflow
+improves end-to-end redesign quality or reduces arbitrary design decisions.
+That product-level question has a separate paired workflow experiment.
+
 ## Hypothesis
 
 Can a design-engineering model recover deliberate primitives, semantic
