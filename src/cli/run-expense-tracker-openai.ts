@@ -8,7 +8,7 @@ import { persistDesignProcessRun } from "../design/artifacts.ts";
 
 const repositoryRoot = resolve(import.meta.dirname, "../..");
 const bundleRoot = join(repositoryRoot, "artifacts/phase-b-expense-tracker");
-const runDirectory = join(bundleRoot, "run-006");
+const runDirectory = join(bundleRoot, "run-010");
 
 async function readJson<T>(path: string): Promise<T> {
   return JSON.parse(await readFile(path, "utf8")) as T;

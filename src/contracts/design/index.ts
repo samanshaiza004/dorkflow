@@ -8,6 +8,7 @@ export * from "./system-model.ts";
 export * from "./direction.ts";
 export * from "./critique.ts";
 export * from "./invocation.ts";
+export * from "./external-execution.ts";
 export * from "./review.ts";
 export * from "./decision.ts";
 export * from "./decision-graph.ts";

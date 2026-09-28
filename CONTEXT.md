@@ -19,10 +19,13 @@ A traceable set of links between intent, evidence, design decisions, interface p
 **Design direction**:
 A coherent candidate expression of design intent across typography, color, spatial rhythm, surfaces, imagery, and motion.
 
+**Stage executor**:
+An existing agent, direct API model call, or human that performs one workflow stage. Dorkflow owns the stage artifacts and gates; executor identity and reproducibility are recorded only to the extent they are actually known.
+
 **System recovery**:
 Inference of intentional primitives, semantic roles, and component relationships from rendered structural evidence.
 
 **Human decision**:
 An explicit acceptance, rejection, or revision that records the human's rationale and remains authoritative for taste.
 
-_Avoid_: AI-designed website, CSS extraction as the product, universal taste score
+_Avoid_: AI-designed website, CSS extraction as the product, universal taste score, API provider as the workflow's central concept

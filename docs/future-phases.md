@@ -45,8 +45,13 @@ score.
 ## Phase C
 
 Only after the system-recovery subsystem passes and the product-level
-experiment succeeds on real redesigns may the project consider a polished
-CLI, GUI, provider selection, workflow orchestration, automatic Penpot
-checkpoints, project management, PR flow, or self-hosting.
+experiment succeeds on real redesigns may the project consider packaging a
+general-purpose CLI, a GUI, workflow orchestration, automatic Penpot
+checkpoints, project management, PR flow, or self-hosting. The CLI/file
+handoff is already the Phase B protocol of record, but remains experiment-
+specific. A future MCP transport should be a thin adapter over the same core
+operations. Provider selection is deliberately deprioritized: Dorkflow's
+normal executor is the agent the user already has, while direct API adapters
+remain optional for BYOK/headless runs.
 
 These later capabilities are not implemented in the current subsystem.

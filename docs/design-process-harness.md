@@ -6,6 +6,14 @@ not a collection of simulated agent personas. One agent can perform several
 roles; different models can also be substituted without changing the
 artifacts.
 
+The normal execution path is agent-first: the user's existing local agent
+reads the stage input, instructions, and schema emitted by Dorkflow, then
+submits a result through the CLI. Dorkflow owns validation and progression;
+it does not normally invoke or select a model. Direct API callers remain an
+optional BYOK/headless path for research and automation. External-agent
+identity is a self-reported claim, not authenticated provenance, and the file
+handoff is not a sandbox for an agent that can access the workspace.
+
 ## Process
 
 ```text
@@ -97,6 +105,10 @@ question is whether the harness reduces arbitrary decisions and improves
 outcomes, not whether an agent can produce an attractive page once. Preserve
 a functional baseline and compare behavior, responsive states,
 accessibility, and visual results under equivalent conditions.
+
+The CLI is the canonical workflow protocol. Any future MCP transport should
+adapt the same core stage and gate operations rather than grow a parallel
+workflow implementation.
 
 This experiment does not require a multi-agent system or a polished product.
 An isolated executable prototype can be used for early exploration; Penpot

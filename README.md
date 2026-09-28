@@ -27,9 +27,14 @@ implementation contract
 implementation + deterministic and perceptual review
 ```
 
-Artifacts are the stable interface between replaceable agents. A single
-agent may perform several roles; Dorkflow does not require an agent swarm,
-database, GUI, or design canvas.
+Artifacts are the stable interface between replaceable agents. The user's
+existing agent is the default stage executor: Dorkflow prepares a frozen
+context, instructions, and schema, then validates the submitted artifact and
+controls stage progression. Normal use does not require an API key or a
+Dorkflow-owned model account. A narrow direct API runner remains optional for
+BYOK/headless experiments; it is not the normal workflow. A single agent may
+perform several roles; Dorkflow does not require an agent swarm, database,
+GUI, or design canvas.
 
 ## Current work
 
@@ -43,9 +48,12 @@ database, GUI, or design canvas.
   Phase B can use an incomplete System Recovery result as an optional input.
   Its first B2-B5 slice validates exact intent/reference citations, gates
   direction diversity before critique, and reports unsupported-choice
-  diagnostics. Each model call and run is fingerprinted; a file-based B5
-  packet records human decisions against the exact reviewed directions and
-  captures. Model providers remain caller-supplied, with tools disabled.
+  diagnostics. File-based agent handoffs fingerprint each stage's input,
+  instructions, schema, and submitted output. Reported agent identity is
+  explicitly unverified; Dorkflow does not pretend to know API-only metadata
+  such as token usage or model snapshots. A B5 packet records the human's
+  decision against the exact reviewed directions and captures. The optional
+  OpenAI Responses caller is retained for API-key-backed research runs.
 - **Phase C — Productization:** considered only after the subsystem and
   product-level experiments succeed.
 
@@ -82,6 +90,33 @@ bun run a0:smoke
 Phase A benchmark preparation commands are recorded in `package.json`.
 Sealed benchmark inputs are stored outside this repository. Do not copy them
 into the model workspace.
+
+The frozen Expense Tracker B2-B5 dress rehearsal can be driven by the agent
+you already use; this path does not read `OPENAI_API_KEY`:
+
+```sh
+bun run b2:expense-tracker-agent -- start
+bun run b2:expense-tracker-agent -- next <run-id>
+# The agent reads only the printed model-facing input, screenshots,
+# instructions, and response schema, then writes a result JSON file.
+bun run b2:expense-tracker-agent -- submit <run-id> directions <directions.json> --agent Codex
+bun run b2:expense-tracker-agent -- next <run-id>
+bun run b2:expense-tracker-agent -- submit <run-id> critique <critiques.json> --agent Codex
+bun run b2:expense-tracker-agent -- review <run-id>
+# Human fills a decision record bound to the packet hash, then submits it:
+bun run b2:expense-tracker-agent -- review submit <run-id> <decision.json>
+```
+
+`next` reports a hard human-review stop after critique. A diversity failure
+ends that immutable attempt before critique; revise in a new run. Submitted
+agent identity/model fields are claims, not authentication. This local file
+handoff is an inspectable protocol, not a filesystem or tool sandbox.
+
+The direct OpenAI API runner is separately opt-in and requires an API key:
+
+```sh
+bun run b2:expense-tracker-openai
+```
 
 The Phase B capture foundation can be exercised with the local interactive
 fixture. In one terminal, start the fixture server; in another, create a new

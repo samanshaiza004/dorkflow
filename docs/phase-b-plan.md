@@ -9,8 +9,10 @@ the Phase A System Recovery subsystem. SystemRecovery is an optional input to
 the design process, not a prerequisite for defining intent, references,
 directions, critique, or human decisions.
 
-The stable interface is the artifacts. Providers, agent frameworks, and a
-polished CLI are outside this phase.
+The stable interface is the artifacts and gates, exposed first through the
+CLI/file handoff. The default executor is the user's existing agent; Dorkflow
+does not normally invoke or select a model. This experiment-specific CLI is a
+protocol surface, not a polished distributable product.
 
 ## Milestones
 
@@ -78,17 +80,24 @@ as proof of its own support. `citationCompleteCount` means only that every
 choice has a structurally valid source citation; the critic separately judges
 whether that citation supports the choice.
 
-### Model invocation and run records
+### Stage executor and run records
 
-Each generation and critique call records its role, provider/model/version,
-prompt version and hash, complete input hash, raw output hash, sampling
-settings, token usage, tool permissions, and start/finish timestamps. The
-manifest records whether the proposer and critic used the same model identity.
-The current slice requires tools disabled. Artifacts and prompt text are
-written to a create-once `design-process/<run-id>/` folder with content hashes;
-the model context stores hashes and local capture paths rather than duplicate
-base64 image payloads. This is a narrow record contract, not a provider
-framework.
+The default file handoff prepares a stage-specific input, instructions, and
+response schema for an existing agent, then accepts a bounded regular JSON
+file. Dorkflow checks the strict Zod contract, citations, input hashes, and
+stage order before opening the next stage. Stage receipts record Dorkflow-
+computed input/instructions/schema/output hashes and preparation/submission
+times. Agent/model identity and versions are nullable and explicitly
+agent-reported; this path does not claim tool isolation, API token usage,
+model snapshots, or exact model invocation timestamps. Its reproducibility
+class is weaker than a controlled direct call.
+
+The direct OpenAI Responses caller remains an optional BYOK/headless adapter.
+Its separate `ModelInvocation` records only metadata returned by or known to
+that actual call. Neither path requires a generalized provider framework.
+Model-facing context stores local paths to verified screenshots, not inline
+base64 payloads or quarantine files. A local agent may have filesystem access
+outside this handoff, so the CLI protocol is not a security sandbox.
 
 ### B5 — Human review and decisions
 
@@ -100,8 +109,10 @@ read/write. `review/packet.json` is paired with a canonical `packet.sha256`.
 A create-once `review/decision.json` can hold multiple
 accept/reject/revise/prefer decisions, each with rationale and resolvable
 subjects; pairwise choices cite both directions. The record carries the
-packet hash so decisions cannot silently drift onto a changed review. No GUI
-or universal taste score is involved.
+packet hash so decisions cannot silently drift onto a changed review. The
+local CLI reports a hard stop until the human submits a validated decision;
+an agent cannot silently satisfy this gate. No GUI or universal taste score
+is involved.
 
 ### B6 — Decision graph and consolidation
 
@@ -176,19 +187,24 @@ single composite aesthetic score determines success.
 ## Scope limits
 
 Use TypeScript, Bun, Playwright, Zod, and ordinary files. Do not add a
-database, GUI, orchestration framework, provider abstraction, autonomous
-multi-agent system, Penpot requirement, PR automation, or client-management
-system during Phase B.
+database, GUI, orchestration framework, generalized provider abstraction,
+autonomous multi-agent system, Penpot requirement, PR automation, or
+client-management system during Phase B. Keep CLI and any future MCP
+transport as thin adapters over the same core gates.
 
 ## Implementation checkpoint
 
 The current working slice implements versioned B0 contracts, a narrow B2-B4
-model seam, exact intent/reference provenance, a deterministic three-direction
-strategy-category gate, per-choice evidence critique, invocation records,
-run artifact persistence, and file-based B5 review packets/decisions. Each
-invocation is recorded separately so self-critique is identifiable from an
-independent critic. The B1 Playwright demo exercises desktop/mobile default,
-hover, focus-visible, open-menu, and form-error states. Original pixels are
+generation/critique seam, exact intent/reference provenance, a deterministic
+three-direction strategy-category gate, per-choice evidence critique, an
+optional direct API runner, and a default existing-agent file handoff. The
+handoff validates exact JSON envelopes and citations, records external-stage
+hashes without inventing API metadata, blocks critique when the diversity
+gate fails, creates the B5 packet after critique, and preserves the separate
+human-decision stop. The API path records each invocation separately so
+self-critique is identifiable from an independent critic. The B1 Playwright
+demo exercises desktop/mobile default, hover, focus-visible, open-menu, and
+form-error states. Original pixels are
 quarantined for sanitized-external mode; model-facing evidence contains
 light-DOM geometry-placeholder renders, suppressed Shadow DOM text, and safe
 state/viewport/trigger metadata. Shadow DOM text-derived geometry may collapse.
@@ -201,9 +217,9 @@ WebSockets, and capture-size limits are also recorded as capture policy.
 The current runner is loopback-only; remote reference ingestion remains
 disabled until a network-isolated crawler boundary is available.
 
-This slice does not yet provide a model provider adapter, implementation, or
-verification stages. Structural Phase A measurements are not yet paired with
-these captures. The repository contains a synthetic Phase B demo fixture but
-no selected real product interface, so the B2-B5 workflow has not yet been
-exercised on a real redesign. The Phase B product hypothesis has not been
-tested.
+The experiment-specific file interface currently targets the frozen Expense
+Tracker bundle rather than serving as a general CLI. It does not implement
+design or implementation sandboxing, implementation, or verification
+stages. Structural Phase A measurements are not yet paired with these
+captures. B2-B5 can now be exercised on the real page, but the workflow's
+usefulness and the Phase B product hypothesis have not been established.

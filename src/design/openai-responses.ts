@@ -80,7 +80,7 @@ function inputContent(
   return content;
 }
 
-/** Experiment-only OpenAI caller: no tools, no conversation state, and no provider framework. */
+/** Optional BYOK/headless experiment caller: no tools, conversation state, or provider framework. */
 export class OpenAIResponsesDesignProcessModel implements DesignProcessModel {
   constructor(
     private readonly apiKey: string,
