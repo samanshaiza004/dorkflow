@@ -12,7 +12,8 @@
     "a1:freeze-calibration": "bun run src/cli/freeze-calibration.ts",
     "a1:generate-hidden": "bun run src/cli/generate-hidden.ts",
     "b1:serve-demo": "bun run src/cli/serve-phase-b-demo.ts",
-    "b1:capture-states": "bun run src/cli/capture-state-matrix.ts"
+    "b1:capture-states": "bun run src/cli/capture-state-matrix.ts",
+    "b2:expense-tracker-openai": "bun run src/cli/run-expense-tracker-openai.ts"
   },
   "dependencies": {
     "playwright": "1.62.1",

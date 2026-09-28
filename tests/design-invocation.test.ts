@@ -9,7 +9,7 @@ const invocation = {
   provider: "test-provider",
   model: "test-model",
   modelVersion: "snapshot-1",
-  promptVersion: "dorkflow-directions-v2",
+  promptVersion: "dorkflow-directions-v3",
   promptSha256: digest,
   inputSha256: digest,
   outputSha256: digest,

@@ -220,13 +220,13 @@ function fakeModel(
     proposeDirections: async (modelInput, request) => {
       expect(modelInput).toEqual(expectedInput);
       expect(request.instructions).toBe(DIRECTIONS_INSTRUCTIONS);
-      return modelResponse(directions);
+      return modelResponse({ directions });
     },
     critiqueDirections: async ({ context, directions: returnedDirections }) => {
       expect(context).toEqual(expectedInput);
       expect(returnedDirections).toEqual(directions);
       critiqueCallback?.();
-      return modelResponse(createCritiques(returnedDirections));
+      return modelResponse({ critiques: createCritiques(returnedDirections) });
     },
   };
 }
@@ -296,6 +296,9 @@ describe("B2-B4 design process slice", () => {
       expect(manifest.artifactDigests.map(({ path }) => path)).toContain("review/packet.json");
       expect(manifest.artifactDigests.map(({ path }) => path)).toContain("review/packet.sha256");
       expect(manifest.artifactDigests.map(({ path }) => path)).toContain("perceptual/captures/cap_12345678.png");
+      const instructions = JSON.parse(await readFile(join(persisted.directory, "instructions.json"), "utf8"));
+      expect(instructions.responseSchemas.directions.properties.directions.items.properties.schemaVersion.enum).toEqual([2]);
+      expect(instructions.responseSchemas.critique.properties.critiques.items.properties.schemaVersion.enum).toEqual([2]);
 
       const context = await readFile(join(persisted.directory, "model-context.json"), "utf8");
       expect(context).not.toContain("imageBase64");

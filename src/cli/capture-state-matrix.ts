@@ -10,6 +10,7 @@ type CliOptions = {
   environmentPath?: string;
   runDirectory?: string;
   fontDirectory?: string;
+  pinnedLatoFontPath?: string;
   trustMode?: CaptureTrustMode;
   purpose?: CapturePurpose;
   allowedOrigins: string[];
@@ -24,6 +25,7 @@ function parseArgs(args: string[]): CliOptions {
     ["--environment", "environmentPath"],
     ["--run-dir", "runDirectory"],
     ["--fonts", "fontDirectory"],
+    ["--pinned-lato-font", "pinnedLatoFontPath"],
     ["--trust-mode", "trustMode"],
     ["--purpose", "purpose"],
   ]);
@@ -64,6 +66,7 @@ try {
     runDirectory: options.runDirectory!,
     environment: await readJson<RenderingEnvironment>(options.environmentPath!),
     ...(options.fontDirectory ? { fontDirectory: options.fontDirectory } : {}),
+    ...(options.pinnedLatoFontPath ? { pinnedLatoFontPath: options.pinnedLatoFontPath } : {}),
     trustMode: options.trustMode!,
     purpose: options.purpose!,
     approveOriginalPixels: options.approveOriginalPixels,

@@ -1,6 +1,6 @@
-import { access, mkdir, writeFile } from "node:fs/promises";
+import { access, lstat, mkdir, readFile, writeFile } from "node:fs/promises";
 import { randomUUID } from "node:crypto";
-import { dirname, join, relative, resolve } from "node:path";
+import { dirname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import { chromium, type Browser, type Locator, type Page } from "playwright";
 import {
   CaptureId,
@@ -15,7 +15,7 @@ import {
 import { RenderingEnvironment } from "../contracts/environment.ts";
 import { applyPerceptualSanitizer, PERCEPTUAL_SANITIZER_CSS, PERCEPTUAL_SANITIZER_SHA256, PERCEPTUAL_SANITIZER_VERSION } from "./perceptual-sanitizer.ts";
 import { captureEnvironment } from "../environment/capture.ts";
-import { identityHash, sha256Bytes, sha256Text } from "../environment/hash.ts";
+import { identityHash, sha256Bytes, sha256Text, stableJson } from "../environment/hash.ts";
 
 export type CaptureTrustMode = "trusted-project" | "sanitized-external" | "generated";
 
@@ -27,6 +27,7 @@ export type CaptureStateRecord = {
   quarantineSha256: string;
   perceptualPath: string;
   perceptualSha256: string;
+  pinnedFontRequests: { stylesheet: number; font: number } | null;
 };
 
 export type StateMatrixCaptureResult = {
@@ -44,6 +45,7 @@ type CaptureOptions = {
   runDirectory: string;
   environment: unknown;
   fontDirectory?: string;
+  pinnedLatoFontPath?: string;
   trustMode: CaptureTrustMode;
   purpose: string;
   approveOriginalPixels?: boolean;
@@ -54,7 +56,14 @@ const repositoryRoot = resolve(import.meta.dirname, "../..");
 const defaultFontDirectory = join(repositoryRoot, "benchmarks/calibration/uswds-v3.14.0/source/package/dist/fonts");
 const MAX_CAPTURE_PIXELS = 25_000_000;
 const MAX_SCREENSHOT_BYTES = 50 * 1024 * 1024;
-const CAPTURE_ENGINE_VERSION = "phase-b-state-capture-v1";
+const CAPTURE_ENGINE_VERSION = "phase-b-state-capture-v4-pinned-lato-evidence-identity";
+const EXPECTED_PINNED_LATO_SHA256 = "d636e4683231f931eda222d588e944d082bfd3bdba02f928bee461c0f185b251";
+
+type PinnedLatoAsset = {
+  bytes: Buffer;
+  relativeName: string;
+  sha256: string;
+};
 
 function isLoopback(hostname: string): boolean {
   return hostname === "localhost" || hostname === "127.0.0.1" || hostname === "[::1]";
@@ -85,8 +94,19 @@ function viewportKey(state: StateDefinition): string {
   return `vp_${sha256Text(`${state.viewport.label}:${state.viewport.width}x${state.viewport.height}`).slice(0, 16)}`;
 }
 
-function captureKey(state: StateDefinition, matrixSha256: string, environmentSha256: string, trustMode: CaptureTrustMode): string {
-  return CaptureId.parse(`cap_${sha256Text(`${state.id}|${matrixSha256}|${environmentSha256}|${trustMode}`).slice(0, 16)}`);
+function captureKey(
+  state: StateDefinition,
+  matrixSha256: string,
+  environmentSha256: string,
+  trustMode: CaptureTrustMode,
+  pinnedFontSha256: string | null,
+): string {
+  const captureProfile = stableJson({
+    engine: CAPTURE_ENGINE_VERSION,
+    pinnedFontSha256,
+    trustMode,
+  });
+  return CaptureId.parse(`cap_${sha256Text(`${state.id}|${matrixSha256}|${environmentSha256}|${captureProfile}`).slice(0, 16)}`);
 }
 
 function readPngDimensions(bytes: Uint8Array): { width: number; height: number } {
@@ -214,6 +234,33 @@ async function verifyRenderingEnvironment(
   }
 }
 
+async function loadPinnedLatoAsset(
+  path: string | undefined,
+  fontDirectory: string,
+  environment: ReturnType<typeof RenderingEnvironment.parse>,
+): Promise<PinnedLatoAsset | null> {
+  if (path === undefined) return null;
+  const resolvedPath = resolve(path);
+  const relativePath = relative(fontDirectory, resolvedPath);
+  if (relativePath === "" || relativePath.startsWith(`..${sep}`) || relativePath === ".." || isAbsolute(relativePath)) {
+    throw new Error("Pinned Lato font must be inside the fingerprinted font directory");
+  }
+  const info = await lstat(resolvedPath);
+  if (!info.isFile() || info.isSymbolicLink()) {
+    throw new Error("Pinned Lato font must be a regular, non-symlink file");
+  }
+  const bytes = await readFile(resolvedPath);
+  const sha256 = sha256Bytes(bytes);
+  const relativeName = relativePath.split(sep).join("/");
+  if (sha256 !== EXPECTED_PINNED_LATO_SHA256) {
+    throw new Error("Pinned Lato font does not match the frozen Lato Regular asset");
+  }
+  if (!environment.fonts.files.some((font) => font.name === relativeName && font.sha256 === sha256)) {
+    throw new Error("Pinned Lato font bytes are not present in the frozen rendering-environment fingerprint");
+  }
+  return { bytes, relativeName, sha256 };
+}
+
 async function setupBrowser(baseUrl: URL, allowedOrigins: Set<string>): Promise<Browser> {
   for (const origin of allowedOrigins) {
     const parsed = new URL(origin);
@@ -252,6 +299,7 @@ export async function captureStateMatrix(options: CaptureOptions): Promise<State
   }
   const runDirectory = resolve(options.runDirectory);
   const fontDirectory = resolve(options.fontDirectory ?? defaultFontDirectory);
+  const pinnedLato = await loadPinnedLatoAsset(options.pinnedLatoFontPath, fontDirectory, environment);
   const allowedOrigins = new Set([baseUrl.origin, ...(options.allowedOrigins ?? [])]);
   for (const origin of allowedOrigins) {
     const parsed = new URL(origin);
@@ -295,6 +343,13 @@ export async function captureStateMatrix(options: CaptureOptions): Promise<State
     captureEngineVersion: CAPTURE_ENGINE_VERSION,
     chromiumSandbox: true,
     networkPolicy: "origin-allowlist; GET/HEAD only; websockets blocked",
+    pinnedFontInjection: pinnedLato === null ? null : {
+      family: "Lato",
+      path: pinnedLato.relativeName,
+      sha256: pinnedLato.sha256,
+      sourceStylesheet: "https://fonts.googleapis.com/css?family=Lato&display=swap",
+      strategy: "capture-only stylesheet interception; font bytes served from a same-origin route",
+    },
     sourceOrigin: baseUrl.origin,
     allowedOrigins: [...allowedOrigins].sort(),
     purpose,
@@ -315,7 +370,13 @@ export async function captureStateMatrix(options: CaptureOptions): Promise<State
 
   try {
     for (const state of matrix.states) {
-      const captureId = captureKey(state, matrixSha256, environment.environmentSha256, options.trustMode);
+      const captureId = captureKey(
+        state,
+        matrixSha256,
+        environment.environmentSha256,
+        options.trustMode,
+        pinnedLato?.sha256 ?? null,
+      );
       const viewportRef = viewportKey(state);
       const fileName = `${captureId}.png`;
       const quarantinePath = join(quarantineDirectory, fileName);
@@ -339,6 +400,8 @@ export async function captureStateMatrix(options: CaptureOptions): Promise<State
         permissions: [],
       });
       try {
+        const fontRequests = { stylesheet: 0, font: 0 };
+        const localFontUrl = new URL("/__dorkflow/pinned-fonts/Lato-Regular.ttf", baseUrl).toString();
         await context.route("**/*", async (route) => {
           const request = route.request();
           let requestUrl: URL;
@@ -346,6 +409,29 @@ export async function captureStateMatrix(options: CaptureOptions): Promise<State
             requestUrl = new URL(request.url());
           } catch {
             await route.abort();
+            return;
+          }
+          if (pinnedLato !== null && request.method() === "GET" &&
+              requestUrl.origin === "https://fonts.googleapis.com" && requestUrl.pathname === "/css" &&
+              requestUrl.searchParams.get("family") === "Lato" && requestUrl.searchParams.get("display") === "swap") {
+            fontRequests.stylesheet += 1;
+            const css = `@font-face{font-family:'Lato';font-style:normal;font-weight:400;font-display:swap;src:url('${localFontUrl}') format('truetype');}`;
+            await route.fulfill({
+              status: 200,
+              contentType: "text/css; charset=utf-8",
+              headers: { "access-control-allow-origin": "*" },
+              body: css,
+            });
+            return;
+          }
+          if (pinnedLato !== null && request.method() === "GET" &&
+              requestUrl.href === localFontUrl) {
+            fontRequests.font += 1;
+            await route.fulfill({
+              status: 200,
+              contentType: "font/ttf",
+              body: pinnedLato.bytes,
+            });
             return;
           }
           if (!allowedOrigins.has(requestUrl.origin) || !["http:", "https:"].includes(requestUrl.protocol) || !["GET", "HEAD"].includes(request.method())) {
@@ -372,6 +458,14 @@ export async function captureStateMatrix(options: CaptureOptions): Promise<State
         if (state.targetSelector !== null) await uniqueLocator(page, state.targetSelector);
         await verifyAssertions(page, state);
         await page.evaluate(() => document.fonts.ready);
+        if (pinnedLato !== null) {
+          const loaded = await page.evaluate(() => Array.from(document.fonts).some((face) =>
+            face.family.replaceAll('"', "").replaceAll("'", "") === "Lato" && face.status === "loaded",
+          ));
+          if (!loaded || fontRequests.stylesheet !== 1 || fontRequests.font !== 1) {
+            throw new Error(`Pinned Lato was not loaded exactly once in ${state.id}`);
+          }
+        }
         await verifyCaptureBounds(page, state);
 
         const rawBytes = await page.screenshot({ fullPage: true, animations: "disabled", caret: "hide", type: "png" });
@@ -422,6 +516,7 @@ export async function captureStateMatrix(options: CaptureOptions): Promise<State
           quarantineSha256: sha256Bytes(rawBytes),
           perceptualPath: relative(runDirectory, perceptualPath),
           perceptualSha256,
+          pinnedFontRequests: pinnedLato === null ? null : fontRequests,
         });
       } finally {
         await context.close();
@@ -431,9 +526,8 @@ export async function captureStateMatrix(options: CaptureOptions): Promise<State
     await browser.close();
   }
 
-  const evidence = PerceptualEvidence.parse({
+  const evidenceContent = {
     schemaVersion: 1,
-    id: `ev_${sha256Text(`${matrixSha256}|${purpose}|${options.trustMode}`).slice(0, 16)}`,
     purpose,
     trustMode: options.trustMode,
     contentTreatment: options.trustMode === "sanitized-external"
@@ -445,6 +539,10 @@ export async function captureStateMatrix(options: CaptureOptions): Promise<State
       ? { version: PERCEPTUAL_SANITIZER_VERSION, sha256: PERCEPTUAL_SANITIZER_SHA256 }
       : null,
     captures: captureFiles,
+  };
+  const evidence = PerceptualEvidence.parse({
+    ...evidenceContent,
+    id: `ev_${sha256Text(stableJson(evidenceContent)).slice(0, 16)}`,
   });
   const result: StateMatrixCaptureResult = {
     evidence,
@@ -469,6 +567,13 @@ export async function captureStateMatrix(options: CaptureOptions): Promise<State
       environmentSha256: environment.environmentSha256,
       sanitizerVersion: result.sanitizerVersion,
       sanitizerSha256: result.sanitizerSha256,
+      pinnedFont: pinnedLato === null ? null : {
+        family: "Lato",
+        path: pinnedLato.relativeName,
+        sha256: pinnedLato.sha256,
+        stylesheetRequests: records.reduce((sum, record) => sum + (record.pinnedFontRequests?.stylesheet ?? 0), 0),
+        fontRequests: records.reduce((sum, record) => sum + (record.pinnedFontRequests?.font ?? 0), 0),
+      },
       records,
     }, null, 2)}\n`, { encoding: "utf8", flag: "wx", mode: 0o600 }),
   ]);

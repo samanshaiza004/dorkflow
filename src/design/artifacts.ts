@@ -5,6 +5,7 @@ import { DesignProcessManifest, DesignRunId } from "../contracts/design/index.ts
 import { createDesignModelInput, CRITIQUE_INSTRUCTIONS, DIRECTIONS_INSTRUCTIONS, type DesignProcessArtifacts, type DesignProcessResult } from "./process.ts";
 import { sha256Bytes, sha256Text } from "../environment/hash.ts";
 import { createReviewPacket, reviewPacketSha256, writeReviewPacket } from "./review.ts";
+import { CRITIQUES_RESPONSE_SCHEMA, DIRECTIONS_RESPONSE_SCHEMA } from "./response-schemas.ts";
 
 export type PersistedDesignProcessRun = {
   directory: string;
@@ -84,6 +85,10 @@ export async function persistDesignProcessRun(
     schemaVersion: 1,
     directions: { version: result.promptVersions.directions, text: DIRECTIONS_INSTRUCTIONS },
     critique: { version: result.promptVersions.critique, text: CRITIQUE_INSTRUCTIONS },
+    responseSchemas: {
+      directions: DIRECTIONS_RESPONSE_SCHEMA,
+      critique: CRITIQUES_RESPONSE_SCHEMA,
+    },
   });
   await add("diversity.json", result.diversity);
   await add("directions.json", result.directions);

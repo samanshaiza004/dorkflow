@@ -14,24 +14,26 @@ import type { DesignIntent } from "../contracts/design/intent.ts";
 import type { ReferenceSet } from "../contracts/design/reference.ts";
 import type { SystemModel } from "../contracts/design/system-model.ts";
 import { loadPerceptualInput } from "../capture/perceptual-input.ts";
-import { sha256Bytes, sha256Text } from "../environment/hash.ts";
+import { sha256Bytes, sha256Text, stableJson } from "../environment/hash.ts";
 import { validateDirectionDiversity, type DirectionDiversityReport } from "./direction-diversity.ts";
 import { DesignRunId } from "../contracts/design/common.ts";
+import { CRITIQUES_RESPONSE_SCHEMA, DIRECTIONS_RESPONSE_SCHEMA } from "./response-schemas.ts";
 
-export const DIRECTIONS_PROMPT_VERSION = "dorkflow-directions-v2";
-export const CRITIQUE_PROMPT_VERSION = "dorkflow-critique-v2";
+export const DIRECTIONS_PROMPT_VERSION = "dorkflow-directions-v3";
+export const CRITIQUE_PROMPT_VERSION = "dorkflow-critique-v3";
 
 export const DIRECTIONS_INSTRUCTIONS = `
 Propose exactly three structurally distinct design hypotheses before implementation.
 Use only the supplied human-authored intent, attributed reference aspects, optional system model,
-and model-facing perceptual evidence. Do not copy page copy or invent citations. Top-level and
+and model-facing perceptual evidence. Do not copy page copy or invent citations.
 Return schemaVersion 2 for every DesignDirection. Top-level and choice-level intentRefs must be
 exact IntentStatement IDs. referenceAspectRefs must be exact
 ReferenceAspect IDs. evidenceRefs must be supplied Evidence IDs; when a choice relies on a
 particular rendered state, cite its exact cap_ ID in captureRefs. Do not cite human decisions;
-the human-review stage has not happened. Return strict JSON matching three DesignDirection
-objects. Direction diversity is checked deterministically by strategy categories; do not create
-synonym-only axis changes to pass it. Each major choice needs a product-specific rationale.
+the human-review stage has not happened. Return one strict JSON object with a single "directions"
+property containing exactly three DesignDirection objects. Direction diversity is checked
+deterministically by strategy categories; do not create synonym-only axis changes to pass it.
+Each major choice needs a product-specific rationale.
 `.trim();
 
 export const CRITIQUE_INSTRUCTIONS = `
@@ -44,20 +46,23 @@ fashionable. Every finding must cite one or more typed supportRefs (intent-state
 reference-aspect, state-evidence, system-model, system-token, or direction-choice). For
 state-evidence, cite the exact cap_ capture ID shown in the evidence metadata, not the evidence
 bundle ID. Exact IDs only.
-Return schemaVersion 2 for each CritiqueReport and strict JSON matching three reports. This is a diagnostic critique, not
-aesthetic authority; final taste belongs to the human.
+Return one strict JSON object with a single "critiques" property containing exactly three reports;
+each report must have schemaVersion 2 and match CritiqueReport. This is a diagnostic critique,
+not aesthetic authority; final taste belongs to the human.
 `.trim();
 
 export type DirectionRequest = {
   promptVersion: typeof DIRECTIONS_PROMPT_VERSION;
   instructions: string;
   responseShape: "three-design-directions";
+  responseSchema: typeof DIRECTIONS_RESPONSE_SCHEMA;
 };
 
 export type CritiqueRequest = {
   promptVersion: typeof CRITIQUE_PROMPT_VERSION;
   instructions: string;
   responseShape: "three-critique-reports";
+  responseSchema: typeof CRITIQUES_RESPONSE_SCHEMA;
 };
 
 export type ModelCallResponse = ModelInvocationMetadata & { rawOutput: string };
@@ -155,12 +160,16 @@ function requireReferences(valid: boolean, message: string): void {
   if (!valid) throw new Error(message);
 }
 
-function parseModelOutput<T>(rawOutput: string, schema: z.ZodType<T>): T {
+function parseModelOutput<T>(rawOutput: string, schema: z.ZodType<T>, outputKey: string): T {
   let output: unknown;
   try {
     output = JSON.parse(rawOutput);
   } catch {
     throw new Error("Model response must be strict JSON");
+  }
+  if (!Array.isArray(output) && output !== null && typeof output === "object" &&
+      Object.keys(output).length === 1 && Object.hasOwn(output, outputKey)) {
+    output = (output as Record<string, unknown>)[outputKey];
   }
   return schema.parse(output);
 }
@@ -183,7 +192,7 @@ function recordInvocation(
     role,
     ...validatedMetadata,
     promptVersion: request.promptVersion,
-    promptSha256: sha256Text(request.instructions),
+    promptSha256: sha256Text(stableJson({ instructions: request.instructions, responseSchema: request.responseSchema })),
     inputSha256: sha256Text(JSON.stringify(input)),
     outputSha256: sha256Text(rawOutput),
   });
@@ -362,6 +371,7 @@ export async function runDirectionCritiqueSlice(
     promptVersion: DIRECTIONS_PROMPT_VERSION,
     instructions: DIRECTIONS_INSTRUCTIONS,
     responseShape: "three-design-directions",
+    responseSchema: DIRECTIONS_RESPONSE_SCHEMA,
   };
   const directionsContext = { input: trustedInput, request: directionsRequest };
   const directionsResponse = await model.proposeDirections(trustedInput, directionsRequest);
@@ -371,7 +381,7 @@ export async function runDirectionCritiqueSlice(
     directionsContext,
     directionsResponse,
   );
-  const parsedDirections = parseModelOutput(directionsResponse.rawOutput, Directions);
+  const parsedDirections = parseModelOutput(directionsResponse.rawOutput, Directions, "directions");
   validateDirections(trustedInput, parsedDirections);
 
   const diversity = validateDirectionDiversity(parsedDirections);
@@ -393,6 +403,7 @@ export async function runDirectionCritiqueSlice(
     promptVersion: CRITIQUE_PROMPT_VERSION,
     instructions: CRITIQUE_INSTRUCTIONS,
     responseShape: "three-critique-reports",
+    responseSchema: CRITIQUES_RESPONSE_SCHEMA,
   };
   const critiqueResponse = await model.critiqueDirections(critiqueInput, critiqueRequest);
   const critiqueInvocation = recordInvocation(
@@ -401,7 +412,7 @@ export async function runDirectionCritiqueSlice(
     { input: critiqueInput, request: critiqueRequest },
     critiqueResponse,
   );
-  const critiques = parseModelOutput(critiqueResponse.rawOutput, Critiques);
+  const critiques = parseModelOutput(critiqueResponse.rawOutput, Critiques, "critiques");
   validateCritiques(trustedInput, parsedDirections, critiques);
 
   return {
