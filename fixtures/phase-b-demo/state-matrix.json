@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "states": [
+    {
+      "schemaVersion": 1,
+      "id": "st_5f09a3d1",
+      "pagePath": "/index.html",
+      "viewport": { "label": "desktop", "width": 1440, "height": 900 },
+      "setupActions": [],
+      "targetSelector": "[data-testid='handoff-card']",
+      "stateKind": "default",
+      "settleMs": 0,
+      "assertions": [
+        { "selector": "[data-testid='handoff-card']", "condition": "visible" },
+        { "selector": "[data-testid='menu-panel']", "condition": "hidden" },
+        { "selector": "[data-testid='submit-button']", "condition": "enabled" },
+        { "selector": "[data-testid='form-error']", "condition": "hidden" }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_2a74c8e6",
+      "pagePath": "/index.html",
+      "viewport": { "label": "mobile", "width": 375, "height": 812 },
+      "setupActions": [],
+      "targetSelector": "[data-testid='handoff-card']",
+      "stateKind": "default",
+      "settleMs": 0,
+      "assertions": [
+        { "selector": "[data-testid='handoff-card']", "condition": "visible" },
+        { "selector": "[data-testid='menu-panel']", "condition": "hidden" },
+        { "selector": "[data-testid='submit-button']", "condition": "enabled" }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_81c3b6a0",
+      "pagePath": "/index.html",
+      "viewport": { "label": "desktop", "width": 1440, "height": 900 },
+      "setupActions": [
+        { "type": "hover", "selector": "[data-testid='submit-button']" }
+      ],
+      "targetSelector": "[data-testid='submit-button']",
+      "stateKind": "hover",
+      "settleMs": 0,
+      "assertions": [
+        { "selector": "[data-testid='submit-button']", "condition": "hovered" }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_c409d27b",
+      "pagePath": "/index.html",
+      "viewport": { "label": "desktop", "width": 1440, "height": 900 },
+      "setupActions": [
+        { "type": "hover", "selector": "[data-testid='handoff-card']" }
+      ],
+      "targetSelector": "[data-testid='handoff-card']",
+      "stateKind": "hover",
+      "settleMs": 0,
+      "assertions": [
+        { "selector": "[data-testid='handoff-card']", "condition": "hovered" }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_6d2e90af",
+      "pagePath": "/index.html",
+      "viewport": { "label": "mobile", "width": 375, "height": 812 },
+      "setupActions": [
+        { "type": "tab", "selector": "[data-testid='note-input']", "key": "Tab" }
+      ],
+      "targetSelector": "[data-testid='submit-button']",
+      "stateKind": "focus-visible",
+      "settleMs": 0,
+      "assertions": [
+        { "selector": "[data-testid='submit-button']", "condition": "focus-visible" }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_b7381e54",
+      "pagePath": "/index.html",
+      "viewport": { "label": "mobile", "width": 375, "height": 812 },
+      "setupActions": [
+        { "type": "click", "selector": "[data-testid='menu-toggle']" }
+      ],
+      "targetSelector": "[data-testid='menu-panel']",
+      "stateKind": "open",
+      "settleMs": 0,
+      "assertions": [
+        { "selector": "[data-testid='menu-panel']", "condition": "visible" },
+        { "selector": "#utility-nav a:first-child", "condition": "focused" }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_e15a4c92",
+      "pagePath": "/index.html",
+      "viewport": { "label": "mobile", "width": 375, "height": 812 },
+      "setupActions": [
+        { "type": "click", "selector": "[data-testid='submit-button']" }
+      ],
+      "targetSelector": "[data-testid='form-error']",
+      "stateKind": "error",
+      "settleMs": 0,
+      "assertions": [
+        { "selector": "[data-testid='form-error']", "condition": "visible" },
+        { "selector": "[data-testid='note-input']", "condition": "focused" },
+        { "selector": "[data-testid='note-input']", "condition": "attribute", "name": "aria-invalid", "value": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b" }
+      ]
+    }
+  ]
+}
