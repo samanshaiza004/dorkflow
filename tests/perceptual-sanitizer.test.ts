@@ -70,4 +70,47 @@ describe("perceptual capture sanitizer", () => {
     expect(await page.locator("svg text").textContent()).toBe("vector words");
     expect(await page.locator("textarea").textContent()).toBe("field words");
   });
+
+  test("screenshots suppress shadow text but cannot replace it with geometry placeholders", async () => {
+    await page.setContent(`
+      <style>html, body { margin: 0; background: white; } #host { position: absolute; left: 20px; top: 20px; }</style>
+      <div id="host"></div>
+    `);
+    await page.evaluate(() => {
+      const root = document.querySelector("#host")!.attachShadow({ mode: "open" });
+      root.innerHTML = `<span style="display:block;width:280px;height:36px;background:white;color:black;font:24px/36px monospace">SHADOW INSTRUCTION TEXT</span>`;
+    });
+    const shadowText = page.locator("#host").locator("span");
+    const box = await shadowText.boundingBox();
+    if (!box) throw new Error("Shadow text did not render");
+    const before = await page.screenshot({ type: "png" });
+
+    await applyPerceptualSanitizer(page);
+    const after = await page.screenshot({
+      type: "png",
+      style: PERCEPTUAL_SANITIZER_CSS,
+    });
+    const containsDarkPixels = async (png: Buffer) => page.evaluate(async ({ base64, box }) => {
+      const image = new Image();
+      image.src = `data:image/png;base64,${base64}`;
+      await image.decode();
+      const canvas = document.createElement("canvas");
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const context = canvas.getContext("2d")!;
+      context.drawImage(image, 0, 0);
+      const x = Math.floor(box.x);
+      const y = Math.floor(box.y);
+      const pixels = context.getImageData(x, y, Math.ceil(box.width), Math.ceil(box.height)).data;
+      for (let index = 0; index < pixels.length; index += 4) {
+        if (pixels[index]! < 150 && pixels[index + 1]! < 150 && pixels[index + 2]! < 150) return true;
+      }
+      return false;
+    }, { base64: png.toString("base64"), box });
+
+    const placeholderExists = await page.locator("#host").locator("[data-dorkflow-placeholder='true']").count();
+    expect(await containsDarkPixels(before)).toBe(true);
+    expect(await containsDarkPixels(after)).toBe(false);
+    expect(placeholderExists).toBe(0);
+  });
 });

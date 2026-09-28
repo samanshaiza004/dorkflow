@@ -3,10 +3,10 @@ import { EvidenceId, ViewportKey } from "../ids.ts";
 import {
   ArtifactRef,
   DesignDirectionId,
-  DesignIntentId,
   DesignSlug,
   HumanDecisionId,
   ImplementationContractId,
+  IntentStatementId,
   NonEmptyText,
   RequirementId,
   StateDefinitionId,
@@ -78,9 +78,9 @@ export const ExplicitException = z
 
 export const ImplementationContract = z
   .object({
-    schemaVersion: z.literal(1),
+    schemaVersion: z.literal(2),
     id: ImplementationContractId,
-    intentRefs: z.array(DesignIntentId).min(1),
+    intentRefs: z.array(IntentStatementId).min(1),
     directionRef: DesignDirectionId,
     decisionRefs: z.array(HumanDecisionId).min(1),
     tokens: z.array(ContractToken),

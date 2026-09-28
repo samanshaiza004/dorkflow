@@ -18,6 +18,10 @@ design/review context. Real client copy remains quarantined from visual
 design exploration; placeholder content is used there. Copy editing that
 requires the original text runs in a separate unprivileged writing context.
 Visual review uses a separate perceptual evidence path with an explicit
-trust mode. External reference pages are sanitized to remove text and other
-instruction-bearing content before visual analysis. Phase A system-recovery
-inference remains limited to sanitized structural observations.
+trust mode. `sanitized-external` v1 replaces light-DOM text with geometry
+placeholders and uses Playwright's screenshot stylesheet to suppress text in
+Shadow DOM; shadow-root text is not replaced with geometry placeholders, so
+its layout can collapse. This defensive transformation is not proof that
+arbitrary remote pixels are safe, and remote reference ingestion remains
+disabled pending network isolation. Phase A system-recovery inference remains
+limited to sanitized structural observations.

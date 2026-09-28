@@ -76,7 +76,7 @@ export const PerceptualEvidence = z.discriminatedUnion("trustMode", [
   }).strict(),
   EvidenceBase.extend({
     trustMode: z.literal("sanitized-external"),
-    contentTreatment: z.literal("geometry-placeholders"),
+    contentTreatment: z.literal("light-dom-geometry-placeholders-shadow-dom-text-suppressed"),
     originalPixelsApproved: z.literal(false),
     sanitizer: z.object({ version: z.string().min(1).max(80), sha256: Sha256 }).strict(),
   }).strict(),

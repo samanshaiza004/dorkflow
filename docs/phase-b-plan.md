@@ -35,11 +35,21 @@ Store original page captures in quarantine. Create model-facing perceptual
 captures only through the selected trust mode. Continue to send only the
 Phase A sanitized observation format to system-recovery inference.
 
+The `sanitized-external` v1 transform creates geometry-placeholder spans only
+for light-DOM text. Playwright's screenshot stylesheet also pierces Shadow DOM
+to suppress shadow-rendered text, but those nodes are not wrapped in geometry
+placeholders; text-derived layout inside a shadow root can therefore collapse.
+This is a defensive evidence transformation, not proof that arbitrary remote
+pixels are safe. Remote reference ingestion remains disabled until capture is
+network-isolated.
+
 ### B2 — Intent and reference attribution
 
 Record freeform rationale alongside audience, jobs, attributes, constraints,
 existing strengths/problems, and anti-references. Every reference records
 what to use and what not to use; a reference is not a general style prompt.
+Each intent statement and attributed reference aspect has its own opaque ID so
+design choices cite the exact reason or precedent, not an entire document.
 
 ### B3 — Design directions
 
@@ -48,15 +58,21 @@ implementation code. Each direction states its thesis, type, palette,
 spatial model, density, layout, surfaces, borders, imagery, motion, preserved
 decisions, changed decisions, uncertainty, and supporting intent/evidence
 references. A deterministic axis comparison flags pairs that differ on
-fewer than three categorical strategy axes.
+fewer than three strategy categories. Density and surface model use controlled
+vocabularies (with a reasoned `other` option); other axes remain open slugs.
+Choices cite exact intent statements, reference aspects, or rendered-state
+capture IDs. This checks normalized labels, not creative distinctness.
 
 ### B4 — Evidence-linked critique
 
 Critique each direction for necessity, product specificity, consistency,
-exceptions, dependencies, and unsupported defaults. Each finding cites
-intent, reference, system, or state evidence and includes a proposed
-resolution. A familiar visual pattern is not inherently wrong; the question
-is whether this product's intent supports it.
+exceptions, dependencies, and unsupported defaults. Each finding cites typed
+intent, reference-aspect, system, or exact state-capture refs and includes a proposed
+resolution. The critic classifies each choice as supported, weakly supported,
+or unsupported/default-like. A familiar visual pattern is not inherently
+wrong; the question is whether this product's intent supports it. The
+unsupported-choice rate is a diagnostic, not a universal taste score or
+ground-truth judgment.
 
 ### B5 — Human review and decisions
 
@@ -143,20 +159,21 @@ system during Phase B.
 
 ## Implementation checkpoint
 
-The current working slice implements the versioned B0 artifact contracts,
-the deterministic three-direction strategy-axis gate, and an initial B1
-Playwright state-capture path. The B1 demo exercises desktop/mobile default,
+The current working slice implements versioned B0 contracts, a narrow B2-B4
+model seam, exact intent/reference provenance, a deterministic three-direction
+strategy-category gate, per-choice evidence critique, and a B1 Playwright
+state-capture path. The B1 demo exercises desktop/mobile default,
 hover, focus-visible, open-menu, and form-error states. Original pixels are
-quarantined for sanitized-external mode; the model-facing evidence contains
-only geometry-placeholder renders plus safe state/viewport/trigger metadata.
+quarantined for sanitized-external mode; model-facing evidence contains
+light-DOM geometry-placeholder renders, suppressed Shadow DOM text, and safe
+state/viewport/trigger metadata. Shadow DOM text-derived geometry may collapse.
 The run records and checks the exact current browser, OS, and font fingerprint;
 Chromium sandboxing, an origin allowlist, GET/HEAD-only requests, blocked
 WebSockets, and capture-size limits are also recorded as capture policy.
 The current runner is loopback-only; remote reference ingestion remains
 disabled until a network-isolated crawler boundary is available.
 
-This is a capture foundation, not the complete B1 integration: structural
-measurements from Phase A are not yet paired with these captures, and the
-design-direction, critique, human-review, implementation, and verification
-stages remain unimplemented. The Phase B product hypothesis has not been
-tested.
+This slice does not yet provide a model provider adapter, artifact writer,
+human-review, implementation, or verification stages. Structural Phase A
+measurements are not yet paired with these captures. The Phase B product
+hypothesis has not been tested.

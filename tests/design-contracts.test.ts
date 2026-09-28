@@ -17,7 +17,10 @@ import {
 
 const ids = {
   intent: "intent_12345678",
+  intentStatement: "istat_12345678",
   reference: "ref_12345678",
+  referenceAspect: "raspect_12345678",
+  referenceAspect2: "raspect_abcdefgh",
   referenceSource: "refsrc_12345678",
   referenceSet: "refs_12345678",
   state: "st_12345678",
@@ -54,27 +57,29 @@ const digest = "a".repeat(64);
 const timestamp = "2026-09-27T12:00:00.000Z";
 
 const intent = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   id: ids.intent,
   product: "Operations console",
   rationale: "Make dense operational work legible and calm.",
-  audience: ["Operators"],
-  primaryJobs: ["Review active work"],
-  attributes: ["precise", "quiet"],
-  avoid: ["decorative surfaces"],
-  constraints: ["Preserve existing workflows"],
-  existingStrengths: ["Clear information hierarchy"],
-  existingProblems: ["Mobile navigation is difficult"],
+  statements: [
+    { id: ids.intentStatement, kind: "audience", statement: "Operators" },
+    { id: "istat_abcdefgh", kind: "job", statement: "Review active work" },
+    { id: "istat_ijklmnop", kind: "attribute", statement: "Precise and quiet" },
+    { id: "istat_qrstuvwx", kind: "avoid", statement: "Avoid decorative surfaces" },
+    { id: "istat_yzabcdef", kind: "constraint", statement: "Preserve existing workflows" },
+    { id: "istat_ghijklmn", kind: "strength", statement: "Clear information hierarchy" },
+    { id: "istat_opqrstuv", kind: "problem", statement: "Mobile navigation is difficult" },
+  ],
 };
 
 const reference = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   id: ids.reference,
   label: "Reference A",
   sourceId: ids.referenceSource,
   sourceKind: "external",
-  use: [{ aspect: "navigation-density", rationale: "The navigation keeps frequent actions close." }],
-  doNotUse: [{ aspect: "palette", rationale: "Its color choices do not fit this product." }],
+  use: [{ id: ids.referenceAspect, aspect: "navigation-density", rationale: "The navigation keeps frequent actions close." }],
+  doNotUse: [{ id: ids.referenceAspect2, aspect: "palette", rationale: "Its color choices do not fit this product." }],
   evidenceRefs: [ids.evidence],
 };
 
@@ -122,7 +127,7 @@ const evidence = {
   id: ids.evidence,
   purpose: "hierarchy",
   trustMode: "sanitized-external",
-  contentTreatment: "geometry-placeholders",
+  contentTreatment: "light-dom-geometry-placeholders-shadow-dom-text-suppressed",
   originalPixelsApproved: false,
   renderingEnvironmentSha256: digest,
   sanitizer: { version: "perceptual-sanitizer-v1", sha256: digest },
@@ -149,21 +154,21 @@ const systemModel = {
 };
 
 const direction = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   id: ids.direction,
   thesis: "Treat the interface as a precise working instrument.",
   rationale: "The brief prioritizes scanning and reliable action over atmosphere.",
-  intentRefs: [ids.intent],
+  intentRefs: [ids.intentStatement],
   evidenceRefs: [ids.evidence],
   decisionRefs: [ids.decision],
   systemModelRefs: [ids.system],
   strategyAxes: {
     composition: "persistent-workspace",
     spatialModel: "compact-grid",
-    density: "information-dense",
+    density: "dense",
     navigationModel: "fixed-rail",
     hierarchy: "typographic-and-positional",
-    surfaceModel: "flat-surfaces",
+    surfaceModel: "flat",
     componentAnatomy: "bounded-rows",
     imagery: "none",
     motion: "brief-functional",
@@ -173,8 +178,10 @@ const direction = {
     area: "navigation",
     statement: "Keep primary actions in a persistent side rail.",
     rationale: "Operators need to move between work areas without losing context.",
-    intentRefs: [ids.intent],
+    intentRefs: [ids.intentStatement],
+    referenceAspectRefs: [ids.referenceAspect],
     evidenceRefs: [ids.evidence],
+    captureRefs: [],
   }],
   uncertainties: ["Whether the mobile rail should collapse or scroll horizontally."],
 };
@@ -193,19 +200,27 @@ const decision = {
 };
 
 const critique = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   id: ids.critique,
   directionRef: ids.direction,
-  intentRefs: [ids.intent],
+  intentRefs: [ids.intentStatement],
   evidenceRefs: [ids.evidence],
   findings: [{
     id: ids.finding,
     category: "responsive",
     severity: "medium",
-    refs: [ids.direction, ids.state],
-    evidenceRefs: [ids.evidence],
+    supportRefs: [
+      { kind: "intent-statement", id: ids.intentStatement },
+      { kind: "state-evidence", id: ids.capture },
+    ],
     rationale: "The proposed navigation behavior at narrow widths is unresolved.",
     suggestedResolution: "Specify the collapsed navigation state and its trigger.",
+  }],
+  choiceAssessments: [{
+    choiceRef: ids.choice,
+    assessment: "supported",
+    supportRefs: [{ kind: "intent-statement", id: ids.intentStatement }],
+    rationale: "The choice addresses the stated navigation problem.",
   }],
   uncertainties: [],
 };
@@ -227,9 +242,9 @@ const graph = {
 };
 
 const contract = {
-  schemaVersion: 1,
+  schemaVersion: 2,
   id: ids.contract,
-  intentRefs: [ids.intent],
+  intentRefs: [ids.intentStatement],
   directionRef: ids.direction,
   decisionRefs: [ids.decision],
   tokens: [{
@@ -329,7 +344,7 @@ describe("Phase B design artifact contracts", () => {
   test("parses a linked end-to-end design process artifact set", () => {
     expect(DesignIntent.parse(intent)).toEqual(intent);
     expect(Reference.parse(reference)).toEqual(reference);
-    expect(ReferenceSet.parse({ schemaVersion: 1, id: ids.referenceSet, intentRef: ids.intent, references: [reference] })).toBeTruthy();
+    expect(ReferenceSet.parse({ schemaVersion: 2, id: ids.referenceSet, intentRef: ids.intent, references: [reference] })).toBeTruthy();
     expect(StateMatrix.parse({ schemaVersion: 1, states: [state] })).toEqual({ schemaVersion: 1, states: [state] });
     expect(PerceptualEvidence.parse(evidence)).toEqual(evidence);
     expect(SystemModel.parse(systemModel)).toEqual(systemModel);
@@ -349,7 +364,7 @@ describe("Phase B design artifact contracts", () => {
     expect(() => Reference.parse({ ...reference, sourceUrl: "https://example.test/?q=instruction" })).toThrow();
   });
 
-  test("requires geometry placeholders for sanitized external captures", () => {
+  test("records the exact light-DOM and Shadow DOM sanitization behavior", () => {
     expect(() => PerceptualEvidence.parse({ ...evidence, contentTreatment: "original" })).toThrow();
     expect(PerceptualEvidence.parse({
       ...evidence,
@@ -398,5 +413,40 @@ describe("Phase B design artifact contracts", () => {
       ...graph,
       edges: [{ ...graph.edges[0], to: "node_missing1" }],
     })).toThrow();
+  });
+
+  test("keeps design choices addressable and allows intent-only critique support", () => {
+    expect(() => DesignIntent.parse({
+      ...intent,
+      statements: [intent.statements[0], { ...intent.statements[0], statement: "duplicate ID" }],
+    })).toThrow();
+
+    const intentOnlyCritique = structuredClone(critique);
+    intentOnlyCritique.findings[0]!.supportRefs = [{ kind: "intent-statement", id: ids.intentStatement }];
+    expect(CritiqueReport.parse(intentOnlyCritique)).toBeTruthy();
+
+    expect(() => ReferenceSet.parse({
+      schemaVersion: 2,
+      id: ids.referenceSet,
+      intentRef: ids.intent,
+      references: [reference, {
+        ...reference,
+        id: "ref_abcdefgh",
+        sourceId: "refsrc_abcdefgh",
+      }],
+    })).toThrow("unique");
+
+    expect(() => ReferenceSet.parse({
+      schemaVersion: 2,
+      id: ids.referenceSet,
+      intentRef: ids.intent,
+      references: [reference, {
+        ...reference,
+        id: "ref_abcdefgh",
+        sourceId: "refsrc_abcdefgh",
+        use: [...reference.use],
+        doNotUse: [],
+      }],
+    })).toThrow("aspect IDs must be unique");
   });
 });

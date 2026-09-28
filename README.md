@@ -41,6 +41,9 @@ database, GUI, or design canvas.
   workflow and tests whether its artifacts and review gates improve an
   actual redesign over the same agent using a strong frontend-design prompt.
   Phase B can use an incomplete System Recovery result as an optional input.
+  Its first B2-B4 slice validates exact intent/reference citations, gates
+  direction diversity before critique, and reports unsupported-choice
+  diagnostics; model providers remain caller-supplied.
 - **Phase C — Productization:** considered only after the subsystem and
   product-level experiments succeed.
 
@@ -98,8 +101,9 @@ bun run b1:capture-states -- \
 ```
 
 Original captures stay under `artifacts/phase-b-demo-run/quarantine/`; only
-the geometry-preserving sanitized PNGs and their safe metadata are placed
-under `perceptual/`. Run with `--trust-mode trusted-project` or `generated`
+the sanitized PNGs and safe state metadata are placed under `perceptual/`.
+Light-DOM text gets geometry-preserving placeholders; see the Phase B plan for
+the Shadow DOM limitation. Run with `--trust-mode trusted-project` or `generated`
 only when the original rendered pixels are approved, and include
 `--allow-original-pixels`. A capture run refuses to overwrite an existing
 directory and checks the exact Playwright/browser/OS/font fingerprint before

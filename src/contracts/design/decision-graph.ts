@@ -53,13 +53,49 @@ export const DesignDecisionGraph = z
   })
   .strict()
   .superRefine((graph, context) => {
-    const nodeIds = new Set(graph.nodes.map((node) => node.id));
+    const nodeIds = new Set<string>();
+    graph.nodes.forEach((node, index) => {
+      if (nodeIds.has(node.id)) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["nodes", index, "id"],
+          message: "Node IDs must be unique within a graph",
+        });
+      }
+      nodeIds.add(node.id);
+    });
+
+    const edgeIds = new Set<string>();
     graph.edges.forEach((edge, index) => {
+      if (edgeIds.has(edge.id)) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["edges", index, "id"],
+          message: "Edge IDs must be unique within a graph",
+        });
+      }
+      edgeIds.add(edge.id);
+
+      if (edge.from === edge.to) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["edges", index, "to"],
+          message: "An edge cannot connect a node to itself",
+        });
+      }
       if (!nodeIds.has(edge.from)) {
-        context.addIssue({ code: z.ZodIssueCode.custom, path: ["edges", index, "from"], message: "Edge source must exist in graph nodes" });
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["edges", index, "from"],
+          message: "Edge source must exist in graph nodes",
+        });
       }
       if (!nodeIds.has(edge.to)) {
-        context.addIssue({ code: z.ZodIssueCode.custom, path: ["edges", index, "to"], message: "Edge target must exist in graph nodes" });
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["edges", index, "to"],
+          message: "Edge target must exist in graph nodes",
+        });
       }
     });
   });

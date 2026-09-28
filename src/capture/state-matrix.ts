@@ -436,7 +436,9 @@ export async function captureStateMatrix(options: CaptureOptions): Promise<State
     id: `ev_${sha256Text(`${matrixSha256}|${purpose}|${options.trustMode}`).slice(0, 16)}`,
     purpose,
     trustMode: options.trustMode,
-    contentTreatment: options.trustMode === "sanitized-external" ? "geometry-placeholders" : "original",
+    contentTreatment: options.trustMode === "sanitized-external"
+      ? "light-dom-geometry-placeholders-shadow-dom-text-suppressed"
+      : "original",
     originalPixelsApproved: options.approveOriginalPixels === true,
     renderingEnvironmentSha256: environment.environmentSha256,
     sanitizer: options.trustMode === "sanitized-external"

@@ -55,9 +55,11 @@ Perceptual evidence supports judgments that measurements cannot settle,
 including hierarchy, atmosphere, composition, density, image treatment, and
 motion. It can include sanitized renders or explicitly approved renders of a
 trusted local project. External references remain untrusted: visible and
-hidden text is replaced with geometry-preserving placeholders before visual
-analysis, and original captures stay in quarantine. A run must record which
-trust mode supplied perceptual evidence.
+light-DOM text is replaced with geometry-preserving placeholders before visual
+analysis; Shadow DOM text is suppressed during screenshot capture but not
+replaced with placeholders, so its text-derived geometry may collapse.
+Original captures stay in quarantine. A run must record which trust mode
+supplied perceptual evidence.
 
 The interface is modeled as states and transitions, not only static pages.
 A transition record can connect a trigger and starting state to its ending

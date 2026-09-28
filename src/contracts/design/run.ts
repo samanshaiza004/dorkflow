@@ -56,9 +56,26 @@ export const DesignRun = z
     artifactHashes: z.array(RunArtifactHash),
   })
   .strict()
-  .refine((run) => run.updatedAt >= run.createdAt, {
-    message: "updatedAt must not precede createdAt",
-    path: ["updatedAt"],
+  .superRefine((run, context) => {
+    if (run.updatedAt < run.createdAt) {
+      context.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["updatedAt"],
+        message: "updatedAt must not precede createdAt",
+      });
+    }
+
+    const stages = new Set<RunStageName>();
+    run.stages.forEach((stage, index) => {
+      if (stages.has(stage.stage)) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["stages", index, "stage"],
+          message: "Stage names must be unique within a run",
+        });
+      }
+      stages.add(stage.stage);
+    });
   });
 
 export type RunLifecycle = z.infer<typeof RunLifecycle>;

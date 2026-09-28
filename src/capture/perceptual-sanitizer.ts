@@ -58,7 +58,7 @@ const sanitizerScript = `(() => {
 
 export const PERCEPTUAL_SANITIZER_SHA256 = sha256Text(`${PERCEPTUAL_SANITIZER_CSS}\n${sanitizerScript}`);
 
-/** Wraps light-DOM text in geometry-preserving placeholder spans. */
+/** Wraps light-DOM text in geometry-preserving placeholder spans. Shadow-root text is only suppressed by Playwright's screenshot stylesheet, not replaced by placeholders. */
 export async function applyPerceptualSanitizer(page: Page): Promise<void> {
   await page.evaluate(sanitizerScript);
 }

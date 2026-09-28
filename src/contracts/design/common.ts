@@ -15,7 +15,9 @@ const opaque = (prefix: string) =>
   z.string().regex(new RegExp(`^${prefix}_[a-z0-9]{8,64}$`));
 
 export const DesignIntentId = opaque("intent");
+export const IntentStatementId = opaque("istat");
 export const ReferenceId = opaque("ref");
+export const ReferenceAspectId = opaque("raspect");
 export const ReferenceSourceId = opaque("refsrc");
 export const ReferenceSetId = opaque("refs");
 export const StateDefinitionId = opaque("st");
@@ -46,7 +48,9 @@ export const IsoTimestamp = z.string().datetime({ offset: true });
 // A closed union keeps provenance links opaque while rejecting arbitrary identifiers.
 export const ArtifactRef = z.union([
   DesignIntentId,
+  IntentStatementId,
   ReferenceId,
+  ReferenceAspectId,
   ReferenceSetId,
   StateDefinitionId,
   StateMatrixId,
@@ -76,4 +80,4 @@ export const ArtifactRef = z.union([
 ]);
 
 export const EvidenceRefs = z.array(EvidenceId).min(1);
-export const IntentRefs = z.array(DesignIntentId).min(1);
+export const IntentRefs = z.array(IntentStatementId).min(1);

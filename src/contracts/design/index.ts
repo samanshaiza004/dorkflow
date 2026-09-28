@@ -3,6 +3,7 @@ export * from "./intent.ts";
 export * from "./reference.ts";
 export * from "./state.ts";
 export * from "./evidence.ts";
+export * from "./model-input.ts";
 export * from "./system-model.ts";
 export * from "./direction.ts";
 export * from "./critique.ts";

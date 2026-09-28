@@ -18,7 +18,7 @@ function evidence(sha256: string = sha256Bytes(pngBytes)) {
     id: "ev_12345678",
     purpose: "hierarchy",
     trustMode: "sanitized-external",
-    contentTreatment: "geometry-placeholders",
+    contentTreatment: "light-dom-geometry-placeholders-shadow-dom-text-suppressed",
     originalPixelsApproved: false,
     renderingEnvironmentSha256: digest,
     sanitizer: { version: "perceptual-sanitizer-v1", sha256: digest },
