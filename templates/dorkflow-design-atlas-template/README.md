@@ -43,10 +43,10 @@ presenting a convention as a requirement.
 
 ## Use locally
 
-1. Create your own repository from the published GitHub template using
-   **Use this template**. Until this staged starter is published, copy this
-   directory into a new repository yourself. Either way, it is an ordinary Git
-   repository with independent history.
+1. Create your own repository from the [Dorkflow Design Atlas
+   template](https://github.com/samanshaiza004/dorkflow-design-atlas-template)
+   using **Use this template**. It is an ordinary Git repository with
+   independent history.
 2. Clone your repository on each machine using your normal Git credentials;
    point Dorkflow at that local checkout. No Dorkflow account or sync service
    is involved.

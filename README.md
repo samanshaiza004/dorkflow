@@ -48,7 +48,9 @@ GUI, or design canvas.
   Phase B can use an incomplete System Recovery result as an optional input.
   It also accepts an optional local Git-backed Design Profile: Floor, Rails,
   and Compass become model-facing guidance; Atlas references remain manually
-  selected through the project reference set. The starter is staged at
+  selected through the project reference set. The reusable
+  [Design Atlas template](https://github.com/samanshaiza004/dorkflow-design-atlas-template)
+  is mirrored at
   [`templates/dorkflow-design-atlas-template`](templates/dorkflow-design-atlas-template/README.md).
   See [Design Profile setup](docs/design-profile.md). This does not claim
   success for the Phase B product experiment.

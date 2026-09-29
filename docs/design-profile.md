@@ -4,7 +4,9 @@ Dorkflow can reuse a small, human-owned Design Profile across projects and
 agents. It is optional: a project can use the existing Phase B intent,
 references, and evidence without creating one or filling out a taste survey.
 
-The text-only starter is at
+The published text-only starter is the
+[Dorkflow Design Atlas GitHub template](https://github.com/samanshaiza004/dorkflow-design-atlas-template).
+Its source is mirrored in this repository at
 [`templates/dorkflow-design-atlas-template`](../templates/dorkflow-design-atlas-template/README.md).
 It separates:
 
@@ -24,18 +26,11 @@ It separates:
 
 ## Starting from the template
 
-The starter is staged in this repository; no separate GitHub template
-repository has been created yet. The target is
-`samanshaiza004/dorkflow-design-atlas-template`. The one-time publication step
-is to create a new repository from the staged directory and enable GitHub's
-**Template repository** setting. Until then, copy the directory into a new
-local repository. The files are small JSON and Markdown; there are no images,
-fonts, copied source archives, or Git LFS objects.
-
-Once published, a user can choose **Use this template** to make a repository
-with independent history. On another machine, clone that repository with
-their existing Git credentials. Dorkflow consumes the local checkout; it has
-no GitHub login, account browser, or synchronization service.
+Choose **Use this template** to make a repository with independent history.
+On another machine, clone that repository with existing Git credentials.
+Dorkflow consumes the local checkout; it has no GitHub login, account browser,
+or synchronization service. The template is intentionally small JSON and
+Markdown, with no images, fonts, copied source archives, or Git LFS objects.
 
 ## Connecting it to Phase B
 
