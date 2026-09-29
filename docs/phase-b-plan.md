@@ -158,21 +158,59 @@ itself implement the redesign or mean verification has passed.
 ### B8 — Implementation boundary
 
 Keep design exploration separate from source-repository writes. The
-implementation agent receives the approved contract and source repository;
-it cannot silently rewrite human intent or approved decisions. A local
-prototype can be used without Penpot. If Penpot is used, every write batch
-requires a successful checkpoint; design agents cannot write the source
-repository and implementation agents cannot mutate Penpot.
+implementation agent receives the frozen contract, exact source base, exact
+control revision, and approved candidate/captures as reference evidence. Its
+task is to implement frozen relationships, states, and preservation
+requirements while exercising judgment only where B7 explicitly left values
+provisional.
+
+The implementation boundary is:
+
+- **Must:** preserve existing behavior/copy; implement approved responsive
+  ordering and component relationships; implement reviewed rest/hover/active/
+  focus behavior; satisfy the contract's accessibility and preservation
+  requirements.
+- **May choose:** exact breakpoint, colors, spacing, font sizes, radii,
+  shadows, and column ratio where the contract left them open.
+- **Must not:** reinterpret approved B6 decisions, add product features or
+  visible copy, promote prototype CSS into approved tokens, or silently alter
+  the contract.
+
+Before B9, write an implementation receipt containing source base commit,
+implementation commit, contract hash, files changed, requirement-to-change
+mapping, choices made in provisional areas, and known uncertainties. The
+receipt is provenance, not evidence that verification passed. If Penpot is
+used, every write batch requires a successful checkpoint; design agents
+cannot write the source repository and implementation agents cannot mutate
+Penpot.
 
 ### B9 — Verification
 
-Re-run the state matrix after real content is injected. Deterministically
-check behavior, responsive overflow, focus/keyboard behavior, accessibility,
-copy preservation, contract/token validity, and rendering-environment
-identity. Compare approved and implemented visual baselines, then use
-perceptual critique to identify changes in hierarchy, balance, density,
-imagery, or motion. Perceptual critique reports findings; it does not
-rewrite the approved design.
+Re-run the state matrix after real content is injected in four passes:
+
+1. **Contract fidelity — hard gate.** Check each requirement ID and attach
+   deterministic evidence for behavior, copy, state, responsive relationships,
+   and preservation. A summary percentage cannot hide a failed requirement.
+2. **Responsive sweep — hard gate.** Check the chosen breakpoint and its
+   adjacent widths, plus narrow/intermediate/wide states, for approved
+   ordering, usable controls, and unintended overflow. Capture representative
+   states in the frozen rendering environment.
+3. **Accessibility and behavior — hard gate where deterministic.** Verify
+   keyboard operation, accessible names, target geometry, focus visibility,
+   applicable contrast, non-color cues, reduced-motion behavior, and preserved
+   product interactions. Record any check requiring human judgment separately.
+4. **Perceptual review — diagnostic/human judgment.** Keep the exact frozen
+   control, approved B6 candidate, and B8 implementation available for direct
+   comparison under the same rendering environment. Pixel similarity to the
+   prototype is not a pass/fail criterion when B7 deliberately left values
+   provisional; review whether implementation preserved approved intent and
+   explain material differences. Never ask the reviewer to judge from memory
+   when the exact alternatives are available.
+
+The perceptual critic reports findings; it does not rewrite the approved
+design. A visual discrepancy is not automatically contract failure, and a
+passing screenshot diff cannot substitute for contract, behavior, or
+accessibility checks.
 
 ### B10 — Project decision history
 
@@ -254,9 +292,12 @@ against a directly reachable frozen control; all seven explicit evidence
 requests were marked reviewed/satisfied, and B7's contract is now frozen.
 The contract contains no approved token values; exact prototype colors,
 spacing, type sizes, radii, shadows, column ratios, and the 720px prototype
-breakpoint remain provisional. Implementation and B9 verification have not
-started. The response JSON Schemas now include the profile reference kinds
-accepted by the runtime contracts, with regression coverage. The workflow's
+breakpoint remain provisional. B8 chose a separate provisional 700px stack
+breakpoint and kept implementation values literal rather than naming them as
+tokens. B8 implementation is complete in a separate local checkout; B9
+verification has not started. The response JSON Schemas now include the
+profile reference kinds accepted by the runtime contracts, with regression
+coverage. The workflow's
 broader usefulness and the Phase B product hypothesis have not been
 established.
 
@@ -265,3 +306,8 @@ recorded in
 [`docs/experiments/phase-b-expense-tracker-default-profile-b2-b6.md`](experiments/phase-b-expense-tracker-default-profile-b2-b6.md).
 The resulting human approval and frozen B7 contract are summarized in
 [`docs/experiments/phase-b-expense-tracker-b7-contract.md`](experiments/phase-b-expense-tracker-b7-contract.md).
+The B8 implementation is in a separate, clean local checkout at commit
+`2400196c9a7d3a64554b517d5364fc739d4acf49`; its receipt records the exact
+base, contract hash, changed files, provisional choices, and smoke evidence.
+B9 verification has not started. The experiment has not established that
+Dorkflow improves design quality or passes the Phase B product hypothesis.

@@ -1,0 +1,141 @@
+{
+  "schemaVersion": 1,
+  "id": "receipt_b8expense01",
+  "status": "implemented-awaiting-b9",
+  "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+  "contract": {
+    "id": "contract_b6hybrid02",
+    "path": "artifacts/phase-b-expense-tracker/agent-runs/run_aadad7d73a62536be1d6f2d415979ea7/implementation/implementation-contract.json",
+    "sha256": "26dfb47a303df79f13b6cbb8d75ec94d412b1f47ca9c615c523702f0b10875f4"
+  },
+  "source": {
+    "repository": "bradtraversy/expense-tracker-react",
+    "baseCommit": "5e5ad9ad6f0929f80e1c9f6667b08870f87e7743",
+    "implementationBranch": "dorkflow-b8-expense-tracker",
+    "implementationCommits": [
+      "38a48499f72b5d278b672e953545dad68543c706",
+      "2400196c9a7d3a64554b517d5364fc739d4acf49"
+    ],
+    "implementationCommit": "2400196c9a7d3a64554b517d5364fc739d4acf49",
+    "workingTreeClean": true,
+    "localCheckout": "artifacts/phase-b-expense-tracker/agent-runs/run_aadad7d73a62536be1d6f2d415979ea7/implementation/source",
+    "pushStatus": "local-only; not pushed to the frozen upstream repository"
+  },
+  "approvedReference": {
+    "directionId": "dir_b6hybrid02",
+    "directionSha256": "963bdf7bb10d693b5288493addd9ee979080b7b4f1c3fd2608601942aa5b1dea",
+    "candidatePreviewTreeSha256": "9b8cae681ed49f0a821b207abf71fed8d6cab97532265fce4e81c5436977f1ca",
+    "renderingEnvironmentSha256": "a9215d1eea25dcbe7111011395f5cfc41a62b8b177fbcb2e13d14da28405d361",
+    "fontSha256": "d636e4683231f931eda222d588e944d082bfd3bdba02f928bee461c0f185b251"
+  },
+  "filesChanged": [
+    "public/fonts/Lato-Regular.ttf",
+    "public/fonts/OFL.txt",
+    "public/fonts/PROVENANCE.json",
+    "public/index.html",
+    "src/App.css",
+    "src/App.js",
+    "src/components/AddTransaction.js",
+    "src/components/Balance.js",
+    "src/components/Header.js",
+    "src/components/IncomeExpenses.js",
+    "src/components/Transaction.js",
+    "src/components/TransactionList.js"
+  ],
+  "requirements": [
+    {
+      "ids": ["req_b7layout01", "req_b7state01", "req_b7state02", "req_b7wide001", "req_b7narrow1", "req_b7bound01", "req_b7resp01"],
+      "files": ["src/App.js", "src/App.css"],
+      "implementation": "Semantic entry, summary, and history regions use a broad history column at wide widths and entry → summary → history source/visual order at narrow widths. The 700px cutoff is a provisional implementation choice."
+    },
+    {
+      "ids": ["req_b7entry01", "req_b7copy01"],
+      "files": ["src/components/AddTransaction.js", "src/components/Header.js", "src/components/TransactionList.js", "public/index.html"],
+      "implementation": "Existing visible page copy, labels, placeholders, and actions are retained; heading semantics and missing label/input ID associations are corrected. The browser document title now uses the existing product name instead of the scaffold title."
+    },
+    {
+      "ids": ["req_b7summary1", "req_b7a11y03", "req_b7state03", "req_b7state04"],
+      "files": ["src/components/Balance.js", "src/components/IncomeExpenses.js", "src/App.js"],
+      "implementation": "Existing balance and totals calculations remain unchanged; labels and signed transaction amounts remain present, and the summary follows entry on mobile."
+    },
+    {
+      "ids": ["req_b7row0001", "req_b7state05", "req_b7state06", "req_b7state07", "req_b7a11y01", "req_b7a11y02"],
+      "files": ["src/components/Transaction.js", "src/App.css"],
+      "implementation": "The existing delete action is retained with an accessible name, centered decorative SVG, measured 32×32 CSS-pixel target inside its row, subordinate rest, distinct hover/active, and separate 3px focus-visible treatment. The expense edge accent is quieter."
+    },
+    {
+      "ids": ["req_b7func01", "req_b7pres01"],
+      "files": ["src/context/AppReducer.js", "src/context/GlobalState.js", "src/components/AddTransaction.js", "src/components/Transaction.js"],
+      "implementation": "Transaction state/reducer source was not modified. Browser smoke exercised add, totals, row ordering, pointer delete, keyboard reachability, and keyboard delete."
+    },
+    {
+      "ids": ["req_b7a11y04"],
+      "files": ["src/App.css"],
+      "implementation": "Only brief control-state transitions are used; prefers-reduced-motion reduces them to 0.01ms without removing hover, active, or focus styling. Formal contrast and accessibility audits remain B9 work."
+    }
+  ],
+  "implementationChoices": [
+    {
+      "area": "responsive breakpoint",
+      "choice": "700 CSS px maximum for the stacked layout",
+      "status": "provisional; chosen by content fit, not approved as a token"
+    },
+    {
+      "area": "wide layout",
+      "choice": "1180px maximum content width; 1.35fr history and 0.9fr secondary column with a 244px secondary minimum",
+      "status": "provisional"
+    },
+    {
+      "area": "colors",
+      "choice": "Page #f6f6f3; text #242522; muted text #595b56; dividers #c9cbc5; input border #777a73; action #493878 with hover #382961; income #17613d; expense #963b31 with row accent #b07b74; focus #17376e; delete rest #6b5d59, hover background/border/text #f8e9e6/#b46d63/#842f27, active #eed5d1/#91463e/#67251f",
+      "status": "provisional literal CSS values; not approved design tokens"
+    },
+    {
+      "area": "spacing and dimensions",
+      "choice": "1180px maximum page width; desktop page padding 32px 28px 56px; mobile 24px 18px 40px; grid gap 24px by 28px; input minimum height 42px; submit minimum height 44px; row minimum height 52px; delete target 32px square",
+      "status": "provisional except the 32px delete target, which is contract-frozen"
+    },
+    {
+      "area": "typography",
+      "choice": "Page title 26px; section headings 18px; balance 30px; row text 15px; input and totals 16px; labels 14px; small labels 12px; tabular numerals for financial values",
+      "status": "provisional"
+    },
+    {
+      "area": "surfaces and motion",
+      "choice": "3px input/button radius, no shadows; submit background transition 120ms and delete color/border/background transitions 110ms, reduced to 0.01ms under prefers-reduced-motion",
+      "status": "provisional implementation choices; no decorative motion or motion tokens"
+    },
+    {
+      "area": "CSS token boundary",
+      "choice": "Literal CSS values only; no :root custom-property aliases or DTCG token output",
+      "status": "No design tokens are claimed by this implementation"
+    },
+    {
+      "area": "font",
+      "choice": "Locally served pinned Lato Regular bytes",
+      "status": "same SHA-256 as B6 rendering input; font license and provenance are included"
+    }
+  ],
+  "validation": {
+    "productionBuild": {
+      "command": "NODE_OPTIONS=--openssl-legacy-provider npm run build",
+      "result": "passed",
+      "note": "The frozen CRA 3.4/Webpack toolchain requires the legacy OpenSSL provider in the current Node environment; no dependency or lockfile was changed."
+    },
+    "browserSmoke": {
+      "script": "artifacts/phase-b-expense-tracker/agent-runs/run_aadad7d73a62536be1d6f2d415979ea7/implementation/verify-b8.mjs",
+      "resultFile": "artifacts/phase-b-expense-tracker/agent-runs/run_aadad7d73a62536be1d6f2d415979ea7/implementation/smoke-result.json",
+      "resultSha256": "708c6e549231a654b453c64e999aa07e597943903723acb181d421be27772eba",
+      "result": "passed",
+      "coverage": "12 widths from 320px through 1280px were checked for overflow and region geometry with empty state; populated states were exercised/captured at 375px, 768px, and 1280px; add/summary/list behavior, 32x32 target geometry and containment, hover, active, focus-visible, pointer and keyboard deletion, reduced-motion transition duration, visible copy, local font availability, and zero external requests were checked."
+    }
+  },
+  "knownUncertainties": [
+    "B9 has not started. This receipt and smoke are not a contract-fidelity, accessibility-conformance, or product-quality pass.",
+    "Formal text/control/focus contrast measurements and an accessibility audit remain outstanding.",
+    "The responsive overflow sweep used the empty state; B9 should exercise populated content and long descriptions across narrow, intermediate, breakpoint-adjacent, and wide widths.",
+    "The mobile keyboard sequence begins at the entry field and reaches delete; inspect the wide-screen spatial relationship of DOM focus order during B9 human review.",
+    "The precise colors, type sizes, spacing, radius, column ratio, and 700px breakpoint remain provisional. They are implementation values, not approved design tokens.",
+    "A three-way human comparison of frozen control, approved B6 candidate, and B8 implementation remains pending. Pixel equality with the candidate is not a hard requirement."
+  ]
+}
