@@ -1,6 +1,6 @@
 # Expense Tracker B2–B6 rehearsal with the default Design Profile
 
-**Status:** B6 candidate captured; second human review pending. Stop before
+**Status:** B6 revision 2 captured; second human review pending. Stop before
 B7 and implementation.
 **Date:** 2026-09-29
 **Run:** `run_aadad7d73a62536be1d6f2d415979ea7`
@@ -64,10 +64,12 @@ contracts. This is traceability, not approval: the hybrid is still a proposal.
 
 ## Evidence requests and results
 
-Five states now cover the candidate's open questions and an explicit empty
-baseline. The request definitions exactly match the captured state matrix.
-Every request is marked `captured`, not `reviewed`; its review outcome remains
-null.
+The initial five-state capture covered the candidate's open questions and an
+explicit empty baseline. At that point every request was `captured`, not
+`reviewed`. The first human review later marked the populated-mobile ordering
+and post-submit confirmation `reviewed` / `satisfied`; that decision is bound
+to the exact revision-1 capture IDs below. Other revision-1 requests remained
+captured and unresolved.
 
 | State | Capture | Capture SHA-256 | Deterministic/visible result |
 |---|---|---|---|
@@ -107,19 +109,87 @@ model-facing trusted-project renders. The upstream control copy was not
 modified. The five screenshots show the proposed local prototype, not the
 original site, and are not evidence that a human has approved the composition.
 
+## First B6 human review and revision 2
+
+The first review accepted the broad ledger-first composition, the restrained
+balance/signed-row hierarchy, mobile entry → summary → history ordering, and
+the same-frame mobile post-submit confirmation. The latter two evidence
+requests are recorded as `reviewed` / `satisfied` in
+`evidence-requests-v1-reviewed.json`, against the revision-1 captures
+`cap_b39689114f385438` and `cap_f9f99f328a8729e4`.
+
+The review did **not** approve the candidate unchanged. It requested a
+localized delete-control revision: a 32×32 CSS-pixel target with a centered
+icon and accessible name; quiet rest, restrained hover, distinct active, and a
+separate 3px focus-visible indicator; plus a less competitive expense-row
+edge accent. The exact human decisions are in
+`review/b6-review-v1-record.json`, bound to
+`review/b6-review-v1-packet.json` (SHA-256
+`35398f810be2ee2c0d1424bf8c2421636e433b256b06f09edd648d3cf233985d`). The
+record contains four decisions: composition accepted, mobile ordering and
+post-submit evidence accepted, delete affordance revised, and the two-route
+review convention accepted.
+
+The local review preview now has an explicit index at `http://127.0.0.1:3000/`:
+
+```text
+/           B6 review index
+/control/   untouched Expense Tracker at 5e5ad9a
+/candidate/ human-directed candidate dir_b6hybrid02
+```
+
+The control source copied into the local preview is byte-for-byte equal to
+the frozen checkout's `src/` tree. Its Git HEAD remains
+`5e5ad9ad6f0929f80e1c9f6667b08870f87e7743`; that checkout was not modified.
+Both preview routes use the same local Lato-Regular.ttf bytes, SHA-256
+`d636e4683231f931eda222d588e944d082bfd3bdba02f928bee461c0f185b251`, and
+the same rendering-environment fingerprint
+`a9215d1eea25dcbe7111011395f5cfc41a62b8b177fbcb2e13d14da28405d361`.
+
+An initial revision-2 capture exposed style leakage from the imported
+upstream stylesheet: its absolutely positioned delete rule moved the new
+button to the row's left edge. The candidate now explicitly resets that
+positioning. The final capture below is the clean `v2c` run; the earlier
+failed/incorrect capture directories are retained locally as diagnostic
+artifacts and are not used as evidence.
+
+Revision 2 is `dir_b6hybrid02` (SHA-256
+`963bdf7bb10d693b5288493addd9ee979080b7b4f1c3fd2608601942aa5b1dea`). Its
+seven-state matrix has hash
+`0cb3aecf6de5c8dbc79846420c61638eb1dc5f5c68f8f104e931b16e5626ad97`; the
+model-facing evidence bundle is `ev_2c443a4383b3b9d5`. Every request in the
+revision-2 set is `captured` and awaiting review; this fresh capture does not
+silently inherit the prior review outcome.
+
+| Candidate state | Capture | Screenshot SHA-256 | Deterministic observation |
+|---|---|---|---|
+| Tablet populated/rest, 768×1024 | `cap_5c3af1130f0ace0d` | `d46684b7c0f41dfa20743725c36edef85849057ee826203e23b3996fc0016cf4` | Ledger remains broad; delete target stays visually subordinate at desktop/tablet rest. |
+| Mobile populated, 375×812 | `cap_c3c1367f7a396e90` | `ed354655ffa135815469934910bfc96b57a9a4bde35d1ab26fb881d1ef5b7d11` | Entry → summary → history; signed values; no clipping. |
+| Mobile empty, 375×812 | `cap_4031864e62d133d7` | `94d995eb1885c396dc117847e0e4663b63b5c1bba22cd43503216b55fd9f06b2` | Zero balance, no rows, same sequence. |
+| Mobile after Coffee `-4.80`, 375×812 | `cap_2b42cbb9eab07467` | `7d78c21dae77d83ee72c9f22b24eb461862cd5ab9edb13ed22247704470dd8eb` | Changed balance and new transaction remain in the same frame; mobile target is visible. |
+| Keyboard focus on delete, 768×1024 | `cap_aabf51c61e88dc94` | `11ad4f3aba7b395f26ac01be9de4e210d4bc6f041b84dbc4cdb10f117e596b98` | Tab reaches the revised button; the distinct 3px focus outline remains. |
+| Pointer hover on delete, 768×1024 | `cap_ad01f5549fb0e8a5` | `673b82c3950c0b9dd94c0094ca930cae6a8a4202547d761f127e180267fe29d5` | Button is at the row end with a subtle destructive tint and stronger border; expense accent is muted. |
+| Pointer active on delete, 768×1024 | `cap_8662d89a9ada1419` | `e8e4bd38e0ed330a5ea02c4eb5e2dfb763e859b6be1f453c136021c4ed4d0a38` | Pressed fill differs from hover; release retains the existing delete behavior. |
+
+The local Playwright review test passed for all three routes and verifies the
+32×32 target, target containment in the row, icon center within 0.5 CSS px of
+the button center, rest-to-hover border/fill changes, hover-to-active change,
+existing deletion on release, and keyboard `:focus-visible` with a solid 3px
+outline. The Dorkflow capture ran with loopback-only GET/HEAD network policy;
+Lato was loaded from the local frozen font bytes. The revision-2 graph
+(`graph_b6hybrid02`) records the old candidate being superseded and the
+remaining evidence obligations.
+
 ## Review boundary and next step
 
-The remaining gate is human review of this hybrid and its five captures. In
-particular, review should decide whether the mobile entry → summary → history
-sequence and the same-frame post-submit state satisfy the recorded revision,
-and whether the tablet layout deserves to proceed. The empty and post-submit
-captures make the state change inspectable; they do not make the underlying
-layout an approved rule.
+The B6 gate remains open. The major composition and the two mobile claims are
+accepted from revision 1, while revision 2's newly captured delete rest,
+hover, active, and focus appearance still require human review. The review
+index makes the frozen control available while judging the candidate, so the
+decision need not rely on memory. Do not freeze B7 until that review accepts
+or requests another revision.
 
-Only after a recorded human accept/revise decision should B7 freeze an
-implementation contract. No source implementation, baseline comparison, or
-Phase B quality claim follows from this rehearsal. The experiment establishes
-that B5 synthesis can be represented as a candidate plus explicit,
-capturable evidence obligations, with reproducible captures; it does not
-establish that the resulting design is better or that the workflow improves
-design outcomes.
+This rehearsal still makes no source implementation, baseline comparison, or
+Phase B quality claim. It demonstrates a reviewable B6 revision with explicit
+provenance and interaction-state obligations—not that the design is better
+or that Dorkflow improves design outcomes.

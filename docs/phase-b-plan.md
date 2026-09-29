@@ -129,7 +129,14 @@ is involved.
 Store the links among intent, evidence, references, decisions, interface
 properties, and human judgments as ordinary JSON. Consolidation checks
 whether repeated human corrections imply a system-level rule and records
-explicit exceptions.
+explicit exceptions. A human reviews the proposed candidate against a directly
+reachable frozen control, not from memory alone. Each unresolved claim becomes
+an explicit evidence request with required viewport/state, proof criteria,
+capture references, and a human outcome. A captured state is not treated as
+approved merely because deterministic assertions passed. Preserve accepted
+parts of a direction separately from localized revise/borrow/reject decisions;
+do not freeze B7 while any required revision evidence remains under human
+review.
 
 ### B7 — Implementation contract
 
