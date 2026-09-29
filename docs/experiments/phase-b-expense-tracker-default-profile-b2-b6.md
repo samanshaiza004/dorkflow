@@ -1,7 +1,7 @@
 # Expense Tracker B2–B6 rehearsal with the default Design Profile
 
-**Status:** B6 revision 2 captured; second human review pending. Stop before
-B7 and implementation.
+**Status:** B6 revision 2 approved; B7 implementation contract frozen. Stop
+before source implementation and verification.
 **Date:** 2026-09-29
 **Run:** `run_aadad7d73a62536be1d6f2d415979ea7`
 
@@ -157,9 +157,10 @@ Revision 2 is `dir_b6hybrid02` (SHA-256
 `963bdf7bb10d693b5288493addd9ee979080b7b4f1c3fd2608601942aa5b1dea`). Its
 seven-state matrix has hash
 `0cb3aecf6de5c8dbc79846420c61638eb1dc5f5c68f8f104e931b16e5626ad97`; the
-model-facing evidence bundle is `ev_2c443a4383b3b9d5`. Every request in the
-revision-2 set is `captured` and awaiting review; this fresh capture does not
-silently inherit the prior review outcome.
+model-facing evidence bundle is `ev_2c443a4383b3b9d5`. The original request
+set remains unchanged with `captured` statuses; a separately hashed reviewed
+copy records the final human outcome without rewriting the pre-review
+artifact.
 
 | Candidate state | Capture | Screenshot SHA-256 | Deterministic observation |
 |---|---|---|---|
@@ -180,16 +181,52 @@ Lato was loaded from the local frozen font bytes. The revision-2 graph
 (`graph_b6hybrid02`) records the old candidate being superseded and the
 remaining evidence obligations.
 
-## Review boundary and next step
+## B6 approval and review principle
 
-The B6 gate remains open. The major composition and the two mobile claims are
-accepted from revision 1, while revision 2's newly captured delete rest,
-hover, active, and focus appearance still require human review. The review
-index makes the frozen control available while judging the candidate, so the
-decision need not rely on memory. Do not freeze B7 until that review accepts
-or requests another revision.
+The second human review approved `dir_b6hybrid02` as the basis for B7. It
+marked all seven revision-2 requests reviewed/satisfied: tablet working-area
+relationship; populated and empty mobile order; same-frame mobile
+post-submit feedback; keyboard focus; restrained pointer hover; and distinct
+active/delete behavior. The human specifically accepted the centered 32×32
+row-end target and the quieter expense accent. The record is bound to
+`review/b6-review-v2-packet.json` (SHA-256
+`c56a424f360b5e645f54dcdca79100c0e32060cd27694626fad1d2d37aad9472`) and is
+stored at `review/b6-review-v2-record.json` (SHA-256
+`19858f9fdb70ded45fc688e2adcf60b869863c0eeca9674dd7bf2f90260811cc`).
 
-This rehearsal still makes no source implementation, baseline comparison, or
-Phase B quality claim. It demonstrates a reviewable B6 revision with explicit
-provenance and interaction-state obligations—not that the design is better
-or that Dorkflow improves design outcomes.
+The separately reviewed evidence-request set is
+`evidence-requests-v2-reviewed.json` (SHA-256
+`af0b778697b68a1e257bdb78d6dd854a9909e26607239f1fac04e496b13ea054`). The
+original `evidence-requests-v2.json` is preserved unchanged at SHA-256
+`7b4e827c4709a596dd3222f06894a4d1211a56d7404aa34207c997175a09224c`.
+
+The human also established a permanent Dorkflow review principle: **never ask
+a human to evaluate a redesign from memory when the exact control is
+available.** Make the frozen control directly reachable beside the candidate
+under the same pinned rendering environment. The existing simple index and
+`/control/` and `/candidate/` routes satisfy this experiment; no compare UI is
+being built. The principle is documented in the B5 review protocol and the
+human decision record.
+
+## B7 contract and boundary
+
+B7 is frozen as
+`implementation/implementation-contract.json` (SHA-256
+`26dfb47a303df79f13b6cbb8d75ec94d412b1f47ca9c615c523702f0b10875f4`), with
+run provenance in `implementation/b7-freeze.json`. The contract carries four
+component requirements, seven reviewed state requirements, three responsive
+requirements, four accessibility requirements, and four preservation
+requirements. It intentionally has **zero token values** and no exact motion
+specification: B6 did not approve prototype colors, typography metrics,
+spacing, radii, shadows, column ratios, or animation timing as reusable
+tokens. The prototype's 720px media-query boundary was not independently
+reviewed; implementation should preserve the approved responsive behavior,
+choose the breakpoint by content fit, and verify around the selected boundary
+in B9.
+
+The contract does not constitute implementation, accessibility conformance,
+or a verification pass. No source-repository implementation, approved visual
+baseline, paired baseline experiment, or Phase B product-quality claim is
+included. The exact contract, review, evidence, control, profile, font, and
+rendering-environment hashes are summarized in
+[`phase-b-expense-tracker-b7-contract.md`](phase-b-expense-tracker-b7-contract.md).

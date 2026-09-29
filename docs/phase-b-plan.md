@@ -124,6 +124,11 @@ local CLI reports a hard stop until the human submits a validated decision;
 an agent cannot silently satisfy this gate. No GUI or universal taste score
 is involved.
 
+When the exact frozen control is available, make it directly reachable beside
+the candidate under the same pinned rendering environment. Never ask a human
+to evaluate a redesign from memory alone. A simple index with separate control
+and candidate routes is sufficient; a compare UI is not required.
+
 ### B6 — Decision graph and consolidation
 
 Store the links among intent, evidence, references, decisions, interface
@@ -140,10 +145,15 @@ review.
 
 ### B7 — Implementation contract
 
-Freeze the approved direction, tokens, component/state/motion/responsive
-rules, accessibility and preservation requirements, and explicit
-exceptions. The contract links back to its evidence and decisions. Changes
-after approval require a new recorded decision.
+Freeze the human-approved direction and behavior in a versioned
+`ImplementationContract`: component anatomy, state and responsive rules,
+accessibility and preservation requirements, and any explicit exceptions.
+Bind the contract to its originating decision IDs and evidence bundles. Do not
+promote unreviewed prototype values into approved tokens; empty token or motion
+sections are valid when no such values or behaviors were explicitly approved.
+Record run, candidate, review, profile, rendering-environment, and artifact
+hashes in run provenance alongside the contract. Contract freeze does not
+itself implement the redesign or mean verification has passed.
 
 ### B8 — Implementation boundary
 
@@ -238,15 +248,20 @@ The experiment-specific file interface currently targets the frozen Expense
 Tracker bundle rather than serving as a general CLI. It does not implement
 design or implementation sandboxing, implementation, or verification
 stages. Structural Phase A measurements are not yet paired with these
-captures. A real-page B2-B5 rehearsal has been followed by a manual B6 hybrid
-candidate that preserves the human's cross-direction synthesis. Five explicit
-evidence requests have been captured under the same frozen rendering
-environment and are awaiting a second human review; no B7 implementation
-contract is authorized. The response JSON Schemas now include the profile
-reference kinds accepted by the runtime contracts, with regression coverage.
-The workflow's broader usefulness and the Phase B product hypothesis have
-not been established.
+captures. A real-page B2-B5 rehearsal was followed by a manual B6 hybrid that
+preserved the human's cross-direction synthesis. B6 revision 2 was reviewed
+against a directly reachable frozen control; all seven explicit evidence
+requests were marked reviewed/satisfied, and B7's contract is now frozen.
+The contract contains no approved token values; exact prototype colors,
+spacing, type sizes, radii, shadows, column ratios, and the 720px prototype
+breakpoint remain provisional. Implementation and B9 verification have not
+started. The response JSON Schemas now include the profile reference kinds
+accepted by the runtime contracts, with regression coverage. The workflow's
+broader usefulness and the Phase B product hypothesis have not been
+established.
 
 The B2-B6 Expense Tracker rehearsal and its current review boundary are
 recorded in
 [`docs/experiments/phase-b-expense-tracker-default-profile-b2-b6.md`](experiments/phase-b-expense-tracker-default-profile-b2-b6.md).
+The resulting human approval and frozen B7 contract are summarized in
+[`docs/experiments/phase-b-expense-tracker-b7-contract.md`](experiments/phase-b-expense-tracker-b7-contract.md).
