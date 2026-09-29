@@ -31,6 +31,7 @@ On another machine, clone that repository with existing Git credentials.
 Dorkflow consumes the local checkout; it has no GitHub login, account browser,
 or synchronization service. The template is intentionally small JSON and
 Markdown, with no images, fonts, copied source archives, or Git LFS objects.
+Its starter content is MIT-licensed; see the template's `LICENSE` file.
 
 ## Connecting it to Phase B
 

@@ -74,3 +74,4 @@ people, not a second source of profile data.
 This starter is text-only. It includes no images, fonts, copied interface
 text, large files, or Git LFS objects. Its fictional examples are original
 text written for this template, not depictions of real products.
+The starter content is released under the MIT License; see `LICENSE`.
