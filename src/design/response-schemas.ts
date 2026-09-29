@@ -56,6 +56,17 @@ const designSlug = string({
 const density = string({ values: ["sparse", "relaxed", "balanced", "compact", "dense", "other"] });
 const surfaceModel = string({ values: ["flat", "bounded", "elevated", "layered", "immersive", "other"] });
 
+const profileReferenceKinds = ["profile-floor", "profile-rail", "profile-compass"] as const;
+const profileItemId = string({
+  maxLength: 80,
+  pattern: "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$",
+});
+const profileReference = (kind: (typeof profileReferenceKinds)[number]): JsonSchema => object({
+  kind: string({ values: [kind] }),
+  id: profileItemId,
+});
+const profileReferences = profileReferenceKinds.map(profileReference);
+
 const directionChoice = object({
   id: opaqueId("choice"),
   area: string({ values: [
@@ -68,6 +79,7 @@ const directionChoice = object({
   referenceAspectRefs: array(opaqueId("raspect")),
   evidenceRefs: array(opaqueId("ev")),
   captureRefs: array(opaqueId("cap")),
+  profileRefs: array({ anyOf: profileReferences }),
 });
 
 const designDirection = object({
@@ -103,8 +115,14 @@ const supportRef = (kind: string, prefix: string): JsonSchema => object({
   id: opaqueId(prefix),
 });
 
-const anySupportRef = (kinds: Array<{ kind: string; prefix: string }>): JsonSchema => ({
-  anyOf: kinds.map(({ kind, prefix }) => supportRef(kind, prefix)),
+const anySupportRef = (
+  kinds: Array<{ kind: string; prefix: string }>,
+  includeProfileReferences = false,
+): JsonSchema => ({
+  anyOf: [
+    ...kinds.map(({ kind, prefix }) => supportRef(kind, prefix)),
+    ...(includeProfileReferences ? profileReferences : []),
+  ],
 });
 
 const critiqueFinding = object({
@@ -120,8 +138,9 @@ const critiqueFinding = object({
     { kind: "state-evidence", prefix: "cap" },
     { kind: "system-model", prefix: "sys" },
     { kind: "system-token", prefix: "tok" },
+    { kind: "human-decision", prefix: "hdec" },
     { kind: "direction-choice", prefix: "choice" },
-  ]), 1),
+  ], true), 1),
   rationale: nonEmptyText(),
   suggestedResolution: nonEmptyText(),
 });
@@ -135,7 +154,8 @@ const choiceSupportAssessment = object({
     { kind: "state-evidence", prefix: "cap" },
     { kind: "system-model", prefix: "sys" },
     { kind: "system-token", prefix: "tok" },
-  ]), 1),
+    { kind: "human-decision", prefix: "hdec" },
+  ], true), 1),
   rationale: nonEmptyText(),
 });
 

@@ -153,6 +153,7 @@ function createDirections(): DesignDirection[] {
       referenceAspectRefs: ["raspect_12345678"],
       evidenceRefs: ["ev_12345678"],
       captureRefs: ["cap_12345678"],
+      profileRefs: [],
     }],
     uncertainties: [],
   }));

@@ -14,7 +14,8 @@
     "b1:serve-demo": "bun run src/cli/serve-phase-b-demo.ts",
     "b1:capture-states": "bun run src/cli/capture-state-matrix.ts",
     "b2:expense-tracker-openai": "bun run src/cli/run-expense-tracker-openai.ts",
-    "b2:expense-tracker-agent": "bun run src/cli/expense-tracker-agent.ts"
+    "b2:expense-tracker-agent": "bun run src/cli/expense-tracker-agent.ts",
+    "b5:render-review-summary": "bun run src/cli/render-review-summary.ts"
   },
   "dependencies": {
     "playwright": "1.62.1",

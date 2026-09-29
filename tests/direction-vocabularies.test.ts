@@ -37,6 +37,7 @@ const baseDirection: DesignDirectionValue = {
     referenceAspectRefs: [],
     evidenceRefs: ["ev_12345678"],
     captureRefs: [],
+    profileRefs: [],
   }],
   uncertainties: [],
 };
@@ -54,6 +55,7 @@ function withChoice(
     referenceAspectRefs: [],
     evidenceRefs: ["ev_12345678"],
     captureRefs: [],
+    profileRefs: [],
   };
 }
 

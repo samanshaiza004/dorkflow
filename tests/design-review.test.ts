@@ -14,6 +14,7 @@ import {
   writeReviewDecision,
   writeReviewPacket,
 } from "../src/design/review.ts";
+import { renderReviewSummary } from "../src/design/review-summary.ts";
 
 const png = new Uint8Array(24);
 png.set([137, 80, 78, 71, 13, 10, 26, 10]);
@@ -144,6 +145,7 @@ function makeDirections() {
       referenceAspectRefs: ["raspect_00000001"],
       evidenceRefs: ["ev_00000001"],
       captureRefs: index === 0 ? ["cap_00000001"] : [],
+      profileRefs: [],
     }],
     uncertainties: [],
   }));
@@ -209,6 +211,31 @@ function makeRecord(overrides: Record<string, unknown> = {}) {
 }
 
 describe("file-based B5 review artifacts", () => {
+  test("renders a compact read-only projection without changing the packet identity", () => {
+    const packet = makePacket();
+    packet.directionReviews[0]!.critique.choiceAssessments[0]!.assessment = "weakly-supported";
+    const originalHash = reviewPacketSha256(packet);
+    const summary = renderReviewSummary(packet);
+
+    expect(summary).toContain(`Source packet SHA-256: \`${originalHash}\``);
+    expect(summary).toContain("Decision schema: accept (including keep/borrow), reject, revise, or prefer");
+    expect(summary).toContain("~ weakly-supported");
+    expect(summary).toContain("[mobile 320×640 · default](../perceptual/captures/cap_00000001.png)");
+    expect(summary).toContain("<details><summary>Decision provenance</summary>");
+    expect(summary).not.toContain("imageBase64");
+    expect(reviewPacketSha256(packet)).toBe(originalHash);
+  });
+
+  test("renders model-authored text as inert Markdown rather than executable markup", () => {
+    const packet = makePacket();
+    packet.directionReviews[0]!.direction.choices[0]!.statement = '<img src="x" onerror="alert(1)">\n# injected heading';
+    const summary = renderReviewSummary(packet);
+
+    expect(summary).toContain('&lt;img src="x" onerror="alert(1)"&gt; # injected heading');
+    expect(summary).not.toContain('<img src="x"');
+    expect(summary).not.toContain("\n# injected heading");
+  });
+
   test("pairs each direction with its critique and maps only cited sanitized captures", () => {
     const packet = makePacket();
     expect(packet.directionReviews).toHaveLength(3);

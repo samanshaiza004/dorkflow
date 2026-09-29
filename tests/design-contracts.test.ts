@@ -182,6 +182,7 @@ const direction = {
     referenceAspectRefs: [ids.referenceAspect],
     evidenceRefs: [ids.evidence],
     captureRefs: [],
+    profileRefs: [],
   }],
   uncertainties: ["Whether the mobile rail should collapse or scroll horizontally."],
 };

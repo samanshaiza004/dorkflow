@@ -65,12 +65,13 @@ the packet should not be mistaken for a good everyday review surface.
   access to earlier human-review discussion and prior source inspection,
   although the frozen stage input itself contains no human decisions. This is
   not a blinded or isolated inference run.
-- The generated response JSON Schema omits profileRefs and profile support
-  reference kinds even though the runtime Zod contracts accept them. The
+- At the time of this run, the generated response JSON Schema omitted
+  profileRefs and profile support-reference kinds even though the runtime
+  Zod contracts accepted them. The mismatch has since been corrected with
+  schema-parity regression tests, but this historical run was not rerun. The
   default profile and its file hashes were included in model input and review,
   but this run cannot trace profile guidance to individual choices through
-  the supplied schema. Fix this mismatch before a profile-attribution
-  experiment; do not infer that defaults had no effect.
+  the schema it received; do not infer that defaults had no effect.
 - The new tablet/populated-mobile/post-submit-mobile captures describe the
   frozen baseline. They do not validate the proposed mobile redesign order.
   The recorded human decision keeps **entry → balance/summary → recent

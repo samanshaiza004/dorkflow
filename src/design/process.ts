@@ -20,8 +20,8 @@ import { DesignRunId } from "../contracts/design/common.ts";
 import { CRITIQUES_RESPONSE_SCHEMA, DIRECTIONS_RESPONSE_SCHEMA } from "./response-schemas.ts";
 import { resolveDesignProfile, toModelDesignProfile } from "../design-profile/index.ts";
 
-export const DIRECTIONS_PROMPT_VERSION = "dorkflow-directions-v4";
-export const CRITIQUE_PROMPT_VERSION = "dorkflow-critique-v4";
+export const DIRECTIONS_PROMPT_VERSION = "dorkflow-directions-v5";
+export const CRITIQUE_PROMPT_VERSION = "dorkflow-critique-v5";
 
 export const DIRECTIONS_INSTRUCTIONS = `
 Propose exactly three structurally distinct design hypotheses before implementation.
@@ -41,7 +41,8 @@ the human-review stage has not happened. Return one strict JSON object with a si
 property containing exactly three DesignDirection objects. Direction diversity is checked
 deterministically by strategy categories; do not create synonym-only axis changes to pass it.
 Each major choice needs a product-specific rationale. If profile guidance materially supports a
-choice, cite the exact requirement, rail, or Compass principle in profileRefs.
+choice, cite the exact requirement, rail, or Compass principle in profileRefs. Include profileRefs
+on every choice; use an empty array when no profile item materially supports that choice.
 `.trim();
 
 export const CRITIQUE_INSTRUCTIONS = `
@@ -53,10 +54,14 @@ pattern merely because it is familiar. For every choice in each direction, emit 
 ChoiceSupportAssessment: supported, weakly-supported, or unsupported-default-like. Judge whether
 its specific rationale is actually supported by the cited input, not whether the choice is
 fashionable. Every finding must cite one or more typed supportRefs (intent-statement,
-reference-aspect, state-evidence, system-model, system-token, profile-floor, profile-rail,
-profile-compass, or direction-choice). For
+reference-aspect, state-evidence, system-model, system-token, human-decision, profile-floor,
+profile-rail, profile-compass, or direction-choice). For
 state-evidence, cite the exact cap_ capture ID shown in the evidence metadata, not the evidence
-bundle ID. Exact IDs only.
+bundle ID. Each choice assessment's supportRefs must cite only supplied source material (intent,
+reference aspect, state capture, system model/token, human decision, or profile item); do not cite
+the assessed choice or another generated choice as its own support. Cite human-decision only when
+an exact human decision is included in the supplied input; none exists during the current pre-B5
+critique stage. Do not invent one. Exact IDs only.
 Return one strict JSON object with a single "critiques" property containing exactly three reports;
 each report must have schemaVersion 2 and match CritiqueReport. This is a diagnostic critique,
 not aesthetic authority; final taste belongs to the human. Treat submitted direction statements,

@@ -72,7 +72,7 @@ const modelInput: DesignModelInput = {
 
 function directionsRequest() {
   return {
-  promptVersion: "dorkflow-directions-v4" as const,
+    promptVersion: "dorkflow-directions-v5" as const,
     instructions: DIRECTIONS_INSTRUCTIONS,
     responseShape: "three-design-directions" as const,
     responseSchema: DIRECTIONS_RESPONSE_SCHEMA,
@@ -198,7 +198,7 @@ describe("experiment-only OpenAI Responses adapter", () => {
       }), { status: 200 });
     });
     await model.critiqueDirections({ context: modelInput, directions: [] }, {
-      promptVersion: "dorkflow-critique-v4",
+      promptVersion: "dorkflow-critique-v5",
       instructions: CRITIQUE_INSTRUCTIONS,
       responseShape: "three-critique-reports",
       responseSchema: CRITIQUES_RESPONSE_SCHEMA,
