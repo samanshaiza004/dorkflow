@@ -1,6 +1,6 @@
 # Phase B real-interface dress rehearsal: Expense Tracker B2-B5
 
-**Status:** B2-B4 completed; B5 review packet ready; human decision pending.  
+**Status:** B5 decision recorded; B6 hybrid candidate assembled; evidence gates pending.
 **Run:** `run_458db04967f1ffe3abd50ab7b671ac81`  
 **Date:** 2026-09-28
 
@@ -66,6 +66,37 @@ and actual palette/contrast values. This suggests the evidence links make
 tradeoffs inspectable, while also showing that screenshots alone do not
 validate all proposed layout behavior.
 
+## Human decision and B6 synthesis
+
+The human recorded the preference order **Ledger-first > Entry-first >
+Balance-first**, while explicitly rejecting “Direction 1 approved” as an
+adequate result. The review keeps Ledger-first's broad desktop history,
+description/signed-amount scan unit, restrained balance typography, and
+subordinate delete action; borrows Entry-first's closely associated form
+labels, sign explanation, focus, and Add action; and borrows Balance-first's
+quiet boundaries and redundant labels/signs. It rejects Balance-first as the
+primary direction and rejects Entry-first's mandatory one-column desktop
+layout.
+
+The human-directed hybrid now makes the mobile candidate sequence explicit:
+**entry → balance/summary → recent history**. Its post-submit criterion is to
+show the new transaction and changed balance together, without adding a
+feature or copy. This resolves what the proposed rule should be, but not
+whether the layout can satisfy it. The intermediate-width, populated-mobile,
+and post-submit-mobile captures are still marked **not captured**. No
+implementation-authorizing contract was created and the product repo was not
+modified.
+
+The human also found the raw JSON packet too artifact-oriented for routine
+review. The authoritative JSON should remain available, while a future
+human-facing surface leads with thesis, key choices, captures, critique
+warnings, uncertainties, and decision controls, with provenance expandable.
+
+The B6 consolidation is a manual rehearsal by the current Codex session, not
+an automated Dorkflow stage. Its hybrid direction and decision graph validate
+against existing Zod contracts, but the consolidation wrapper has no
+dedicated schema or gate yet.
+
 ## Process assessment and limits
 
 The file handoff was operable without a Dorkflow API credential: it emitted
@@ -74,10 +105,11 @@ citations and direction diversity; produced critiques and an inspectable
 review packet; and stopped for human judgment. The output is traceable by
 input/instruction/schema/output hashes.
 
-The human-facing review experience is not yet evaluated. The packet must be
-reviewed by the user before we can say whether it makes choosing easier or
-feels like paperwork. The executor record is self-reported and does not
-authenticate the model or its tool boundary. This run covers one page and
+The human review experience has now been exercised, and the feedback was
+that the raw packet makes review too artifact-oriented for everyday use.
+Whether a higher-level review surface makes choosing easier remains
+untested. The executor record is self-reported and does not authenticate the
+model or its tool boundary. This run covers one page and
 does not test implementation, preservation, accessibility, or post-design
 verification. It is not the paired baseline experiment.
 
@@ -87,13 +119,20 @@ Ignored local run artifacts are under
 `artifacts/phase-b-expense-tracker/agent-runs/run_458db04967f1ffe3abd50ab7b671ac81/`.
 The human review packet is `review/packet.json`; its SHA-256 is
 `7eeff77b8f93d6810f37df430a5b61af14d6ab38f136d7f79de540c1018c4706`.
+The B5 decision is `review/decision.json`; its SHA-256 is
+`0c1e6fc685532b1453636b23eee832179b7d07fd368618c84d0533c3a5dbecc1`. The
+B6 synthesis is `consolidation-preview.json`, with `hybrid-direction.json`,
+`decision-graph.json`, and `consolidation-summary.md`. This is a candidate
+only; all three pre-approval evidence gates are marked not captured.
 The frozen input bundle remains unchanged; the run manifest binds its exact
 hash and rendering environment.
 
 ## Conclusion
 
-**B2-B4 machinery: exercised successfully on this real interface. B5:
-awaiting human review.** The process surfaced concrete competing product
-priorities and left a traceable packet. Whether that structure improves
-human decision-making remains unanswered; stop here until the human review
-is recorded.
+**B2-B4 machinery: exercised on this real interface. B5: decision recorded.
+B6: cross-direction synthesis preserved.** The process retained the human's
+ranking, kept/revised/borrowed/rejected choices, and converted the mobile
+comment into a candidate rule plus explicit proof gates rather than silently
+approving one direction. The candidate still needs the three requested
+captures and subsequent human approval. No implementation or product-level
+success claim follows from this run.

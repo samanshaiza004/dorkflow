@@ -221,5 +221,8 @@ The experiment-specific file interface currently targets the frozen Expense
 Tracker bundle rather than serving as a general CLI. It does not implement
 design or implementation sandboxing, implementation, or verification
 stages. Structural Phase A measurements are not yet paired with these
-captures. B2-B5 can now be exercised on the real page, but the workflow's
-usefulness and the Phase B product hypothesis have not been established.
+captures. A real-page B2-B5 rehearsal has been completed, and a manual B6
+consolidation preview preserved the human's cross-direction synthesis. The
+three requested responsive/post-submit evidence gates remain open, so no B7
+implementation contract was authorized. The workflow's broader usefulness
+and the Phase B product hypothesis have not been established.
