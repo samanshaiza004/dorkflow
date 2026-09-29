@@ -13,6 +13,13 @@ import {
   SystemModelId,
   SystemTokenId,
 } from "./common.ts";
+import { ProfileItemId } from "./profile.ts";
+
+const ProfileSupportRef = z.discriminatedUnion("kind", [
+  z.object({ kind: z.literal("profile-floor"), id: ProfileItemId }).strict(),
+  z.object({ kind: z.literal("profile-rail"), id: ProfileItemId }).strict(),
+  z.object({ kind: z.literal("profile-compass"), id: ProfileItemId }).strict(),
+]);
 
 /** Typed citations make the reason for a critique inspectable and resolvable. */
 export const CritiqueSupportRef = z.discriminatedUnion("kind", [
@@ -23,6 +30,7 @@ export const CritiqueSupportRef = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("system-token"), id: SystemTokenId }).strict(),
   z.object({ kind: z.literal("human-decision"), id: HumanDecisionId }).strict(),
   z.object({ kind: z.literal("direction-choice"), id: DirectionChoiceId }).strict(),
+  ...ProfileSupportRef.options,
 ]);
 
 /** Choice assessments must cite source material, not the generated choice they assess. */
@@ -33,6 +41,7 @@ export const ChoiceGroundingRef = z.discriminatedUnion("kind", [
   z.object({ kind: z.literal("system-model"), id: SystemModelId }).strict(),
   z.object({ kind: z.literal("system-token"), id: SystemTokenId }).strict(),
   z.object({ kind: z.literal("human-decision"), id: HumanDecisionId }).strict(),
+  ...ProfileSupportRef.options,
 ]);
 
 export const CritiqueFinding = z

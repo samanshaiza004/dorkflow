@@ -1,7 +1,9 @@
 import { describe, expect, test } from "bun:test";
-import { mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
+import { cp, mkdir, mkdtemp, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 import type {
   CritiqueReport,
   DesignDirection,
@@ -26,6 +28,24 @@ samplePng.set([137, 80, 78, 71, 13, 10, 26, 10]);
 new DataView(samplePng.buffer).setUint32(16, 1440);
 new DataView(samplePng.buffer).setUint32(20, 900);
 const samplePngSha256 = sha256Bytes(samplePng);
+const profileTemplate = join(dirname(fileURLToPath(import.meta.url)), "../templates/dorkflow-design-atlas-template");
+
+async function createProfileRepo(): Promise<{ root: string; cleanup: () => Promise<void> }> {
+  const root = await mkdtemp(join(tmpdir(), "dorkflow-profile-process-test-"));
+  try {
+    await cp(profileTemplate, root, { recursive: true });
+    const git = (args: string[]) => execFileSync("git", args, { cwd: root, stdio: "ignore" });
+    git(["init", "--quiet"]);
+    git(["config", "user.name", "Dorkflow Tests"]);
+    git(["config", "user.email", "dorkflow-tests@example.invalid"]);
+    git(["add", "--all"]);
+    git(["commit", "--quiet", "-m", "freeze profile for process test"]);
+    return { root, cleanup: () => rm(root, { recursive: true, force: true }) };
+  } catch (error) {
+    await rm(root, { recursive: true, force: true });
+    throw error;
+  }
+}
 
 const input = {
   schemaVersion: 1,
@@ -138,7 +158,10 @@ function createDirections(): DesignDirection[] {
   }));
 }
 
-function createCritiques(directions: DesignDirection[]): CritiqueReport[] {
+function createCritiques(
+  directions: DesignDirection[],
+  supportRef?: CritiqueReport["choiceAssessments"][number]["supportRefs"][number],
+): CritiqueReport[] {
   return directions.map((direction, index) => ({
     schemaVersion: 2,
     id: `crit_0000000${index + 1}`,
@@ -150,7 +173,7 @@ function createCritiques(directions: DesignDirection[]): CritiqueReport[] {
       choiceRef: choice.id,
       assessment: index === 2 ? "unsupported-default-like" as const
         : index === 1 ? "weakly-supported" as const : "supported" as const,
-      supportRefs: [{ kind: "intent-statement" as const, id: "istat_12345678" }],
+      supportRefs: [supportRef ?? { kind: "intent-statement", id: "istat_12345678" }],
       rationale: "The assessment is tied to the supplied operational intent.",
     })),
     uncertainties: [],
@@ -234,6 +257,7 @@ function fakeModel(
 describe("B2-B4 design process slice", () => {
   test("the model-facing projection excludes capture paths", async () => {
     await withFixtureRun(async (_artifacts, modelInput) => {
+      expect(modelInput.designProfile).toBeUndefined();
       const serialized = JSON.stringify(modelInput);
       expect(serialized).not.toContain("captures/cap_");
       expect(serialized).not.toContain("quarantine");
@@ -248,6 +272,54 @@ describe("B2-B4 design process slice", () => {
         },
       })).toThrow();
     });
+  });
+
+  test("threads optional profile guidance and citations into the model and frozen run provenance", async () => {
+    const profileRepo = await createProfileRepo();
+    try {
+      await withFixtureRun(async (artifacts) => {
+        const configured = { ...artifacts, designProfilePath: profileRepo.root };
+        const modelInput = await createDesignModelInput(configured);
+        expect(modelInput.designProfile?.provenance).toMatchObject({
+          sourceKind: "git-worktree",
+          worktreeState: "clean",
+          revision: expect.stringMatching(/^[a-f0-9]{40}$/),
+          profileSha256: expect.stringMatching(/^[a-f0-9]{64}$/),
+        });
+        const guidance = JSON.stringify(modelInput.designProfile);
+        expect(guidance).toContain("floor-accessibility");
+        expect(guidance).toContain("rail-preserve-purpose");
+        expect(guidance).toContain("compass-familiar-patterns");
+        expect(guidance).not.toContain("Common Thread Reading Room");
+        expect(guidance).not.toContain("Harbor Operations Wallboard");
+
+        const directions = createDirections();
+        directions[0]!.choices[0]!.profileRefs = [{ kind: "profile-rail", id: "rail-preserve-purpose" }];
+        const model = fakeModel(modelInput, directions);
+        model.critiqueDirections = async ({ directions: returnedDirections }) => {
+          const critiques = createCritiques(returnedDirections, {
+            kind: "profile-rail",
+            id: "rail-preserve-purpose",
+          });
+          return modelResponse({ critiques });
+        };
+
+        const result = await runDirectionCritiqueSlice(configured, model);
+        expect(result.status).toBe("critiqued");
+        if (result.status !== "critiqued") return;
+        const persisted = await persistDesignProcessRun(configured, result);
+        const manifest = DesignProcessManifest.parse(JSON.parse(await readFile(persisted.manifestPath, "utf8")));
+        expect(manifest.designProfile).toEqual(modelInput.designProfile?.provenance);
+        expect(manifest.artifactDigests.map(({ path }) => path)).toContain("design-profile/provenance.json");
+        expect(JSON.parse(await readFile(join(persisted.directory, "design-profile/provenance.json"), "utf8")))
+          .toEqual(modelInput.designProfile?.provenance);
+        const packet = await readReviewPacket(persisted.directory);
+        expect(packet.designProfile?.provenance).toEqual(modelInput.designProfile?.provenance);
+        expect(JSON.stringify(packet)).not.toContain("Common Thread Reading Room");
+      });
+    } finally {
+      await profileRepo.cleanup();
+    }
   });
 
   test("validates direction citations, gates diversity, critiques, and reports support diagnostics", async () => {

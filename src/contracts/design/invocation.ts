@@ -6,6 +6,7 @@ import {
   Sha256,
   ShortText,
 } from "./common.ts";
+import { DesignProfileProvenance } from "./profile.ts";
 
 export const ModelInvocationRole = z.enum(["direction-generation", "critique"]);
 
@@ -84,6 +85,7 @@ export const DesignProcessManifest = z.object({
   updatedAt: IsoTimestamp,
   modelInputSha256: Sha256,
   renderingEnvironmentSha256: Sha256,
+  designProfile: DesignProfileProvenance.nullable().optional(),
   promptVersions: z.object({ directions: ShortText, critique: ShortText }).strict(),
   modelRelationship: z.enum(["not-compared", "same-model", "different-model"]),
   invocationRefs: z.array(ModelInvocationId).min(1),

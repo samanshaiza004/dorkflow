@@ -43,6 +43,14 @@ contributes, such as typography, information density, navigation, image
 treatment, or motion. A design direction explains its type, palette, spatial
 model, surfaces, image treatment, and motion in terms of that intent.
 
+An optional local Git-backed Design Profile adds reusable Floor, Rails, and
+Compass guidance upstream of project intent. Directions and critiques can cite
+the exact profile item IDs. Atlas entries and anti-references are validated
+and fingerprinted but not retrieved or injected automatically. A person must
+select any project references through the existing `ReferenceSet`. The
+profile is pinned to a concrete local commit and input hashes; dirty state is
+explicit. See [Design Profile setup](design-profile.md).
+
 Directions should differ in their design logic, not only their palette. A
 critique asks what requirement supports each visible decision, what
 relationships it participates in, and what conflicts with the intent or

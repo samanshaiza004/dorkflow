@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "id": "anti-harbor-operations-wallboard",
+  "title": "Harbor Operations Wallboard — fictional failure example",
+  "source": {
+    "type": "fictional-original",
+    "name": "Dorkflow Design Atlas template authors; not based on a real product"
+  },
+  "rationale": "In this imagined wallboard, every metric and action has equal weight, status is communicated only by color, and alerts pulse continuously. Important signals compete with routine information, color-only meaning is fragile across viewing conditions, and persistent motion distracts when no action is needed.",
+  "techniqueNotUniversallyBanned": "Dense dashboards, color coding, and motion can be useful when a real task calls for them; preserve clear hierarchy, non-color status cues, and respect for motion preferences."
+}

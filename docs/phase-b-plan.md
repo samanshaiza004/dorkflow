@@ -53,6 +53,14 @@ what to use and what not to use; a reference is not a general style prompt.
 Each intent statement and attributed reference aspect has its own opaque ID so
 design choices cite the exact reason or precedent, not an entire document.
 
+An optional local Git-backed Design Profile can supply reusable Floor, Rails,
+and Compass guidance. Its concrete local Git revision, clean/dirty state, and
+hashes of all manifest-listed inputs are recorded. Only Floor/Rails/Compass
+are projected into model context; Atlas entries and anti-references are
+validated but not automatically included. A human still selects project
+references in the existing `ReferenceSet`. No profile is required, and this
+does not change prior B2-B6 experiment decisions.
+
 ### B3 — Design directions
 
 Produce three substantively different design hypotheses before producing
@@ -62,15 +70,17 @@ decisions, changed decisions, uncertainty, and supporting intent/evidence
 references. A deterministic axis comparison flags pairs that differ on
 fewer than three strategy categories. Density and surface model use controlled
 vocabularies (with a reasoned `other` option); other axes remain open slugs.
-Choices cite exact intent statements, reference aspects, or rendered-state
-capture IDs. This checks normalized labels, not creative distinctness.
+Choices cite exact intent statements, reference aspects, rendered-state
+capture IDs, or selected Design Profile item IDs. This checks normalized
+labels, not creative distinctness.
 
 ### B4 — Evidence-linked critique
 
 Critique each direction for necessity, product specificity, consistency,
 exceptions, dependencies, and unsupported defaults. Each finding cites typed
-intent, reference-aspect, system, or exact state-capture refs and includes a proposed
-resolution. The critic classifies each choice as supported, weakly supported,
+intent, reference-aspect, profile, system, or exact state-capture refs and
+includes a proposed resolution. The critic classifies each choice as
+supported, weakly supported,
 or unsupported/default-like. A familiar visual pattern is not inherently
 wrong; the question is whether this product's intent supports it. The
 unsupported-choice rate is a diagnostic, not a universal taste score or

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "rails-typography",
+  "name": "Typography",
+  "rails": [
+    {
+      "id": "rail-type-roles",
+      "principle": "Typography has jobs, not just styles.",
+      "recommendation": "Give type choices legible roles for hierarchy, reading, labels, and data; keep repeated roles consistent.",
+      "context": "A small, coherent type system makes emphasis and scanning easier to learn.",
+      "escapeCondition": "Use a deliberate typographic exception when a specific content role or art direction benefits and legibility remains intact."
+    }
+  ]
+}

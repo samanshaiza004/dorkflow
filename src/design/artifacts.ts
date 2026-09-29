@@ -81,6 +81,9 @@ export async function persistDesignProcessRun(
       path: `perceptual/captures/${capture.id}.png`,
     })),
   });
+  if (input.designProfile) {
+    await add("design-profile/provenance.json", input.designProfile.provenance);
+  }
   await add("instructions.json", {
     schemaVersion: 1,
     directions: { version: result.promptVersions.directions, text: DIRECTIONS_INSTRUCTIONS },
@@ -122,6 +125,7 @@ export async function persistDesignProcessRun(
     updatedAt,
     modelInputSha256: result.inputSha256,
     renderingEnvironmentSha256: input.evidence.renderingEnvironmentSha256,
+    designProfile: input.designProfile?.provenance ?? null,
     promptVersions: result.promptVersions,
     modelRelationship: result.modelRelationship,
     invocationRefs: result.modelInvocations.map((invocation) => invocation.id),

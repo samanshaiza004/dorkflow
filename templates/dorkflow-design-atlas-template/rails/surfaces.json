@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "rails-surfaces",
+  "name": "Surfaces and boundaries",
+  "rails": [
+    {
+      "id": "rail-purposeful-surfaces",
+      "principle": "Surfaces express a relationship.",
+      "recommendation": "Use fills, borders, shadows, and elevation when they clarify grouping, interaction, hierarchy, metaphor, or art direction.",
+      "context": "Repeated surface treatments can create a coherent system; adding them to every region can flatten hierarchy.",
+      "escapeCondition": "Cards, gradients, borders, shadows, and layered surfaces are all valid when their purpose is clear and their repetition is intentional."
+    }
+  ]
+}

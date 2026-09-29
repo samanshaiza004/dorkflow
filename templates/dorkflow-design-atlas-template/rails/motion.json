@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "rails-motion",
+  "name": "Motion",
+  "rails": [
+    {
+      "id": "rail-purposeful-motion",
+      "principle": "Motion earns its place by clarifying change or supporting a task.",
+      "recommendation": "Prefer motion that communicates cause, state, or spatial relation; keep incidental movement limited.",
+      "context": "Motion can guide attention, but unrelated or persistent movement can compete with work.",
+      "escapeCondition": "Use richer or more expressive motion when the product's purpose and audience support it, while preserving reduced-motion behavior and appropriate control."
+    }
+  ]
+}

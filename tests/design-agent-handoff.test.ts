@@ -205,7 +205,7 @@ test("accepts directions only after citation validation and diversity, then prep
     const execution = await readFile(join(prepared.runDirectory, "directions/execution.json"), "utf8");
     expect(execution).not.toContain("tokenUsage");
     expect(execution).not.toContain("toolPermissions");
-    expect(JSON.parse(execution).instructionsVersion).toBe("dorkflow-directions-v3");
+    expect(JSON.parse(execution).instructionsVersion).toBe("dorkflow-directions-v4");
     await expect(submitAgentDirections(
       prepared.runDirectory,
       JSON.stringify({ directions: createDirections() }),
@@ -280,7 +280,7 @@ test("completes critique and creates the B5 packet with honest external-agent pr
     expect(JSON.parse(await readFile(result.reviewPacketPath, "utf8")).directionReviews).toHaveLength(3);
     expect(JSON.parse(await readFile(join(prepared.runDirectory, "critique/execution.json"), "utf8"))).toMatchObject({
       stage: "critique",
-      instructionsVersion: "dorkflow-critique-v3",
+      instructionsVersion: "dorkflow-critique-v4",
       executor: { kind: "external-agent", agentName: "Codex" },
       reproducibility: "agent-reported",
     });

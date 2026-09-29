@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "profileId": "dorkflow-design-atlas",
+  "name": "Dorkflow Design Atlas Starter",
+  "description": "A permissive, human-owned starting point for coherent design decisions. Replace examples with project context as it becomes known.",
+  "floorFiles": [
+    "floor/core.json"
+  ],
+  "railFiles": [
+    "rails/project-rails.json",
+    "rails/layout.json",
+    "rails/typography.json",
+    "rails/color.json",
+    "rails/motion.json",
+    "rails/surfaces.json"
+  ],
+  "compassFile": "compass/principles.json",
+  "atlasFiles": [
+    "atlas/common-thread-reading-room.json"
+  ],
+  "antiReferenceFiles": [
+    "anti-references/harbor-operations-wallboard.json"
+  ]
+}

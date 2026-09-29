@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "floor-core",
+  "name": "Usable, coherent foundations",
+  "requirements": [
+    {
+      "id": "floor-hierarchy",
+      "principle": "Make the product's purpose legible.",
+      "requirement": "Make the primary task and next useful action easy to find.",
+      "rationale": "Clear hierarchy helps people understand where to begin and what matters."
+    },
+    {
+      "id": "floor-accessibility",
+      "principle": "Support different ways of perceiving and operating the interface.",
+      "requirement": "Preserve semantic structure, keyboard operation, visible focus, non-color status cues, and applicable contrast and platform requirements.",
+      "rationale": "These foundations make the interface more usable across abilities and viewing conditions."
+    },
+    {
+      "id": "floor-responsive",
+      "principle": "Keep the interface useful across supported contexts.",
+      "requirement": "Keep content and actions usable at supported viewport sizes, zoom levels, and input modes.",
+      "rationale": "The layout should adapt to its actual use contexts without hiding essential information."
+    },
+    {
+      "id": "floor-states",
+      "principle": "Design the interaction, not just its still image.",
+      "requirement": "Cover relevant loading, empty, error, success, and interaction states.",
+      "rationale": "People need clear feedback when content or interface state changes."
+    },
+    {
+      "id": "floor-coherence",
+      "principle": "Use repetition to make the system easier to learn.",
+      "requirement": "Reuse meaningful spacing, type, color, and surface roles; make exceptions purposeful.",
+      "rationale": "Consistent relationships reduce arbitrary choices while leaving room for meaningful emphasis."
+    },
+    {
+      "id": "floor-motion",
+      "principle": "Let motion clarify change without becoming a barrier.",
+      "requirement": "Use motion to support a task, keep it interruptible where appropriate, and respect reduced-motion preferences.",
+      "rationale": "Motion can communicate state, but persistent or unavoidable movement can distract."
+    }
+  ]
+}

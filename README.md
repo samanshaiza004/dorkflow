@@ -46,6 +46,12 @@ GUI, or design canvas.
   workflow and tests whether its artifacts and review gates improve an
   actual redesign over the same agent using a strong frontend-design prompt.
   Phase B can use an incomplete System Recovery result as an optional input.
+  It also accepts an optional local Git-backed Design Profile: Floor, Rails,
+  and Compass become model-facing guidance; Atlas references remain manually
+  selected through the project reference set. The starter is staged at
+  [`templates/dorkflow-design-atlas-template`](templates/dorkflow-design-atlas-template/README.md).
+  See [Design Profile setup](docs/design-profile.md). This does not claim
+  success for the Phase B product experiment.
   Its first B2-B5 slice validates exact intent/reference citations, gates
   direction diversity before critique, and reports unsupported-choice
   diagnostics. File-based agent handoffs fingerprint each stage's input,

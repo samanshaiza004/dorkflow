@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "id": "rails-layout",
+  "name": "Layout and hierarchy",
+  "rails": [
+    {
+      "id": "rail-grouping-before-decoration",
+      "principle": "Explain grouping before ornamenting it.",
+      "recommendation": "Normally establish hierarchy through alignment, sequence, and spacing before adding decorative containers.",
+      "context": "People need to understand how content and actions relate; a frame is not the only way to communicate grouping.",
+      "escapeCondition": "Use visible boundaries when they improve interaction, hierarchy, metaphor, content separation, or an intentional art direction."
+    },
+    {
+      "id": "rail-task-shaped-density",
+      "principle": "Let the work determine density.",
+      "recommendation": "Choose compactness and whitespace according to the task, content, audience, and supported viewport—not a universal preference for spacious or dense layouts.",
+      "context": "Different products and tasks need different amounts of simultaneous information.",
+      "escapeCondition": "Use unusually dense or sparse composition when it supports the project and remains usable across its tested contexts."
+    }
+  ]
+}

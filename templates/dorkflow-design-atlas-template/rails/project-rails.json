@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "rails-project-defaults",
+  "name": "Permissive project defaults",
+  "rails": [
+    {
+      "id": "rail-preserve-purpose",
+      "principle": "A visual redesign preserves product intent.",
+      "recommendation": "Preserve the core task, useful existing behavior, and accurate content unless a human decision changes them.",
+      "context": "A visual improvement should not silently change what the product says or does.",
+      "escapeCondition": "Change behavior or content when an explicit human decision supports the product goal; record the decision and any required content review."
+    },
+    {
+      "id": "rail-existing-stack",
+      "principle": "Prefer the project's established tools.",
+      "recommendation": "Use the existing platform and stack by default; explain a new dependency when it materially helps.",
+      "context": "This keeps changes aligned with the project and avoids incidental complexity.",
+      "escapeCondition": "Introduce a dependency when a concrete requirement is difficult to meet with existing tools and the project accepts its maintenance cost."
+    },
+    {
+      "id": "rail-truth-and-privacy",
+      "principle": "Treat content and user data as product responsibilities.",
+      "recommendation": "Do not invent product facts or endorsements, expose private data, or add a network request without a project need.",
+      "context": "A polished interface must remain accurate and respect the project's privacy boundaries.",
+      "escapeCondition": "Use real claims or data only when an authoritative project source and the applicable review process support them; add network behavior only for an approved product requirement."
+    },
+    {
+      "id": "rail-rights-and-attribution",
+      "principle": "Use material the project has permission to use.",
+      "recommendation": "Attribute references and do not copy unlicensed assets, wording, or a complete visual identity.",
+      "context": "A reference can inform a named quality without granting rights to its material.",
+      "escapeCondition": "Reuse an asset or text only when the project has verified permission and records any required attribution."
+    }
+  ]
+}

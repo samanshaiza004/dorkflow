@@ -11,6 +11,13 @@ import {
   ReferenceAspectId,
   SystemModelId,
 } from "./common.ts";
+import { ProfileItemId } from "./profile.ts";
+
+export const DesignProfileChoiceRef = z.discriminatedUnion("kind", [
+  z.object({ kind: z.literal("profile-floor"), id: ProfileItemId }).strict(),
+  z.object({ kind: z.literal("profile-rail"), id: ProfileItemId }).strict(),
+  z.object({ kind: z.literal("profile-compass"), id: ProfileItemId }).strict(),
+]);
 
 export const DensityStrategy = z.enum([
   "sparse",
@@ -66,6 +73,7 @@ export const DirectionChoice = z
     referenceAspectRefs: z.array(ReferenceAspectId),
     evidenceRefs: z.array(EvidenceId),
     captureRefs: z.array(CaptureId),
+    profileRefs: z.array(DesignProfileChoiceRef).optional(),
   })
   .strict()
   .refine(
@@ -73,7 +81,8 @@ export const DirectionChoice = z
       choice.intentRefs.length +
         choice.referenceAspectRefs.length +
         choice.evidenceRefs.length +
-        choice.captureRefs.length >
+        choice.captureRefs.length +
+        (choice.profileRefs?.length ?? 0) >
       0,
     {
       message: "A design choice must cite an intent statement, reference aspect, or evidence",
@@ -129,4 +138,5 @@ export type StrategyAxes = z.infer<typeof StrategyAxes>;
 export type DensityStrategy = z.infer<typeof DensityStrategy>;
 export type SurfaceModelStrategy = z.infer<typeof SurfaceModelStrategy>;
 export type DirectionChoice = z.infer<typeof DirectionChoice>;
+export type DesignProfileChoiceRef = z.infer<typeof DesignProfileChoiceRef>;
 export type DesignDirection = z.infer<typeof DesignDirection>;

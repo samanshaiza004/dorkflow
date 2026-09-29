@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "compass-starter",
+  "name": "Open, product-led starting compass",
+  "northStar": "Choose a visual language in response to the product, its people, and its context; make each meaningful choice deliberate without prescribing one house aesthetic.",
+  "principles": [
+    {
+      "id": "compass-product-specificity",
+      "principle": "Specificity comes from fit",
+      "guidance": "Let distinctiveness emerge from the product's purpose, information, audience, composition, interactions, or art direction—not decoration added without a reason."
+    },
+    {
+      "id": "compass-familiar-patterns",
+      "principle": "Familiar patterns are allowed",
+      "guidance": "Use a familiar convention when it serves the task and audience; novelty is not a requirement."
+    },
+    {
+      "id": "compass-expression",
+      "principle": "Restraint and expression are both valid",
+      "guidance": "Neither minimalism nor ornament is automatically better. Choose the degree of expression that fits the project and its people."
+    },
+    {
+      "id": "compass-coherence",
+      "principle": "Related choices should relate",
+      "guidance": "Let repeated visual decisions form a coherent system, while keeping explicit exceptions available when they serve a real purpose."
+    },
+    {
+      "id": "compass-usability-and-style",
+      "principle": "Usability is not a house style",
+      "guidance": "Minimal, dense, editorial, tactile, brutalist, spatial, or highly expressive approaches can all be appropriate when they satisfy the Floor and project needs."
+    }
+  ]
+}

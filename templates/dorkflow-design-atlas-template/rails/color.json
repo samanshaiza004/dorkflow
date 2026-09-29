@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "rails-color",
+  "name": "Color",
+  "rails": [
+    {
+      "id": "rail-color-roles",
+      "principle": "Color communicates through roles and context.",
+      "recommendation": "Use color deliberately for identity, emphasis, surfaces, and state; keep the meaning of repeated roles consistent.",
+      "context": "A role-based palette is easier to maintain than unrelated local color choices.",
+      "escapeCondition": "Use an expressive, restrained, monochrome, or unconventional palette when it fits the project; keep essential meaning available through labels, shape, position, or other non-color cues."
+    }
+  ]
+}

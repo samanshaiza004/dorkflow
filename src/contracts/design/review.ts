@@ -14,6 +14,7 @@ import { InterfaceStateKind } from "./state.ts";
 import { DesignIntent } from "./intent.ts";
 import { ModelEvidence, ModelReferenceSet } from "./model-input.ts";
 import { SystemModel } from "./system-model.ts";
+import { ModelDesignProfile } from "./profile.ts";
 
 /** A packet path is relative to the run root and can only address sanitized perceptual captures. */
 export const ReviewCapture = z
@@ -89,6 +90,7 @@ export const ReviewPacket = z
     references: ModelReferenceSet,
     evidence: ModelEvidence,
     systemModel: SystemModel.nullable(),
+    designProfile: ModelDesignProfile.optional(),
     directionReviews: z.array(DirectionReview).length(3),
     captures: z.array(ReviewCapture),
   })

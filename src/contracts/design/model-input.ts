@@ -7,6 +7,7 @@ import { ReferenceAspect } from "./reference.ts";
 import { ReferenceId, ReferenceSetId, DesignIntentId } from "./common.ts";
 import { InterfaceStateKind } from "./state.ts";
 import { SystemModel } from "./system-model.ts";
+import { ModelDesignProfile } from "./profile.ts";
 
 const ModelEvidenceCapture = z.object({
   id: CaptureId,
@@ -83,6 +84,7 @@ export const DesignModelInput = z
     evidence: ModelEvidence,
     captures: z.array(ModelCapture).min(1),
     systemModel: SystemModel.nullable(),
+    designProfile: ModelDesignProfile.optional(),
   })
   .strict()
   .superRefine((input, context) => {

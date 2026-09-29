@@ -63,6 +63,9 @@ function validateSourceCitations(
   const captureIds = new Set(input.captures.map(({ id }) => id));
   const systemModelIds = new Set(input.systemModel ? [input.systemModel.id] : []);
   const systemTokenIds = new Set(input.systemModel?.tokens.map(({ id }) => id) ?? []);
+  const profileFloorIds = new Set(input.designProfile?.floor.flatMap((document) => document.requirements.map(({ id }) => id)) ?? []);
+  const profileRailIds = new Set(input.designProfile?.rails.flatMap((document) => document.rails.map(({ id }) => id)) ?? []);
+  const profileCompassIds = new Set(input.designProfile?.compass.principles.map(({ id }) => id) ?? []);
   const choiceIds = new Set(directions.flatMap((direction) => direction.choices.map(({ id }) => id)));
 
   for (const direction of directions) {
@@ -100,6 +103,12 @@ function validateSourceCitations(
         choice.captureRefs.every((id) => captureIds.has(id)),
         `Choice ${choice.id} cites a capture absent from the model input`,
       );
+      for (const ref of choice.profileRefs ?? []) {
+        const available = ref.kind === "profile-floor" ? profileFloorIds.has(ref.id)
+          : ref.kind === "profile-rail" ? profileRailIds.has(ref.id)
+            : profileCompassIds.has(ref.id);
+        requireValid(available, `Choice ${choice.id} cites unavailable ${ref.kind}: ${ref.id}`);
+      }
     }
   }
 
@@ -119,7 +128,10 @@ function validateSourceCitations(
             : ref.kind === "state-evidence" ? captureIds.has(ref.id)
               : ref.kind === "system-model" ? systemModelIds.has(ref.id)
                 : ref.kind === "system-token" ? systemTokenIds.has(ref.id)
-                  : ref.kind === "direction-choice" ? choiceIds.has(ref.id)
+                    : ref.kind === "profile-floor" ? profileFloorIds.has(ref.id)
+                      : ref.kind === "profile-rail" ? profileRailIds.has(ref.id)
+                        : ref.kind === "profile-compass" ? profileCompassIds.has(ref.id)
+                          : ref.kind === "direction-choice" ? choiceIds.has(ref.id)
                     : false;
         requireValid(available, `Critique ${critique.id} cites unavailable ${ref.kind}: ${ref.id}`);
       }
@@ -130,7 +142,10 @@ function validateSourceCitations(
           : ref.kind === "reference-aspect" ? referenceAspectIds.has(ref.id)
             : ref.kind === "state-evidence" ? captureIds.has(ref.id)
               : ref.kind === "system-model" ? systemModelIds.has(ref.id)
-                : ref.kind === "system-token" ? systemTokenIds.has(ref.id)
+              : ref.kind === "system-token" ? systemTokenIds.has(ref.id)
+                : ref.kind === "profile-floor" ? profileFloorIds.has(ref.id)
+                  : ref.kind === "profile-rail" ? profileRailIds.has(ref.id)
+                    : ref.kind === "profile-compass" ? profileCompassIds.has(ref.id)
                   : false;
         requireValid(available, `Critique ${critique.id} cites unavailable ${ref.kind}: ${ref.id}`);
       }
@@ -181,6 +196,7 @@ export function createReviewPacket(
     references: parsedInput.references,
     evidence: parsedInput.evidence,
     systemModel: parsedInput.systemModel,
+    ...(parsedInput.designProfile ? { designProfile: parsedInput.designProfile } : {}),
     directionReviews: parsedDirections.map((direction) => ({
       direction,
       critique: critiqueByDirection.get(direction.id),

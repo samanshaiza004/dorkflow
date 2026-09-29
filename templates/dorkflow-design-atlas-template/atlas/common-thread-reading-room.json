@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "id": "atlas-common-thread-reading-room",
+  "title": "Common Thread Reading Room — field notes",
+  "source": {
+    "type": "fictional-original",
+    "name": "Dorkflow Design Atlas template authors; an imagined community reading room",
+    "dateOrEra": "Written for this starter in 2026"
+  },
+  "humanReaction": "The imagined reading room feels welcoming because its editorial hierarchy gives a newcomer a clear place to begin without making every option compete.",
+  "borrow": [
+    {
+      "aspect": "Editorial hierarchy",
+      "reason": "A clear title, short introduction, and one featured next step can orient a first-time visitor."
+    },
+    {
+      "aspect": "Restrained navigation",
+      "reason": "A small set of important destinations is easier to scan than a menu that gives every destination equal weight."
+    }
+  ],
+  "doNotBorrow": [
+    {
+      "aspect": "Whole visual identity or imagined assets",
+      "reason": "This fictional example supplies no real brand or usage rights; adapt only a cited quality when it supports the project's intent."
+    },
+    {
+      "aspect": "Exact wording or page composition",
+      "reason": "The example is a prompt for a principle, not a layout or copy template."
+    }
+  ],
+  "underlyingPrinciple": "A small number of clearly ordered choices can make an unfamiliar place feel easy to enter.",
+  "modernTranslation": "Prioritize the user's first useful step and keep secondary destinations visible without competing with it.",
+  "tags": [
+    "fictional",
+    "editorial-hierarchy",
+    "navigation",
+    "orientation"
+  ]
+}
