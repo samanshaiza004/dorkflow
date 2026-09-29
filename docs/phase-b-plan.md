@@ -294,12 +294,17 @@ The contract contains no approved token values; exact prototype colors,
 spacing, type sizes, radii, shadows, column ratios, and the 720px prototype
 breakpoint remain provisional. B8 chose a separate provisional 700px stack
 breakpoint and kept implementation values literal rather than naming them as
-tokens. B8 implementation is complete in a separate local checkout; B9
-verification has not started. The response JSON Schemas now include the
-profile reference kinds accepted by the runtime contracts, with regression
-coverage. The workflow's
-broader usefulness and the Phase B product hypothesis have not been
-established.
+tokens. B8 implementation is complete in a separate local checkout.
+
+B9 now records one explicit result for each of the 22 frozen B7 requirements,
+with deterministic evidence and a separate three-way human review packet.
+The current machine result has no failed assertions (10 requirements are
+machine-passed and 12 await human judgment); overall status is
+`REVIEW-PENDING`, not PASS. See
+[`docs/experiments/phase-b-expense-tracker-b9-verification.md`](experiments/phase-b-expense-tracker-b9-verification.md).
+The response JSON Schemas now include the profile reference kinds accepted by
+the runtime contracts, with regression coverage. The workflow's broader
+usefulness and the Phase B product hypothesis have not been established.
 
 The B2-B6 Expense Tracker rehearsal and its current review boundary are
 recorded in
@@ -309,5 +314,6 @@ The resulting human approval and frozen B7 contract are summarized in
 The B8 implementation is in a separate, clean local checkout at commit
 `2400196c9a7d3a64554b517d5364fc739d4acf49`; its receipt records the exact
 base, contract hash, changed files, provisional choices, and smoke evidence.
-B9 verification has not started. The experiment has not established that
-Dorkflow improves design quality or passes the Phase B product hypothesis.
+B9 deterministic verification has completed; human review remains pending.
+The experiment has not established that Dorkflow improves design quality or
+passes the Phase B product hypothesis.

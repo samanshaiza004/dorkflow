@@ -1,0 +1,505 @@
+{
+  "schemaVersion": 1,
+  "id": "verify_b91b89762ce751",
+  "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+  "contractRef": "contract_b6hybrid02",
+  "checkedAt": "2026-09-29T23:48:41.612Z",
+  "status": "REVIEW-PENDING",
+  "frozenInputs": {
+    "contractSha256": "26dfb47a303df79f13b6cbb8d75ec94d412b1f47ca9c615c523702f0b10875f4",
+    "verificationHarnessSha256": "993e475289323272528a4729bd9ac1af88a20905d61a91fa89b4d46c472c9854",
+    "controlCommit": "5e5ad9ad6f0929f80e1c9f6667b08870f87e7743",
+    "b6CandidateTreeSha256": "9b8cae681ed49f0a821b207abf71fed8d6cab97532265fce4e81c5436977f1ca",
+    "implementationBaseCommit": "5e5ad9ad6f0929f80e1c9f6667b08870f87e7743",
+    "implementationCommit": "2400196c9a7d3a64554b517d5364fc739d4acf49",
+    "renderingEnvironmentSha256": "a9215d1eea25dcbe7111011395f5cfc41a62b8b177fbcb2e13d14da28405d361",
+    "fontSha256": "d636e4683231f931eda222d588e944d082bfd3bdba02f928bee461c0f185b251"
+  },
+  "runtime": {
+    "browser": "Chromium",
+    "browserVersion": "151.0.7922.34",
+    "nodeVersion": "v24.21.0",
+    "platform": "darwin",
+    "architecture": "arm64",
+    "locale": "en-US",
+    "timezoneId": "America/Chicago",
+    "deviceScaleFactor": 1,
+    "viewportWidths": [
+      320,
+      375,
+      699,
+      700,
+      701,
+      719,
+      720,
+      721,
+      768,
+      1280
+    ]
+  },
+  "requirements": [
+    {
+      "requirementId": "req_b7layout01",
+      "status": "HUMAN-REVIEW",
+      "method": "browser-dom",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b",
+        "ev_bcf2fc6d41d1a308",
+        "ev_21213f025d173646"
+      ],
+      "rationale": "10 deterministic assertion(s) passed. Required qualitative judgment remains pending; automated checks do not imply approval. narrow region order is entry → summary → history at 320px | narrow region order is entry → summary → history at 375px | narrow region order is entry → summary → history at 699px | narrow region order is entry → summary → history at 700px | wide history and secondary column relationship at 701px | wide history and secondary column relationship at 719px | wide history and secondary column relationship at 720px | wide history and secondary column relationship at 721px | wide history and secondary column relationship at 768px | wide history and secondary column relationship at 1280px"
+    },
+    {
+      "requirementId": "req_b7entry01",
+      "status": "PASS",
+      "method": "browser-dom",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b"
+      ],
+      "rationale": "2 deterministic assertion(s) passed. labels, sign explanation, fields, and submit action remain associated in the entry region | form action and fields are contained in one entry component"
+    },
+    {
+      "requirementId": "req_b7summary1",
+      "status": "HUMAN-REVIEW",
+      "method": "combined",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b",
+        "ev_bcf2fc6d41d1a308",
+        "ev_21213f025d173646"
+      ],
+      "rationale": "1 deterministic assertion(s) passed. Required qualitative judgment remains pending; automated checks do not imply approval. financial values use tabular numerals and expose separate labels"
+    },
+    {
+      "requirementId": "req_b7row0001",
+      "status": "HUMAN-REVIEW",
+      "method": "combined",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b",
+        "ev_b904daf1fab789ed",
+        "ev_bbc6a8e817c29b1a",
+        "ev_198957d99e5fe9ea"
+      ],
+      "rationale": "1 deterministic assertion(s) passed. Required qualitative judgment remains pending; automated checks do not imply approval. transaction description and signed amount form a scan unit; delete targets satisfy geometry/name rules"
+    },
+    {
+      "requirementId": "req_b7state01",
+      "status": "PASS",
+      "method": "browser-dom",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b"
+      ],
+      "rationale": "1 deterministic assertion(s) passed. 768px populated history is the broad working region and form controls are usable"
+    },
+    {
+      "requirementId": "req_b7state02",
+      "status": "HUMAN-REVIEW",
+      "method": "browser-dom",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b",
+        "ev_21213f025d173646"
+      ],
+      "rationale": "1 deterministic assertion(s) passed. Required qualitative judgment remains pending; automated checks do not imply approval. populated 375px mobile contains signed rows without clipping"
+    },
+    {
+      "requirementId": "req_b7state03",
+      "status": "PASS",
+      "method": "browser-interaction",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b"
+      ],
+      "rationale": "1 deterministic assertion(s) passed. empty B8 implementation keeps zero balance and no transaction rows"
+    },
+    {
+      "requirementId": "req_b7state04",
+      "status": "HUMAN-REVIEW",
+      "method": "browser-interaction",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b",
+        "ev_e67537f956546189"
+      ],
+      "rationale": "1 deterministic assertion(s) passed. Required qualitative judgment remains pending; automated checks do not imply approval. after mobile submit, changed balance and new row appear in the same ordered flow"
+    },
+    {
+      "requirementId": "req_b7state05",
+      "status": "PASS",
+      "method": "browser-interaction",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b",
+        "ev_198957d99e5fe9ea"
+      ],
+      "rationale": "1 deterministic assertion(s) passed. keyboard reaches delete without pointer hover and renders a distinct 3px focus-visible outline"
+    },
+    {
+      "requirementId": "req_b7state06",
+      "status": "HUMAN-REVIEW",
+      "method": "browser-interaction",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b",
+        "ev_b904daf1fab789ed"
+      ],
+      "rationale": "1 deterministic assertion(s) passed. Required qualitative judgment remains pending; automated checks do not imply approval. delete hover differs from rest and keeps expense accent unchanged"
+    },
+    {
+      "requirementId": "req_b7state07",
+      "status": "HUMAN-REVIEW",
+      "method": "browser-interaction",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b",
+        "ev_bbc6a8e817c29b1a"
+      ],
+      "rationale": "2 deterministic assertion(s) passed. Required qualitative judgment remains pending; automated checks do not imply approval. active feedback differs from hover before existing delete action | pointer release deletes only the selected transaction and recalculates totals"
+    },
+    {
+      "requirementId": "req_b7wide001",
+      "status": "HUMAN-REVIEW",
+      "method": "browser-dom",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b",
+        "ev_bcf2fc6d41d1a308"
+      ],
+      "rationale": "1 deterministic assertion(s) passed. Required qualitative judgment remains pending; automated checks do not imply approval. 768px populated state keeps history broad with entry and summary nearby"
+    },
+    {
+      "requirementId": "req_b7narrow1",
+      "status": "HUMAN-REVIEW",
+      "method": "browser-dom",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b",
+        "ev_21213f025d173646"
+      ],
+      "rationale": "2 deterministic assertion(s) passed. Required qualitative judgment remains pending; automated checks do not imply approval. approved 375px mobile ordering and no horizontal clipping | mobile keyboard begins in the transaction-entry region"
+    },
+    {
+      "requirementId": "req_b7bound01",
+      "status": "PASS",
+      "method": "browser-dom",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b"
+      ],
+      "rationale": "10 deterministic assertion(s) passed. populated geometry has no overflow/clipping at 320px | populated geometry has no overflow/clipping at 375px | populated geometry has no overflow/clipping at 699px | populated geometry has no overflow/clipping at 700px | populated geometry has no overflow/clipping at 701px | populated geometry has no overflow/clipping at 719px | populated geometry has no overflow/clipping at 720px | populated geometry has no overflow/clipping at 721px | populated geometry has no overflow/clipping at 768px | populated geometry has no overflow/clipping at 1280px"
+    },
+    {
+      "requirementId": "req_b7a11y01",
+      "status": "HUMAN-REVIEW",
+      "method": "combined",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b",
+        "ev_198957d99e5fe9ea",
+        "ev_c1292a2cee7ee7fe"
+      ],
+      "rationale": "1 deterministic assertion(s) passed. Required qualitative judgment remains pending; automated checks do not imply approval. delete is a named semantic button reachable by keyboard with the approved visible focus treatment"
+    },
+    {
+      "requirementId": "req_b7a11y02",
+      "status": "PASS",
+      "method": "browser-dom",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b"
+      ],
+      "rationale": "1 deterministic assertion(s) passed. each delete target is 32×32, row-contained, and its icon is centered"
+    },
+    {
+      "requirementId": "req_b7a11y03",
+      "status": "PASS",
+      "method": "browser-dom",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b"
+      ],
+      "rationale": "1 deterministic assertion(s) passed. financial meaning includes explicit labels and signed transaction values"
+    },
+    {
+      "requirementId": "req_b7a11y04",
+      "status": "PASS",
+      "method": "contrast-measurement",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b"
+      ],
+      "rationale": "2 deterministic assertion(s) passed. rendered text, placeholders, essential input/delete boundaries, focus contrast, and state contrast meet the recorded thresholds | reduced motion removes transition while retaining hover state feedback"
+    },
+    {
+      "requirementId": "req_b7copy01",
+      "status": "PASS",
+      "method": "copy-inventory",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b",
+        "ev_53b2ebba825b0be5",
+        "ev_5479702b3a7db18e"
+      ],
+      "rationale": "2 deterministic assertion(s) passed. empty visible-copy and placeholder inventory matches the frozen control | populated visible text and values match the frozen control"
+    },
+    {
+      "requirementId": "req_b7func01",
+      "status": "PASS",
+      "method": "browser-interaction",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b"
+      ],
+      "rationale": "4 deterministic assertion(s) passed. four positive/negative transaction entries are accepted | balance, income, and expense totals match independent expected values | pointer deletion preserves existing targeted-delete and recalculation behavior | keyboard activation invokes the existing delete action"
+    },
+    {
+      "requirementId": "req_b7pres01",
+      "status": "HUMAN-REVIEW",
+      "method": "combined",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b"
+      ],
+      "rationale": "2 deterministic assertion(s) passed. Required qualitative judgment remains pending; automated checks do not imply approval. measured preservation checks include usable semantic controls and applicable contrast | B9 browser contexts made no unapproved external requests"
+    },
+    {
+      "requirementId": "req_b7resp01",
+      "status": "HUMAN-REVIEW",
+      "method": "browser-dom",
+      "evidenceRefs": [
+        "ev_fb66b19a4688e72b",
+        "ev_21213f025d173646",
+        "ev_bcf2fc6d41d1a308"
+      ],
+      "rationale": "10 deterministic assertion(s) passed. Required qualitative judgment remains pending; automated checks do not imply approval. all visible inputs/actions/rows remain within 320px | all visible inputs/actions/rows remain within 375px | all visible inputs/actions/rows remain within 699px | all visible inputs/actions/rows remain within 700px | all visible inputs/actions/rows remain within 701px | all visible inputs/actions/rows remain within 719px | all visible inputs/actions/rows remain within 720px | all visible inputs/actions/rows remain within 721px | all visible inputs/actions/rows remain within 768px | all visible inputs/actions/rows remain within 1280px"
+    }
+  ],
+  "evidenceArtifacts": [
+    {
+      "id": "ev_fb66b19a4688e72b",
+      "path": "measurements.json",
+      "sha256": "fb66b19a4688e72b016d8f0ff052062cfea3be25fffe055197d595a1da43eb5f",
+      "kind": "measurement",
+      "description": "Raw B9 browser observations and deterministic assertion details."
+    },
+    {
+      "id": "ev_53b2ebba825b0be5",
+      "path": "captures/empty-control-1280.png",
+      "sha256": "49df4aa06f20f94fee1753ddc1b0448ca736049bb65fda773aa98bcf2162e73b",
+      "kind": "screenshot",
+      "description": "control · empty · 1280 CSS px"
+    },
+    {
+      "id": "ev_270a7535ace1e635",
+      "path": "captures/empty-candidate-1280.png",
+      "sha256": "3f478c2c2cb71ae31dbd3243ea3932e2e00371e118fe39c4a50c7a515fb3c503",
+      "kind": "screenshot",
+      "description": "candidate · empty · 1280 CSS px"
+    },
+    {
+      "id": "ev_5479702b3a7db18e",
+      "path": "captures/empty-implementation-1280.png",
+      "sha256": "1d9cdfbeff942453512f36e5e439a6d3909d6ce6493dcad46384c9ef6c7dbfe1",
+      "kind": "screenshot",
+      "description": "implementation · empty · 1280 CSS px"
+    },
+    {
+      "id": "ev_3c2a185a6cb357a9",
+      "path": "captures/desktop-populated-control-1280.png",
+      "sha256": "02bfa6247938149435f0c7cea1d6049df5a2c124c23c56f1ed07d1e306dac42b",
+      "kind": "screenshot",
+      "description": "control · desktop-populated · 1280 CSS px"
+    },
+    {
+      "id": "ev_0c3b903334bcc265",
+      "path": "captures/desktop-populated-candidate-1280.png",
+      "sha256": "2b4993705eb303935db89df44b33991c680171e7844ef27d27357edb2c1b4c95",
+      "kind": "screenshot",
+      "description": "candidate · desktop-populated · 1280 CSS px"
+    },
+    {
+      "id": "ev_bcf2fc6d41d1a308",
+      "path": "captures/desktop-populated-implementation-1280.png",
+      "sha256": "f783b8401a7c03011dc9c051bee05c5144607f2128ea957e152ae7981ba6f591",
+      "kind": "screenshot",
+      "description": "implementation · desktop-populated · 1280 CSS px"
+    },
+    {
+      "id": "ev_eb0e63691642a5d1",
+      "path": "captures/mobile-populated-control-375.png",
+      "sha256": "20aa9ddce836c8a079e14d5fd9d543fb2d153662c89c21e0d9d749a293a1066f",
+      "kind": "screenshot",
+      "description": "control · mobile-populated · 375 CSS px"
+    },
+    {
+      "id": "ev_467723ded4db2cc5",
+      "path": "captures/mobile-populated-candidate-375.png",
+      "sha256": "7c965c669fcfd13770f43f5dd6e974662a2b7362539a2bbae0bcc06b9124aa8e",
+      "kind": "screenshot",
+      "description": "candidate · mobile-populated · 375 CSS px"
+    },
+    {
+      "id": "ev_21213f025d173646",
+      "path": "captures/mobile-populated-implementation-375.png",
+      "sha256": "88766d8d4eb95394b75c7eeefc44846b4a2b3d1924993888dac143d87ddcf147",
+      "kind": "screenshot",
+      "description": "implementation · mobile-populated · 375 CSS px"
+    },
+    {
+      "id": "ev_acc85dd8111dfa8e",
+      "path": "captures/post-submit-mobile-control-375.png",
+      "sha256": "97d741a924c32a7180151ae84fdbcb3ce074778e826d86a7aadeed7ce80890dc",
+      "kind": "screenshot",
+      "description": "control · post-submit-mobile · 375 CSS px"
+    },
+    {
+      "id": "ev_7e462c2e9cc7779a",
+      "path": "captures/post-submit-mobile-candidate-375.png",
+      "sha256": "7d78c21dae77d83ee72c9f22b24eb461862cd5ab9edb13ed22247704470dd8eb",
+      "kind": "screenshot",
+      "description": "candidate · post-submit-mobile · 375 CSS px"
+    },
+    {
+      "id": "ev_e67537f956546189",
+      "path": "captures/post-submit-mobile-implementation-375.png",
+      "sha256": "68d88f464f1c3477280fde4d9600b8123dda373108a3c166fd36a316794872d9",
+      "kind": "screenshot",
+      "description": "implementation · post-submit-mobile · 375 CSS px"
+    },
+    {
+      "id": "ev_e840f3a60ee2247f",
+      "path": "captures/delete-hover-control-768.png",
+      "sha256": "2ae28961af6a2f828604f09b5fcbc992e25adefc152ae6b7ffa3e3c55df1407a",
+      "kind": "screenshot",
+      "description": "control · delete-hover · 768 CSS px"
+    },
+    {
+      "id": "ev_6b3417da262c0744",
+      "path": "captures/delete-hover-candidate-768.png",
+      "sha256": "64f54bd9f1eb7fd539acac8989090038a0a9d59a31ac79e166a5d094630332a8",
+      "kind": "screenshot",
+      "description": "candidate · delete-hover · 768 CSS px"
+    },
+    {
+      "id": "ev_b904daf1fab789ed",
+      "path": "captures/delete-hover-implementation-768.png",
+      "sha256": "cba8e2176e08f4f20d2ab8c346d7c884831644772c42f0decd27a01681d9864e",
+      "kind": "screenshot",
+      "description": "implementation · delete-hover · 768 CSS px"
+    },
+    {
+      "id": "ev_07af57a6e834afde",
+      "path": "captures/delete-active-control-768.png",
+      "sha256": "2ae28961af6a2f828604f09b5fcbc992e25adefc152ae6b7ffa3e3c55df1407a",
+      "kind": "screenshot",
+      "description": "control · delete-active · 768 CSS px"
+    },
+    {
+      "id": "ev_f96069531fbb4049",
+      "path": "captures/delete-active-candidate-768.png",
+      "sha256": "4c8cd15fb126e1b0558bc081469d3ba271cf3577cb713b1ba744cc3da2d00bf4",
+      "kind": "screenshot",
+      "description": "candidate · delete-active · 768 CSS px"
+    },
+    {
+      "id": "ev_bbc6a8e817c29b1a",
+      "path": "captures/delete-active-implementation-768.png",
+      "sha256": "11feafb131e75e6e3a79842374d96c00d9802502b5337033624f3dfc19c10058",
+      "kind": "screenshot",
+      "description": "implementation · delete-active · 768 CSS px"
+    },
+    {
+      "id": "ev_85c650a4f68971a2",
+      "path": "captures/delete-focus-control-768.png",
+      "sha256": "32b8a18a7373d98384d61ece93ea1d0bf73bdc6fce71d4fd4e540181afb29f2d",
+      "kind": "screenshot",
+      "description": "control · delete-focus · 768 CSS px"
+    },
+    {
+      "id": "ev_9cf67f77b748c4fb",
+      "path": "captures/delete-focus-candidate-768.png",
+      "sha256": "25e3666acee08d946f6939cf2f0b2549f9d893bdcfb71e76391cb7ba2e810328",
+      "kind": "screenshot",
+      "description": "candidate · delete-focus · 768 CSS px"
+    },
+    {
+      "id": "ev_198957d99e5fe9ea",
+      "path": "captures/delete-focus-implementation-768.png",
+      "sha256": "acb020350cae38c0e0bbf5e4ebc04adfdc4a47b77c2ed822603efebb96336007",
+      "kind": "screenshot",
+      "description": "implementation · delete-focus · 768 CSS px"
+    },
+    {
+      "id": "ev_111343e81bf23644",
+      "path": "captures/delete-hover-assertion-implementation-768.png",
+      "sha256": "cba8e2176e08f4f20d2ab8c346d7c884831644772c42f0decd27a01681d9864e",
+      "kind": "screenshot",
+      "description": "implementation · delete-hover-assertion · 768 CSS px"
+    },
+    {
+      "id": "ev_f17eb637ccc3c599",
+      "path": "captures/delete-active-assertion-implementation-768.png",
+      "sha256": "5519b8cc2e7e691a533a7f6d4ef7b6f5c6700b9a86667b2109402edabe5d9617",
+      "kind": "screenshot",
+      "description": "implementation · delete-active-assertion · 768 CSS px"
+    },
+    {
+      "id": "ev_c70955374207582d",
+      "path": "captures/post-submit-mobile-assertion-implementation-375.png",
+      "sha256": "68d88f464f1c3477280fde4d9600b8123dda373108a3c166fd36a316794872d9",
+      "kind": "screenshot",
+      "description": "implementation · post-submit-mobile-assertion · 375 CSS px"
+    },
+    {
+      "id": "ev_c1292a2cee7ee7fe",
+      "path": "captures/wide-focus-order-implementation-1280.png",
+      "sha256": "579656ed6f761dc340778ee1cc70f8c329088bfb504c0857dd0b81476ca67553",
+      "kind": "screenshot",
+      "description": "implementation · wide-focus-order · 1280 CSS px"
+    }
+  ],
+  "humanReview": [
+    {
+      "id": "b9review_threeway01",
+      "status": "PENDING",
+      "question": "Compare control → approved B6 and approved B6 → B8 at desktop and mobile. Did B8 preserve the approved relationships while using only the values B7 left provisional? Note any material drift; do not judge pixel equality.",
+      "evidenceRefs": [
+        "ev_3c2a185a6cb357a9",
+        "ev_0c3b903334bcc265",
+        "ev_bcf2fc6d41d1a308",
+        "ev_eb0e63691642a5d1",
+        "ev_467723ded4db2cc5",
+        "ev_21213f025d173646"
+      ]
+    },
+    {
+      "id": "b9review_widefocus01",
+      "status": "PENDING",
+      "question": "At 1280px, does focus moving from the right-side entry form to the left-side history feel logical to a sighted keyboard user? The sequence is recorded; visual/DOM divergence alone is not an automatic failure.",
+      "evidenceRefs": [
+        "ev_c1292a2cee7ee7fe"
+      ]
+    },
+    {
+      "id": "b9review_mobilecontent01",
+      "status": "PENDING",
+      "question": "At 375px, are the long descriptions and large signed amounts still legible and scannable in the populated layout?",
+      "evidenceRefs": [
+        "ev_eb0e63691642a5d1",
+        "ev_467723ded4db2cc5",
+        "ev_21213f025d173646"
+      ]
+    },
+    {
+      "id": "b9review_deletevisual01",
+      "status": "PENDING",
+      "question": "Does delete remain subordinate at rest, become clearly but restrainedly actionable on hover, and read as distinct when active/focused without competing with the expense accent?",
+      "evidenceRefs": [
+        "ev_e840f3a60ee2247f",
+        "ev_6b3417da262c0744",
+        "ev_b904daf1fab789ed",
+        "ev_07af57a6e834afde",
+        "ev_f96069531fbb4049",
+        "ev_bbc6a8e817c29b1a",
+        "ev_85c650a4f68971a2",
+        "ev_9cf67f77b748c4fb",
+        "ev_198957d99e5fe9ea"
+      ]
+    }
+  ],
+  "deviations": [
+    {
+      "id": "deviation_mobiletab01",
+      "requirementRefs": [
+        "req_b7narrow1",
+        "req_b7a11y01",
+        "req_b7pres01"
+      ],
+      "detectedAt": "B8 browser smoke, before the final B8 implementation commit",
+      "disposition": "The initial DOM order made mobile keyboard navigation differ from the approved entry → summary → history sequence. The smoke caught it; the implementation changed source order, retained the wide CSS placement, and committed the correction before 2400196. B9 retests both narrow and wide sequences."
+    }
+  ]
+}
