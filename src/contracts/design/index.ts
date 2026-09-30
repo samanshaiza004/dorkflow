@@ -12,6 +12,7 @@ export * from "./profile.ts";
 export * from "./external-execution.ts";
 export * from "./review.ts";
 export * from "./decision.ts";
+export * from "./project-decision-history.ts";
 export * from "./decision-graph.ts";
 export * from "./consolidation.ts";
 export * from "./implementation-contract.ts";

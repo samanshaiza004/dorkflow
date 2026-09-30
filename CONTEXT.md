@@ -28,4 +28,7 @@ Inference of intentional primitives, semantic roles, and component relationships
 **Human decision**:
 An explicit acceptance, rejection, or revision that records the human's rationale and remains authoritative for taste.
 
+**Project decision history**:
+Human decisions and their reasons retained within one project's context as precedents for later work. A precedent remains project-specific and is not generalized into a claim about a person's overall taste.
+
 _Avoid_: AI-designed website, CSS extraction as the product, universal taste score, API provider as the workflow's central concept

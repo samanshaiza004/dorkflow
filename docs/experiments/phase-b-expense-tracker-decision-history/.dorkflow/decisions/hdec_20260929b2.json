@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "projectId": "proj_expensetracker01",
+  "decisionAt": null,
+  "recordedAt": "2026-09-30T01:20:58.000Z",
+  "source": {
+    "kind": "review-record",
+    "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+    "sourceSha256": "794b5f928ecedd28ebb3bf9f53a8205e8f0887d501472beafc5a2ac056e62380",
+    "packetSha256": "35398f810be2ee2c0d1424bf8c2421636e433b256b06f09edd648d3cf233985d"
+  },
+  "decision": {
+    "schemaVersion": 1,
+    "id": "hdec_20260929b2",
+    "subjectRefs": [
+      "dir_b6hybrid01",
+      "choice_b6desktop01",
+      "choice_b6numbers01",
+      "choice_b6surface1"
+    ],
+    "disposition": "accept",
+    "rationale": "Accept the broad ledger-first desktop relationship, quiet balance hierarchy, signed transaction scan unit, and quiet boundaries. The overall composition is coherent for the stated entry-and-comprehension job.",
+    "pairwiseComparison": null
+  }
+}

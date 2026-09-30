@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "projectId": "proj_expensetracker01",
+  "decisionAt": null,
+  "recordedAt": "2026-09-30T01:20:58.000Z",
+  "source": {
+    "kind": "review-record",
+    "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+    "sourceSha256": "342585442bdb41609c264fe04bb40ae17fad2de9250be716c72317b9d7d6d3fc",
+    "packetSha256": "4fd927386e357f103de0c7bb016f6caba52a5032d075a7b974963508a7ad5744"
+  },
+  "decision": {
+    "schemaVersion": 1,
+    "id": "hdec_20260929a1",
+    "subjectRefs": [
+      "dir_ledger2026",
+      "dir_entry2026"
+    ],
+    "disposition": "prefer",
+    "rationale": "Prefer Ledger-first over Entry-first as the base. It better balances recording a purchase with understanding its effect on balance and history, while keeping the entry task nearby on desktop. This is a preference, not approval of Ledger-first unchanged.",
+    "pairwiseComparison": {
+      "preferredDirectionRef": "dir_ledger2026",
+      "otherDirectionRef": "dir_entry2026",
+      "rationale": "Ledger-first preserves broad history and nearby entry together; Entry-first gives the form more dominance than the evidence and product balance require."
+    }
+  }
+}

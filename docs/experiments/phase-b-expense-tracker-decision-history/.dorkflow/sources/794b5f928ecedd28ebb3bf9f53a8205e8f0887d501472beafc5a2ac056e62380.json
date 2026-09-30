@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+  "packetSha256": "35398f810be2ee2c0d1424bf8c2421636e433b256b06f09edd648d3cf233985d",
+  "decisions": [
+    {
+      "schemaVersion": 1,
+      "id": "hdec_20260929b2",
+      "subjectRefs": [
+        "dir_b6hybrid01",
+        "choice_b6desktop01",
+        "choice_b6numbers01",
+        "choice_b6surface1"
+      ],
+      "disposition": "accept",
+      "rationale": "Accept the broad ledger-first desktop relationship, quiet balance hierarchy, signed transaction scan unit, and quiet boundaries. The overall composition is coherent for the stated entry-and-comprehension job.",
+      "pairwiseComparison": null
+    },
+    {
+      "schemaVersion": 1,
+      "id": "hdec_20260929b3",
+      "subjectRefs": [
+        "choice_b6mobile01",
+        "choice_b6submit01",
+        "ereq_b6popmo01",
+        "ereq_b6postm01",
+        "cap_b39689114f385438",
+        "cap_f9f99f328a8729e4"
+      ],
+      "disposition": "accept",
+      "rationale": "Mark the entry → summary → history mobile order and same-frame post-submit balance plus new transaction as reviewed and satisfied by the cited populated-mobile and post-submit captures.",
+      "pairwiseComparison": null
+    },
+    {
+      "schemaVersion": 1,
+      "id": "hdec_20260929b4",
+      "subjectRefs": [
+        "choice_b6rows01",
+        "ereq_b6delfo01",
+        "cap_00c5cb8ba047685c"
+      ],
+      "disposition": "revise",
+      "rationale": "The original delete glyph appears optically off-center and lacks a reviewed pointer-hover affordance. Revise to a centered icon in a 32px target with an accessible name, restrained hover, a distinct active state, and the separate 3px focus-visible outline. Inspect and quiet the expense row edge accent where it competes with the destructive control. Do not approve unchanged.",
+      "pairwiseComparison": null
+    },
+    {
+      "schemaVersion": 1,
+      "id": "hdec_20260929b5",
+      "subjectRefs": ["run_aadad7d73a62536be1d6f2d415979ea7"],
+      "disposition": "accept",
+      "rationale": "Make the frozen control and current hybrid candidate directly reachable from a simple B6 review index, with the control commit and candidate identity visible. Keep this as a review convention, not a compare UI project.",
+      "pairwiseComparison": null
+    }
+  ]
+}

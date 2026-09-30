@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "projectId": "proj_expensetracker01",
+  "decisionAt": null,
+  "recordedAt": "2026-09-30T01:20:58.000Z",
+  "source": {
+    "kind": "review-record",
+    "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+    "sourceSha256": "342585442bdb41609c264fe04bb40ae17fad2de9250be716c72317b9d7d6d3fc",
+    "packetSha256": "4fd927386e357f103de0c7bb016f6caba52a5032d075a7b974963508a7ad5744"
+  },
+  "decision": {
+    "schemaVersion": 1,
+    "id": "hdec_20260929a3",
+    "subjectRefs": [
+      "dir_ledger2026",
+      "choice_lg000001",
+      "cap_8dbc6e7c6382c016",
+      "cap_6820517e8e47fd23",
+      "cap_2c986624919c7438"
+    ],
+    "disposition": "revise",
+    "rationale": "Use Ledger-first as the base, but do not approve it unchanged. The narrow-width sequence must be explicit: entry → balance/summary → recent history. The intermediate-width, populated-mobile, and post-submit-mobile baseline states are now present, but they show the old composition and do not validate the proposed reordered design. Before implementation approval, review a hybrid prototype in those states, including the new transaction and changed balance after submission.",
+    "pairwiseComparison": null
+  }
+}

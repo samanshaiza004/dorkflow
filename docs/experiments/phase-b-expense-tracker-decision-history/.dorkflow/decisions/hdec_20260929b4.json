@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "projectId": "proj_expensetracker01",
+  "decisionAt": null,
+  "recordedAt": "2026-09-30T01:20:58.000Z",
+  "source": {
+    "kind": "review-record",
+    "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+    "sourceSha256": "794b5f928ecedd28ebb3bf9f53a8205e8f0887d501472beafc5a2ac056e62380",
+    "packetSha256": "35398f810be2ee2c0d1424bf8c2421636e433b256b06f09edd648d3cf233985d"
+  },
+  "decision": {
+    "schemaVersion": 1,
+    "id": "hdec_20260929b4",
+    "subjectRefs": [
+      "choice_b6rows01",
+      "ereq_b6delfo01",
+      "cap_00c5cb8ba047685c"
+    ],
+    "disposition": "revise",
+    "rationale": "The original delete glyph appears optically off-center and lacks a reviewed pointer-hover affordance. Revise to a centered icon in a 32px target with an accessible name, restrained hover, a distinct active state, and the separate 3px focus-visible outline. Inspect and quiet the expense row edge accent where it competes with the destructive control. Do not approve unchanged.",
+    "pairwiseComparison": null
+  }
+}

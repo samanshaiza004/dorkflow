@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "projectId": "proj_expensetracker01",
+  "decisionAt": null,
+  "recordedAt": "2026-09-30T01:20:58.000Z",
+  "source": {
+    "kind": "review-record",
+    "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+    "sourceSha256": "19858f9fdb70ded45fc688e2adcf60b869863c0eeca9674dd7bf2f90260811cc",
+    "packetSha256": "c56a424f360b5e645f54dcdca79100c0e32060cd27694626fad1d2d37aad9472"
+  },
+  "decision": {
+    "schemaVersion": 1,
+    "id": "hdec_20260929c2",
+    "subjectRefs": [
+      "run_aadad7d73a62536be1d6f2d415979ea7",
+      "hdec_20260929b5"
+    ],
+    "disposition": "accept",
+    "rationale": "Adopt this permanent review principle: never ask a human to evaluate a redesign from memory when the exact control is available. Make the frozen control directly reachable alongside the candidate under the same pinned rendering environment. This requires no compare UI; the simple index and routes are sufficient for this experiment.",
+    "pairwiseComparison": null
+  }
+}

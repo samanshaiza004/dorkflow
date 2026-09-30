@@ -39,6 +39,7 @@ export const ImplementationContractId = opaque("contract");
 export const RequirementId = opaque("req");
 export const VerificationReportId = opaque("verify");
 export const DesignRunId = opaque("run");
+export const ProjectId = opaque("proj");
 export const B9HumanReviewId = opaque("b9review");
 
 export const Sha256 = z.string().regex(/^[a-f0-9]{64}$/);

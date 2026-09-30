@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "projectId": "proj_expensetracker01",
+  "decisionAt": null,
+  "recordedAt": "2026-09-30T01:20:58.000Z",
+  "source": {
+    "kind": "review-record",
+    "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+    "sourceSha256": "794b5f928ecedd28ebb3bf9f53a8205e8f0887d501472beafc5a2ac056e62380",
+    "packetSha256": "35398f810be2ee2c0d1424bf8c2421636e433b256b06f09edd648d3cf233985d"
+  },
+  "decision": {
+    "schemaVersion": 1,
+    "id": "hdec_20260929b5",
+    "subjectRefs": [
+      "run_aadad7d73a62536be1d6f2d415979ea7"
+    ],
+    "disposition": "accept",
+    "rationale": "Make the frozen control and current hybrid candidate directly reachable from a simple B6 review index, with the control commit and candidate identity visible. Keep this as a review convention, not a compare UI project.",
+    "pairwiseComparison": null
+  }
+}

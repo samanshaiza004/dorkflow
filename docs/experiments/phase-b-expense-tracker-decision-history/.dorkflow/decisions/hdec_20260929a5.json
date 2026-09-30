@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "projectId": "proj_expensetracker01",
+  "decisionAt": null,
+  "recordedAt": "2026-09-30T01:20:58.000Z",
+  "source": {
+    "kind": "review-record",
+    "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+    "sourceSha256": "342585442bdb41609c264fe04bb40ae17fad2de9250be716c72317b9d7d6d3fc",
+    "packetSha256": "4fd927386e357f103de0c7bb016f6caba52a5032d075a7b974963508a7ad5744"
+  },
+  "decision": {
+    "schemaVersion": 1,
+    "id": "hdec_20260929a5",
+    "subjectRefs": [
+      "dir_ledger2026",
+      "choice_lg000002"
+    ],
+    "disposition": "accept",
+    "rationale": "Keep the balance restrained rather than billboard-sized, while keeping financial values aligned and comparable. The hierarchy should make the balance easy to find without turning this small tracker into a promotional dashboard.",
+    "pairwiseComparison": null
+  }
+}

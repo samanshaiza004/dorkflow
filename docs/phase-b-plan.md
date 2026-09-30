@@ -214,9 +214,27 @@ accessibility checks.
 
 ### B10 — Project decision history
 
-Keep accepted and rejected decisions with their reasons as project-local
-artifacts. Retrieve those precedents in later work without converting them
-into claims about a person's general taste.
+Keep each decision and its rationale as an immutable file beneath the
+project's `.dorkflow/decisions/`, with a stable project ID, original source
+bytes, source hashes, source run, and packet/closure provenance. Exact repeats
+are idempotent; a conflicting reuse of a decision ID is rejected. Retrieval
+matches explicit artifact references (and optionally disposition) exactly,
+returns the original decisions and reasons, and marks the result
+`project-only`. It does not summarize decisions as user preferences, infer
+Compass principles, or inject the history into model context automatically.
+
+The Expense Tracker archive contains 19 decisions: 10 from B5, 4 from B6
+revision 1, 2 from B6 revision 2, and 3 from B9 closure. The original review
+record and closure bytes are preserved under `.dorkflow/sources/`; their full
+SHA-256 values are recorded per decision. Older B5/B6 sources did not record
+decision timestamps, so `decisionAt` remains null; `recordedAt` denotes the
+history archive creation time, not a reconstructed human-action time. Details
+and an exact-reference retrieval example are in
+[`docs/experiments/phase-b-expense-tracker-decision-history/README.md`](experiments/phase-b-expense-tracker-decision-history/README.md).
+
+B10 establishes a local append-only artifact seam, not a polished CLI, a
+cross-project preference model, or tamper-proof storage. B11 remains the
+paired baseline experiment.
 
 ### B11 — Paired baseline experiment
 

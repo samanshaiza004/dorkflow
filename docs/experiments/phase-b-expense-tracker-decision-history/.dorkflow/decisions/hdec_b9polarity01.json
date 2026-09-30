@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "projectId": "proj_expensetracker01",
+  "decisionAt": "2026-09-29T20:01:56-05:00",
+  "recordedAt": "2026-09-30T01:20:58.000Z",
+  "source": {
+    "kind": "b9-closure",
+    "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+    "sourceSha256": "79e63f85cc312c6cff2cc2730dc7bb37d638564035e0d9661f33c61ac8db0140",
+    "reportRef": "verify_b9e8b6daaaa0de",
+    "reportSha256": "bae126e1f06341faf0c284307a196c07e113ed51faa965b1a2dafe2116fa71fa",
+    "resolutionSha256": "cbd149d40cbf4182bee725708e3e66773583083c9650779d668335ea2cff682d",
+    "reviewItemRef": "b9review_polarity01"
+  },
+  "decision": {
+    "schemaVersion": 1,
+    "id": "hdec_b9polarity01",
+    "subjectRefs": [
+      "b9review_polarity01"
+    ],
+    "disposition": "accept",
+    "rationale": "Human approval: \"I approve, move on.\" Applied to the revised transaction polarity cue and its interaction-state requirements after review of the updated captures.",
+    "pairwiseComparison": null
+  }
+}

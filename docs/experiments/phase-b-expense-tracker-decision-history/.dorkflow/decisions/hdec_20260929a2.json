@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "projectId": "proj_expensetracker01",
+  "decisionAt": null,
+  "recordedAt": "2026-09-30T01:20:58.000Z",
+  "source": {
+    "kind": "review-record",
+    "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+    "sourceSha256": "342585442bdb41609c264fe04bb40ae17fad2de9250be716c72317b9d7d6d3fc",
+    "packetSha256": "4fd927386e357f103de0c7bb016f6caba52a5032d075a7b974963508a7ad5744"
+  },
+  "decision": {
+    "schemaVersion": 1,
+    "id": "hdec_20260929a2",
+    "subjectRefs": [
+      "dir_entry2026",
+      "dir_statement2026"
+    ],
+    "disposition": "prefer",
+    "rationale": "Prefer Entry-first over Statement-first as the secondary comparison because the repeated-entry emphasis weighs against placing the form after a balance overview and history. This relative preference does not approve Entry-first's desktop hierarchy.",
+    "pairwiseComparison": {
+      "preferredDirectionRef": "dir_entry2026",
+      "otherDirectionRef": "dir_statement2026",
+      "rationale": "Entry-first keeps the recurring action prominent; Statement-first makes it secondary despite the frequent-purchase job."
+    }
+  }
+}

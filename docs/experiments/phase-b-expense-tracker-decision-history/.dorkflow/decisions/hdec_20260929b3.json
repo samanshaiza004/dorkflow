@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "projectId": "proj_expensetracker01",
+  "decisionAt": null,
+  "recordedAt": "2026-09-30T01:20:58.000Z",
+  "source": {
+    "kind": "review-record",
+    "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+    "sourceSha256": "794b5f928ecedd28ebb3bf9f53a8205e8f0887d501472beafc5a2ac056e62380",
+    "packetSha256": "35398f810be2ee2c0d1424bf8c2421636e433b256b06f09edd648d3cf233985d"
+  },
+  "decision": {
+    "schemaVersion": 1,
+    "id": "hdec_20260929b3",
+    "subjectRefs": [
+      "choice_b6mobile01",
+      "choice_b6submit01",
+      "ereq_b6popmo01",
+      "ereq_b6postm01",
+      "cap_b39689114f385438",
+      "cap_f9f99f328a8729e4"
+    ],
+    "disposition": "accept",
+    "rationale": "Mark the entry → summary → history mobile order and same-frame post-submit balance plus new transaction as reviewed and satisfied by the cited populated-mobile and post-submit captures.",
+    "pairwiseComparison": null
+  }
+}

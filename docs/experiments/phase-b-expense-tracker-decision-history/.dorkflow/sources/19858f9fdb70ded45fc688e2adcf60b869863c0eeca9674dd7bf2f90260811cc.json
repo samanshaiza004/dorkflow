@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "runRef": "run_aadad7d73a62536be1d6f2d415979ea7",
+  "packetSha256": "c56a424f360b5e645f54dcdca79100c0e32060cd27694626fad1d2d37aad9472",
+  "decisions": [
+    {
+      "schemaVersion": 1,
+      "id": "hdec_20260929c1",
+      "subjectRefs": [
+        "dir_b6hybrid02",
+        "choice_b6desktop01",
+        "choice_b6mobile01",
+        "choice_b6submit01",
+        "choice_b6rows02",
+        "ereq_b6inter01",
+        "ereq_b6popmo01",
+        "ereq_b6empty01",
+        "ereq_b6postm01",
+        "ereq_b6delfo01",
+        "ereq_b6delho01",
+        "ereq_b6delac01",
+        "cap_5c3af1130f0ace0d",
+        "cap_c3c1367f7a396e90",
+        "cap_4031864e62d133d7",
+        "cap_2b42cbb9eab07467",
+        "cap_aabf51c61e88dc94",
+        "cap_ad01f5549fb0e8a5",
+        "cap_8662d89a9ada1419"
+      ],
+      "disposition": "accept",
+      "rationale": "Approve the B6 hybrid as the basis for B7. The ledger-first wide-screen composition and mobile entry → balance/summary → recent history sequence are coherent. The populated mobile and post-submit states show the updated balance and new transaction together. The revised 32×32 delete target is optically centered and correctly placed at the row end; rest remains subordinate, hover is clearly actionable but restrained, active is distinct, keyboard focus remains separate and visible, and the quieter expense accent no longer competes. All seven revision-2 evidence requests are reviewed and satisfied. No further B6 revision is requested.",
+      "pairwiseComparison": null
+    },
+    {
+      "schemaVersion": 1,
+      "id": "hdec_20260929c2",
+      "subjectRefs": [
+        "run_aadad7d73a62536be1d6f2d415979ea7",
+        "hdec_20260929b5"
+      ],
+      "disposition": "accept",
+      "rationale": "Adopt this permanent review principle: never ask a human to evaluate a redesign from memory when the exact control is available. Make the frozen control directly reachable alongside the candidate under the same pinned rendering environment. This requires no compare UI; the simple index and routes are sufficient for this experiment.",
+      "pairwiseComparison": null
+    }
+  ]
+}

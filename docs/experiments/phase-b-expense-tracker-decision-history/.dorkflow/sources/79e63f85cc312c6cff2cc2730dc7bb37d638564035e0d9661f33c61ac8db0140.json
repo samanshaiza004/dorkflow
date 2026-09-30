@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "reportRef": "verify_b9e8b6daaaa0de",
+  "reportSha256": "bae126e1f06341faf0c284307a196c07e113ed51faa965b1a2dafe2116fa71fa",
+  "resolutionSha256": "cbd149d40cbf4182bee725708e3e66773583083c9650779d668335ea2cff682d",
+  "decidedAt": "2026-09-29T20:01:56-05:00",
+  "status": "PASS",
+  "resolutions": [
+    {
+      "reviewItemRef": "b9review_postsubmit01",
+      "disposition": "PASS",
+      "requirementRefs": ["req_b7state04"],
+      "rationale": "Human approval: \"I approve, move on.\" Applied to this pending B9 question after review of the revised post-submit mobile evidence."
+    },
+    {
+      "reviewItemRef": "b9review_polarity01",
+      "disposition": "PASS",
+      "requirementRefs": ["req_b7row0001", "req_b7state06"],
+      "rationale": "Human approval: \"I approve, move on.\" Applied to the revised transaction polarity cue and its interaction-state requirements after review of the updated captures."
+    },
+    {
+      "reviewItemRef": "b9review_summarydivider01",
+      "disposition": "PASS",
+      "requirementRefs": ["req_b7summary1"],
+      "rationale": "Human approval: \"I approve, move on.\" Applied to the revised divider-free summary after review of the updated captures."
+    }
+  ],
+  "requirementOutcomes": [
+    {"requirementId": "req_b7layout01", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7entry01", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7summary1", "status": "PASS", "resolutionRefs": ["b9review_summarydivider01"]},
+    {"requirementId": "req_b7row0001", "status": "PASS", "resolutionRefs": ["b9review_polarity01"]},
+    {"requirementId": "req_b7state01", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7state02", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7state03", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7state04", "status": "PASS", "resolutionRefs": ["b9review_postsubmit01"]},
+    {"requirementId": "req_b7state05", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7state06", "status": "PASS", "resolutionRefs": ["b9review_polarity01"]},
+    {"requirementId": "req_b7state07", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7wide001", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7narrow1", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7bound01", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7a11y01", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7a11y02", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7a11y03", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7a11y04", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7copy01", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7func01", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7pres01", "status": "PASS", "resolutionRefs": []},
+    {"requirementId": "req_b7resp01", "status": "PASS", "resolutionRefs": []}
+  ]
+}
