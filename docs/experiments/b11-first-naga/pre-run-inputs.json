@@ -1,0 +1,129 @@
+{
+  "schemaVersion": 1,
+  "status": "ready-to-freeze-before-either-arm",
+  "preparedAt": "2026-09-30T13:22:21Z",
+  "armsStarted": false,
+  "source": {
+    "repository": "https://github.com/samanshaiza004/firstnagabaptistchurch",
+    "upstreamCommit": "c4e2f062a602fc84665e381852748fa0a11f6abd",
+    "sanitizedTrackedExportSha256": "1a529cd70c6a7ca9aaceb46dbf4af7b9441889f71bd755aa36e60b7cbab0c019",
+    "trackedFileCount": 126,
+    "excludedPaths": [".env", ".env.example", "studio/"],
+    "freshSeedCommit": "11fbdbccd39ce20d54d898ecffd93bc94c5e57fc",
+    "armAStartCommit": "11fbdbccd39ce20d54d898ecffd93bc94c5e57fc",
+    "armBStartCommit": "11fbdbccd39ce20d54d898ecffd93bc94c5e57fc",
+    "startWorktreesClean": true,
+    "build": {
+      "command": "CMS_SOURCE=local DORKFLOW_B11_FIXED_NOW=2026-09-30T17:00:00.000Z NODE_OPTIONS=--require=<common-inputs>/freeze-date.cjs bun run build",
+      "astroVersion": "7.1.3",
+      "pagesBuilt": 16,
+      "errors": 0,
+      "warnings": 0,
+      "hints": 0
+    },
+    "test": {
+      "command": "bun run test",
+      "passed": 20,
+      "failed": 0
+    },
+    "appLockSha256": "c43fbe231dc8c7a41d97528d7805a8d146c20886eaffc61e8aef147196311532"
+  },
+  "treatment": {
+    "dorkflowCommit": "f8b284b0128041cf5951b9dc1df832e1cd993296",
+    "profileCommit": "bddf5108ac6fab4b6539011bc6503c01d70b0acf",
+    "profileWorktreeClean": true,
+    "profileAggregateSha256": "0726da9f58ae6f1c8f17fbe055422d7f1d217a6af8afb093f535eb5fb440196d",
+    "modelProfileObjectSha256": "15dbb89e6ad8fce7f546be701ed7e3e843b13095c1eb15cd5a6a76326bf56ed7",
+    "modelProfileJsonSha256": "c4e66fd32409027398afcd7299c47b5eb7daf8cb1e1c4189b24abfe1f2f4d006",
+    "personalAtlasUsed": false,
+    "crossProjectDecisionHistoryUsed": false
+  },
+  "dorkflowRepositoryChecks": {
+    "bunRunCheck": "passed",
+    "bunRunTest": {"passed": 113, "failed": 0, "files": 22},
+    "browserTestExecution": "required local Chromium process permission; no remote site/network used"
+  },
+  "agentConditions": {
+    "agentSurface": "Codex subagent contexts",
+    "contexts": "fresh and separate",
+    "modelOverride": null,
+    "modelSnapshot": "unknown unless surfaced by runtime; do not infer",
+    "armOrder": ["A-direct-design-baseline", "B-dorkflow"],
+    "activeAgentTimeLimitMinutesPerArm": 180,
+    "tokensComparable": false,
+    "reviewerCount": 1,
+    "ownerBlinded": false,
+    "separation": "operator-enforced; not a filesystem sandbox"
+  },
+  "renderEnvironment": {
+    "host": "macOS 27.0 build 26A428, arm64",
+    "bun": "1.3.14",
+    "nodeExecutable": "v24.21.0 (not used for app commands)",
+    "playwright": "1.62.1",
+    "playwrightPackageFilesAggregateSha256": "525dd4e09956988a81c72c7d6bce197d3cbd49016df0313b613686cc1a5530b8",
+    "playwrightPackageJsonSha256": "ca170ec143a88ed3043ac953eb3b2377b2b97304104f4e1e23316684ce2c35af",
+    "playwrightCorePackageJsonSha256": "07c47543631fef9508760365dee9fbe958c562093ec8d122543949ed231f233f",
+    "chromiumRevision": "1234",
+    "chromiumVersion": "151.0.7922.34",
+    "chromiumExecutableSha256": "a596b1cfc6353e987fcec8d71a23a28cd6a9e7a6b4e20b908e4c4fcffe51158e",
+    "renderingEnvironmentFileSha256": "fbb31d4d74846184699db6c89f12eb0e90bf5b5847d59e9d20d1a2fbbf05aed5",
+    "renderingEnvironmentSha256": "c61d6c2ec6e8d08feb5f72d221f31726d77a2265443b3412ddadb9cd772b6731",
+    "appFontManifestSha256": "ffaf0831df96af32bc6b09a417aa7e18ee5e1c93915e618b8659d87f69f42029",
+    "hostFontInventory": null,
+    "locale": "en-US",
+    "timezone": "America/Chicago",
+    "deviceScaleFactor": 1,
+    "colorScheme": "light",
+    "fixedApplicationAndBrowserTime": "2026-09-30T17:00:00.000Z",
+    "widthSweep": [320, 375, 480, 767, 768, 1024, 1440],
+    "standardViewports": [
+      {"label": "mobile", "width": 375, "height": 812},
+      {"label": "tablet", "width": 768, "height": 1024},
+      {"label": "desktop", "width": 1440, "height": 900}
+    ]
+  },
+  "frozenInputs": {
+    "sharedBriefSha256": "7ebf6752cbc1e838031ebc5ed62c40f37f69452f143c5c5507648ec6f6dc8683",
+    "defaultDesignGuidanceJsonSha256": "c4e66fd32409027398afcd7299c47b5eb7daf8cb1e1c4189b24abfe1f2f4d006",
+    "frontendDesignSkillSha256": "af73b8e676a83b618f1dd32bb21a2996aec75072c4b886344abe20581622fb87",
+    "inputStateMatrixSha256": "882de082c966b5b6018aabdafa1d713c4f3fdba5be017aebdeed0dc7b21e4d7e",
+    "freezeDateHelperSha256": "d624e81bc16645e89c05613f89208d2ec9c3eea0f6fdefa383c5a99df676fb6d",
+    "commonVerifierSha256": "49f695565c4962ab86147af501d9d04c3e5e627dac8744d3d949aaeadeaa7f56",
+    "originalControlInventorySha256": "b8cfea9625f7eefc0577e7e984d02621c663544d66fcf41681337e1d0e73cc46",
+    "directBaselinePromptSha256": "dc1b9afc22218442f390b627d0afa1bf352c8903487592eb607b241761395a91",
+    "preregistrationDocumentSha256": "a3abafca133868956fd0efdf0f2e4853118282f25aef88b22250155056e56060",
+    "originalEvidenceManifestSha256": "772cfcc088cb7c575dfc212792bfceefc54d9905d132340fc7ae78b666971f22",
+    "originalEvidenceCaptures": [
+      {"id": "cap_ebe291ba02b66a5c", "sha256": "909bc39ec3e9e78f4ec361175d8d86b6096f7d04cc388a00b99cb999af5a2051"},
+      {"id": "cap_e4eeb9101729d834", "sha256": "cea12d8281782e9bebc6bd0bf85f97d993b7b62683a38ee42a4749ce701bd696"},
+      {"id": "cap_f4c2a5c4ba2f0ea1", "sha256": "b091d62c5b56ca0e518b0f3d92eef4f45f504f0333fa37a448f07ef64bd14259"},
+      {"id": "cap_39db2584481a7c52", "sha256": "629e0837af84d8ac2188cb13734285c33fd45a35f084f1b8c292d08079b62bf6"},
+      {"id": "cap_26e8f69963b062f3", "sha256": "f7812356cc166ba221ae40fb3ad4fe657e2083fbdcd8773189cb997b16bb5423"},
+      {"id": "cap_99e265963ae16b95", "sha256": "a23d194b84b2af7cfd3c0631cbdd115a5726d17d6c495c6b12cc7ef61c19ce1a"},
+      {"id": "cap_f82311921840950c", "sha256": "e8ac8f85f8081984fc645698dab05972dd270d97971ee731ec1e5e0d7bd8f32e"},
+      {"id": "cap_326661f8890b069e", "sha256": "9e50790c0d8c1a2d898e6469777445ab6dac41001223789d8e627ec2cbd8447b"},
+      {"id": "cap_b326af5fdd0ccb4f", "sha256": "e476010381249bcda82e738f354b94a39eca6b3a3459011df0b363294bb66f0e"}
+    ],
+    "controlVerifierFirstRun": {
+      "testedVerifierSha256": "49f695565c4962ab86147af501d9d04c3e5e627dac8744d3d949aaeadeaa7f56",
+      "checks": 26,
+      "failures": 0,
+      "captures": 10,
+      "reportSha256": "1e775b046695ab6030764c314fc73701a25d0451afbb68c6f3f970beab3d174c"
+    },
+    "controlSelfComparison": {
+      "testedVerifierSha256": "49f695565c4962ab86147af501d9d04c3e5e627dac8744d3d949aaeadeaa7f56",
+      "checks": 46,
+      "failures": 0,
+      "reportSha256": "c5f1c9b2f015ca2fddb19da65003d2b5794a5c3ac46ef42f6442c213e9c2e36a"
+    }
+  },
+  "knownLimitations": [
+    "No container/image digest; both arms run on the same pinned host.",
+    "Host-installed fallback fonts were not inventoried; local app fonts are hashed.",
+    "Dorkflow's original B1 capture did not freeze browser native time; later common evaluation does.",
+    "Human owner knows the Dorkflow process and is not blind; anonymous labeling is masking only.",
+    "File/path separation between arms is operator-enforced, not an OS sandbox.",
+    "No complete automated accessibility audit or full WCAG conformance claim."
+  ]
+}

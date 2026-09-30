@@ -1,0 +1,120 @@
+{
+  "schemaVersion": 1,
+  "states": [
+    {
+      "schemaVersion": 1,
+      "id": "st_b11fnbcdesktop01",
+      "pagePath": "/",
+      "viewport": { "label": "desktop", "width": 1440, "height": 900 },
+      "setupActions": [],
+      "targetSelector": "main",
+      "stateKind": "default",
+      "settleMs": 0,
+      "assertions": [{ "selector": "main", "condition": "visible" }]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_b11fnbctablet01",
+      "pagePath": "/",
+      "viewport": { "label": "tablet", "width": 768, "height": 1024 },
+      "setupActions": [],
+      "targetSelector": "main",
+      "stateKind": "default",
+      "settleMs": 0,
+      "assertions": [{ "selector": "main", "condition": "visible" }]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_b11fnbcmobile01",
+      "pagePath": "/",
+      "viewport": { "label": "mobile", "width": 375, "height": 812 },
+      "setupActions": [],
+      "targetSelector": "#menu-button",
+      "stateKind": "default",
+      "settleMs": 0,
+      "assertions": [
+        { "selector": "#menu-button", "condition": "visible" },
+        { "selector": "#mobile-menu", "condition": "hidden" }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_b11fnbcmenuopen01",
+      "pagePath": "/",
+      "viewport": { "label": "mobile", "width": 375, "height": 812 },
+      "setupActions": [{ "type": "click", "selector": "#menu-button" }],
+      "targetSelector": "#mobile-menu",
+      "stateKind": "open",
+      "settleMs": 100,
+      "assertions": [
+        { "selector": "#mobile-menu", "condition": "visible" },
+        { "selector": "#menu-button", "condition": "attribute", "name": "aria-expanded", "value": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b" }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_b11fnbcescape01",
+      "pagePath": "/",
+      "viewport": { "label": "mobile", "width": 375, "height": 812 },
+      "setupActions": [
+        { "type": "click", "selector": "#menu-button" },
+        { "type": "press", "selector": "#menu-button", "key": "Escape" }
+      ],
+      "targetSelector": "#menu-button",
+      "stateKind": "closed",
+      "settleMs": 100,
+      "assertions": [
+        { "selector": "#mobile-menu", "condition": "hidden" },
+        { "selector": "#menu-button", "condition": "focused" },
+        { "selector": "#menu-button", "condition": "attribute", "name": "aria-expanded", "value": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa" }
+      ]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_b11fnbckeyboard01",
+      "pagePath": "/",
+      "viewport": { "label": "mobile", "width": 375, "height": 812 },
+      "setupActions": [
+        { "type": "click", "selector": "#menu-button" },
+        { "type": "tab", "selector": "#menu-button", "key": "Tab" }
+      ],
+      "targetSelector": "#mobile-menu a[href='/']",
+      "stateKind": "focus-visible",
+      "settleMs": 100,
+      "assertions": [{ "selector": "#mobile-menu a[href='/']", "condition": "focus-visible" }]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_b11fnbchover01",
+      "pagePath": "/",
+      "viewport": { "label": "desktop", "width": 1440, "height": 900 },
+      "setupActions": [{ "type": "hover", "selector": "section.home-hero a.button[href='/visit']" }],
+      "targetSelector": "section.home-hero a.button[href='/visit']",
+      "stateKind": "hover",
+      "settleMs": 100,
+      "assertions": [{ "selector": "section.home-hero a.button[href='/visit']", "condition": "hovered" }]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_b11fnbccarouselnext01",
+      "pagePath": "/",
+      "viewport": { "label": "desktop", "width": 1440, "height": 900 },
+      "setupActions": [{ "type": "click", "selector": "manner-carousel [data-next]" }],
+      "targetSelector": "manner-carousel figure[data-slide]:not([hidden])",
+      "stateKind": "selected",
+      "settleMs": 250,
+      "assertions": [{ "selector": "manner-carousel figure[data-slide]:not([hidden])", "condition": "visible" }]
+    },
+    {
+      "schemaVersion": 1,
+      "id": "st_b11fnbccarouselprev01",
+      "pagePath": "/",
+      "viewport": { "label": "desktop", "width": 1440, "height": 900 },
+      "setupActions": [{ "type": "click", "selector": "manner-carousel [data-previous]" }],
+      "targetSelector": "manner-carousel figure[data-slide]:not([hidden])",
+      "stateKind": "selected",
+      "settleMs": 250,
+      "assertions": [{ "selector": "manner-carousel figure[data-slide]:not([hidden])", "condition": "visible" }]
+    }
+  ]
+}
