@@ -53,8 +53,19 @@ export const B9HumanReviewItem = z
     status: z.enum(["PENDING", "COMPLETED"]),
     question: NonEmptyText,
     evidenceRefs: z.array(EvidenceId).min(1),
+    disposition: z.enum(["PASS", "REVISE", "FAIL"]).optional(),
+    rationale: NonEmptyText.optional(),
   })
-  .strict();
+  .strict()
+  .superRefine((item, context) => {
+    const hasOutcome = item.disposition !== undefined && item.rationale !== undefined;
+    if (item.status === "COMPLETED" && !hasOutcome) {
+      context.addIssue({ code: z.ZodIssueCode.custom, message: "Completed human review requires disposition and rationale" });
+    }
+    if (item.status === "PENDING" && (item.disposition !== undefined || item.rationale !== undefined)) {
+      context.addIssue({ code: z.ZodIssueCode.custom, message: "Pending human review cannot contain a disposition or rationale" });
+    }
+  });
 
 const GitCommit = z.string().regex(/^[a-f0-9]{40}$/);
 

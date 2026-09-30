@@ -1,5 +1,6 @@
 import { describe, expect, test } from "bun:test";
 import {
+  B9HumanReviewItem,
   B9RequirementResult,
   B9VerificationReport,
   completeB9RequirementResults,
@@ -15,6 +16,26 @@ const pass = (requirementId: string) => ({
 });
 
 describe("B9 requirement-addressed verification", () => {
+  test("records human review outcomes and their rationale separately from machine checks", () => {
+    const pending = {
+      id: "b9review_polarity01",
+      status: "PENDING",
+      question: "Does the strengthened edge cue improve rapid classification?",
+      evidenceRefs: ["ev_12345678"],
+    };
+    const completed = {
+      ...pending,
+      status: "COMPLETED",
+      disposition: "REVISE",
+      rationale: "The cue is legible but not salient enough for quick classification.",
+    };
+
+    expect(B9HumanReviewItem.parse(pending).status).toBe("PENDING");
+    expect(B9HumanReviewItem.parse(completed).disposition).toBe("REVISE");
+    expect(() => B9HumanReviewItem.parse({ ...completed, rationale: undefined })).toThrow();
+    expect(() => B9HumanReviewItem.parse({ ...pending, disposition: "PASS" })).toThrow();
+  });
+
   test("accepts the four explicit B9 outcomes", () => {
     for (const status of ["PASS", "FAIL", "HUMAN-REVIEW", "NOT-APPLICABLE"] as const) {
       expect(B9RequirementResult.parse({ ...pass("req_b7layout01"), status }).status).toBe(status);

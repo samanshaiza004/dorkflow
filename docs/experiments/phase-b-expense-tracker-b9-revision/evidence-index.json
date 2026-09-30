@@ -1,0 +1,184 @@
+[
+  {
+    "id": "ev_a6b3dfa7dce9ebea",
+    "path": "measurements.json",
+    "sha256": "a6b3dfa7dce9ebeaf322e490141c25fbf77fb10621f867003719d4058304ab41",
+    "kind": "measurement",
+    "description": "Raw B9 browser observations and deterministic assertion details."
+  },
+  {
+    "id": "ev_53b2ebba825b0be5",
+    "path": "captures/empty-control-1280.png",
+    "sha256": "49df4aa06f20f94fee1753ddc1b0448ca736049bb65fda773aa98bcf2162e73b",
+    "kind": "screenshot",
+    "description": "control · empty · 1280 CSS px"
+  },
+  {
+    "id": "ev_270a7535ace1e635",
+    "path": "captures/empty-candidate-1280.png",
+    "sha256": "3f478c2c2cb71ae31dbd3243ea3932e2e00371e118fe39c4a50c7a515fb3c503",
+    "kind": "screenshot",
+    "description": "candidate · empty · 1280 CSS px"
+  },
+  {
+    "id": "ev_00f6f3d0a0ea4d2b",
+    "path": "captures/empty-implementation-1280.png",
+    "sha256": "ef6a25e8e594505c7bf9e42ed1793cb1fd0a56410bf23c28e9955faf93fdc553",
+    "kind": "screenshot",
+    "description": "implementation · empty · 1280 CSS px"
+  },
+  {
+    "id": "ev_3c2a185a6cb357a9",
+    "path": "captures/desktop-populated-control-1280.png",
+    "sha256": "02bfa6247938149435f0c7cea1d6049df5a2c124c23c56f1ed07d1e306dac42b",
+    "kind": "screenshot",
+    "description": "control · desktop-populated · 1280 CSS px"
+  },
+  {
+    "id": "ev_0c3b903334bcc265",
+    "path": "captures/desktop-populated-candidate-1280.png",
+    "sha256": "2b4993705eb303935db89df44b33991c680171e7844ef27d27357edb2c1b4c95",
+    "kind": "screenshot",
+    "description": "candidate · desktop-populated · 1280 CSS px"
+  },
+  {
+    "id": "ev_c8fd175c06d69d89",
+    "path": "captures/desktop-populated-implementation-1280.png",
+    "sha256": "7f1a20ae0718f3e40e9e646eaaf84746a8786cd9c007c9f529ca3b0a5cecb3a9",
+    "kind": "screenshot",
+    "description": "implementation · desktop-populated · 1280 CSS px"
+  },
+  {
+    "id": "ev_eb0e63691642a5d1",
+    "path": "captures/mobile-populated-control-375.png",
+    "sha256": "20aa9ddce836c8a079e14d5fd9d543fb2d153662c89c21e0d9d749a293a1066f",
+    "kind": "screenshot",
+    "description": "control · mobile-populated · 375 CSS px"
+  },
+  {
+    "id": "ev_467723ded4db2cc5",
+    "path": "captures/mobile-populated-candidate-375.png",
+    "sha256": "7c965c669fcfd13770f43f5dd6e974662a2b7362539a2bbae0bcc06b9124aa8e",
+    "kind": "screenshot",
+    "description": "candidate · mobile-populated · 375 CSS px"
+  },
+  {
+    "id": "ev_a4bf9487d00ef3de",
+    "path": "captures/mobile-populated-implementation-375.png",
+    "sha256": "8ef94a3a014ab3fa5545e2cd9e675abd70b2697e744147d56e4990835f5d100a",
+    "kind": "screenshot",
+    "description": "implementation · mobile-populated · 375 CSS px"
+  },
+  {
+    "id": "ev_acc85dd8111dfa8e",
+    "path": "captures/post-submit-mobile-control-375.png",
+    "sha256": "97d741a924c32a7180151ae84fdbcb3ce074778e826d86a7aadeed7ce80890dc",
+    "kind": "screenshot",
+    "description": "control · post-submit-mobile · 375 CSS px"
+  },
+  {
+    "id": "ev_7e462c2e9cc7779a",
+    "path": "captures/post-submit-mobile-candidate-375.png",
+    "sha256": "7d78c21dae77d83ee72c9f22b24eb461862cd5ab9edb13ed22247704470dd8eb",
+    "kind": "screenshot",
+    "description": "candidate · post-submit-mobile · 375 CSS px"
+  },
+  {
+    "id": "ev_8f596a389abf5291",
+    "path": "captures/post-submit-mobile-implementation-375.png",
+    "sha256": "2fef0dc5bb9d6c3e9400c15742655f0938a4c39f068ac515808203e1bc5236a6",
+    "kind": "screenshot",
+    "description": "implementation · post-submit-mobile · 375 CSS px"
+  },
+  {
+    "id": "ev_e840f3a60ee2247f",
+    "path": "captures/delete-hover-control-768.png",
+    "sha256": "2ae28961af6a2f828604f09b5fcbc992e25adefc152ae6b7ffa3e3c55df1407a",
+    "kind": "screenshot",
+    "description": "control · delete-hover · 768 CSS px"
+  },
+  {
+    "id": "ev_6b3417da262c0744",
+    "path": "captures/delete-hover-candidate-768.png",
+    "sha256": "64f54bd9f1eb7fd539acac8989090038a0a9d59a31ac79e166a5d094630332a8",
+    "kind": "screenshot",
+    "description": "candidate · delete-hover · 768 CSS px"
+  },
+  {
+    "id": "ev_cb89dab017bb257f",
+    "path": "captures/delete-hover-implementation-768.png",
+    "sha256": "a1bba7f65bf104bd10e07f38a65f0148fbb2ade622571d77f85db3a49e577a8d",
+    "kind": "screenshot",
+    "description": "implementation · delete-hover · 768 CSS px"
+  },
+  {
+    "id": "ev_07af57a6e834afde",
+    "path": "captures/delete-active-control-768.png",
+    "sha256": "2ae28961af6a2f828604f09b5fcbc992e25adefc152ae6b7ffa3e3c55df1407a",
+    "kind": "screenshot",
+    "description": "control · delete-active · 768 CSS px"
+  },
+  {
+    "id": "ev_f96069531fbb4049",
+    "path": "captures/delete-active-candidate-768.png",
+    "sha256": "4c8cd15fb126e1b0558bc081469d3ba271cf3577cb713b1ba744cc3da2d00bf4",
+    "kind": "screenshot",
+    "description": "candidate · delete-active · 768 CSS px"
+  },
+  {
+    "id": "ev_15408f3c2184a87c",
+    "path": "captures/delete-active-implementation-768.png",
+    "sha256": "2723cbb5ad5ee03a90ca6742acbff1e69a00b19f2c87bacfa80fb44fd62b4d9e",
+    "kind": "screenshot",
+    "description": "implementation · delete-active · 768 CSS px"
+  },
+  {
+    "id": "ev_85c650a4f68971a2",
+    "path": "captures/delete-focus-control-768.png",
+    "sha256": "32b8a18a7373d98384d61ece93ea1d0bf73bdc6fce71d4fd4e540181afb29f2d",
+    "kind": "screenshot",
+    "description": "control · delete-focus · 768 CSS px"
+  },
+  {
+    "id": "ev_9cf67f77b748c4fb",
+    "path": "captures/delete-focus-candidate-768.png",
+    "sha256": "25e3666acee08d946f6939cf2f0b2549f9d893bdcfb71e76391cb7ba2e810328",
+    "kind": "screenshot",
+    "description": "candidate · delete-focus · 768 CSS px"
+  },
+  {
+    "id": "ev_e2bdda7f07c1b5e5",
+    "path": "captures/delete-focus-implementation-768.png",
+    "sha256": "f0c38ec325200aaacb214dfd28e2000b851b74c83fd0b3ea5ef85a0b4e647832",
+    "kind": "screenshot",
+    "description": "implementation · delete-focus · 768 CSS px"
+  },
+  {
+    "id": "ev_8dfa87a6ece2bb4e",
+    "path": "captures/delete-hover-assertion-implementation-768.png",
+    "sha256": "a1bba7f65bf104bd10e07f38a65f0148fbb2ade622571d77f85db3a49e577a8d",
+    "kind": "screenshot",
+    "description": "implementation · delete-hover-assertion · 768 CSS px"
+  },
+  {
+    "id": "ev_fdeafed55d48d01c",
+    "path": "captures/delete-active-assertion-implementation-768.png",
+    "sha256": "cc75d88d7311545ea5aa336fe6ccdd8d87dc1b12ae26a08e3d87c2dd2e3f6927",
+    "kind": "screenshot",
+    "description": "implementation · delete-active-assertion · 768 CSS px"
+  },
+  {
+    "id": "ev_639e4f1b064eab20",
+    "path": "captures/post-submit-mobile-assertion-implementation-375.png",
+    "sha256": "2fef0dc5bb9d6c3e9400c15742655f0938a4c39f068ac515808203e1bc5236a6",
+    "kind": "screenshot",
+    "description": "implementation · post-submit-mobile-assertion · 375 CSS px"
+  },
+  {
+    "id": "ev_ce4c37b37e61e37b",
+    "path": "captures/wide-focus-order-implementation-1280.png",
+    "sha256": "3887026e4d4cd896956e14b7024b101368ee8d708418876a9d9cff3027292d7f",
+    "kind": "screenshot",
+    "description": "implementation · wide-focus-order · 1280 CSS px"
+  }
+]

@@ -1,0 +1,30 @@
+diff --git a/src/App.css b/src/App.css
+index 95f2a94..82881aa 100644
+--- a/src/App.css
++++ b/src/App.css
+@@ -120,11 +120,6 @@ h2 {
+   min-width: 0;
+ }
+ 
+-.inc-exp-container > div + div {
+-  padding-left: 18px;
+-  border-left: 1px solid #c9cbc5;
+-}
+-
+ .inc-exp-container h3 {
+   margin: 0 0 4px;
+   color: #595b56;
+@@ -217,11 +212,11 @@ input[type='number'] {
+ }
+ 
+ .transaction-row.plus {
+-  border-right: 3px solid #17613d;
++  border-right: 5px solid #16834a;
+ }
+ 
+ .transaction-row.minus {
+-  border-right: 3px solid #b07b74;
++  border-right: 5px solid #c0392b;
+ }
+ 
+ .transaction-description {

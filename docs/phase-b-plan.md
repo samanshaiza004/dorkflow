@@ -296,12 +296,17 @@ breakpoint remain provisional. B8 chose a separate provisional 700px stack
 breakpoint and kept implementation values literal rather than naming them as
 tokens. B8 implementation is complete in a separate local checkout.
 
-B9 now records one explicit result for each of the 22 frozen B7 requirements,
-with deterministic evidence and a separate three-way human review packet.
-The current machine result has no failed assertions (10 requirements are
-machine-passed and 12 await human judgment); overall status is
-`REVIEW-PENDING`, not PASS. See
-[`docs/experiments/phase-b-expense-tracker-b9-verification.md`](experiments/phase-b-expense-tracker-b9-verification.md).
+B9 records one explicit result for each of the 22 frozen B7 requirements, with
+deterministic evidence and a separate three-way human review packet. The first
+review led to two implementation refinements inside B7's deliberately
+provisional styling scope: strengthening the redundant transaction-polarity
+edge cue and removing the unnecessary Income/Expense divider. The control,
+B6 candidate, B7 contract, layout, type hierarchy, and delete styling were not
+changed. The revised machine result has no failed assertions (18 requirements
+pass and 4 await human review); the overall result remains `REVIEW-PENDING`,
+not PASS. See
+[`docs/experiments/phase-b-expense-tracker-b9-verification.md`](experiments/phase-b-expense-tracker-b9-verification.md)
+and its preserved initial/revised run artifacts.
 The response JSON Schemas now include the profile reference kinds accepted by
 the runtime contracts, with regression coverage. The workflow's broader
 usefulness and the Phase B product hypothesis have not been established.
@@ -311,9 +316,12 @@ recorded in
 [`docs/experiments/phase-b-expense-tracker-default-profile-b2-b6.md`](experiments/phase-b-expense-tracker-default-profile-b2-b6.md).
 The resulting human approval and frozen B7 contract are summarized in
 [`docs/experiments/phase-b-expense-tracker-b7-contract.md`](experiments/phase-b-expense-tracker-b7-contract.md).
-The B8 implementation is in a separate, clean local checkout at commit
+The B8 implementation is in a separate local checkout at commit
 `2400196c9a7d3a64554b517d5364fc739d4acf49`; its receipt records the exact
 base, contract hash, changed files, provisional choices, and smoke evidence.
-B9 deterministic verification has completed; human review remains pending.
+A narrowly scoped B9 refinement follows at
+`ee7e2167a1f85200c57136defda3a2e79ef791b9`. Its browser/build checks pass, but
+human review of the revised polarity cue, separator removal, and post-submit
+mobile state remains pending. The B9 report is not yet a completed human gate.
 The experiment has not established that Dorkflow improves design quality or
 passes the Phase B product hypothesis.

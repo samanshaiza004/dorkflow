@@ -27,6 +27,7 @@ const contractPath = join(implementationRoot, "implementation-contract.json");
 const receiptPath = join(root, "docs/experiments/phase-b-expense-tracker-b8-receipt.json");
 const envPath = join(experimentRoot, "rendering-environment-phase-b-review.json");
 const b8Commit = "2400196c9a7d3a64554b517d5364fc739d4acf49";
+const b9StyleRevisionCommit = "ee7e2167a1f85200c57136defda3a2e79ef791b9";
 const baseCommit = "5e5ad9ad6f0929f80e1c9f6667b08870f87e7743";
 const b8EnvironmentSha256 = "a9215d1eea25dcbe7111011395f5cfc41a62b8b177fbcb2e13d14da28405d361";
 const latoSha256 = "d636e4683231f931eda222d588e944d082bfd3bdba02f928bee461c0f185b251";
@@ -75,18 +76,10 @@ const requirementMethods: Record<string, "browser-dom" | "browser-interaction" |
 };
 
 const pendingHumanReview = new Set([
-  "req_b7layout01",
   "req_b7summary1",
   "req_b7row0001",
-  "req_b7state02",
   "req_b7state04",
   "req_b7state06",
-  "req_b7state07",
-  "req_b7wide001",
-  "req_b7narrow1",
-  "req_b7a11y01",
-  "req_b7pres01",
-  "req_b7resp01",
 ]);
 
 const failures = new Map<string, string[]>();
@@ -193,10 +186,10 @@ async function preflight(): Promise<{
   const contract = ImplementationContract.parse(JSON.parse(contractBytes.toString("utf8")));
   assert.equal(git(controlSource, "rev-parse", "HEAD"), baseCommit, "frozen control checkout is at the recorded commit");
   assert.equal(git(controlSource, "status", "--porcelain", "--untracked-files=all"), "", "frozen control checkout is clean");
-  assert.equal(git(implementationSource, "rev-parse", "HEAD"), b8Commit, "B8 implementation checkout is at the recorded commit");
-  assert.equal(git(implementationSource, "status", "--porcelain", "--untracked-files=all"), "", "B8 implementation checkout is clean");
-  assert.equal(git(implementationSource, "rev-parse", "HEAD^"), "38a48499f72b5d278b672e953545dad68543c706", "B8 implementation has its recorded implementation predecessor");
-  assert.equal(git(implementationSource, "rev-parse", "HEAD~2"), baseCommit, "B8 implementation is based on the frozen control");
+  assert.equal(git(implementationSource, "rev-parse", "HEAD"), b9StyleRevisionCommit, "B9 styling refinement is at its recorded source commit");
+  assert.equal(git(implementationSource, "status", "--porcelain", "--untracked-files=all"), "", "B9 implementation checkout is clean");
+  assert.equal(git(implementationSource, "rev-parse", "HEAD^"), b8Commit, "B9 refinement is a child of the frozen B8 implementation");
+  assert.equal(git(implementationSource, "rev-parse", "HEAD~3"), baseCommit, "B9 implementation retains the frozen control as its base");
 
   const b6Manifest = await readJson<any>(join(implementationRoot, "candidate-preview-tree-manifest.json"));
   assert.equal(b6Manifest.treeSha256, receipt.approvedReference.candidatePreviewTreeSha256, "B6 candidate hash in the receipt matches its frozen manifest");
@@ -406,6 +399,11 @@ async function pageStructure(page: Page): Promise<any> {
       const amountRect = amountNode?.getBoundingClientRect();
       return {
         text: row.textContent?.replace(/\s+/g, " ").trim(),
+        polarity: row.classList.contains("minus") ? "expense" : "income",
+        accent: {
+          width: Number.parseFloat(getComputedStyle(row).borderRightWidth),
+          color: getComputedStyle(row).borderRightColor,
+        },
         rect: rect(row),
         scrollWidth: (row as HTMLElement).scrollWidth,
         clientWidth: (row as HTMLElement).clientWidth,
@@ -424,6 +422,11 @@ async function pageStructure(page: Page): Promise<any> {
       summary: by(".summary"),
       history: by(".history"),
     };
+    const summaryCells = [...document.querySelectorAll(".inc-exp-container > div")];
+    const summarySeparators = [
+      { edge: "income.right", width: getComputedStyle(summaryCells[0]!).borderRightWidth },
+      { edge: "expense.left", width: getComputedStyle(summaryCells[1]!).borderLeftWidth },
+    ];
     return {
       viewportWidth: window.innerWidth,
       documentScrollWidth: document.documentElement.scrollWidth,
@@ -431,6 +434,7 @@ async function pageStructure(page: Page): Promise<any> {
       regions,
       controls,
       rows,
+      summarySeparators,
       rowCount: rows.length,
       labels: [...document.querySelectorAll("label")].map((label) => ({
         text: (label as HTMLLabelElement).innerText.replace(/\s+/g, " ").trim(),
@@ -569,10 +573,12 @@ async function computedContrast(page: Page): Promise<any> {
         background: backgroundFor(element),
         classification: "decorative section grouping; not the sole identifier of an interactive control or state",
       })),
-      expenseAccents: [...document.querySelectorAll(".transaction-row.minus")].map((element) => ({
+      transactionAccents: [...document.querySelectorAll(".transaction-row.plus, .transaction-row.minus")].map((element) => ({
+        polarity: element.classList.contains("minus") ? "expense" : "income",
         color: getComputedStyle(element).borderRightColor,
+        width: getComputedStyle(element).borderRightWidth,
         background: backgroundFor(element),
-        classification: "redundant cue; signed amount and explicit Expense label also convey meaning",
+        classification: "redundant cue; signed values and explicit Income/Expense labels also convey meaning",
       })),
       focusedDelete: border(document.querySelector("button.delete-btn:focus-visible"), "outlineColor", true),
     };
@@ -602,7 +608,7 @@ async function main(): Promise<void> {
   let browser: Awaited<ReturnType<typeof chromium.launch>> | undefined;
   try {
     reviewServer = await startCraServer("B6 review", b6Root, 4174);
-    implementationServer = await startCraServer("B8 implementation", implementationSource, 4175);
+    implementationServer = await startCraServer("B9 refined implementation", implementationSource, 4175);
     reviewBaseUrl = reviewServer.origin;
     implementationBaseUrl = implementationServer.origin;
     browser = await chromium.launch({ headless: true });
@@ -611,7 +617,8 @@ async function main(): Promise<void> {
     measurements.source = {
       controlCommit: baseCommit,
       controlWorkingTreeClean: true,
-      implementationCommit: b8Commit,
+      priorB8ImplementationCommit: b8Commit,
+      implementationCommit: b9StyleRevisionCommit,
       implementationWorkingTreeClean: true,
       b6CandidateTreeSha256: preflightResult.b6TreeSha256,
       contractSha256: preflightResult.contractSha256,
@@ -688,6 +695,9 @@ async function main(): Promise<void> {
       summaryNumericStyle: startingValues.summaryNumericStyle,
       headings: startingValues.headings,
     });
+    const summarySeparatorsAbsent = startingValues.summarySeparators.length === 2
+      && startingValues.summarySeparators.every((separator: any) => Number.parseFloat(separator.width) === 0);
+    record("req_b7summary1", "B9 review revision removes the redundant vertical Income/Expense separator", summarySeparatorsAbsent, startingValues.summarySeparators);
     record("req_b7a11y03", "financial meaning includes explicit labels and signed transaction values", startingValues.headings.some((heading: string) => heading.toLowerCase() === "income") && startingValues.headings.some((heading: string) => heading.toLowerCase() === "expense") && startingValues.rows.some((row: any) => row.text.includes("+") ) && startingValues.rows.some((row: any) => row.text.includes("-")), startingValues.rows.map((row: any) => row.text));
     record("req_b7entry01", "labels, sign explanation, fields, and submit action remain associated in the entry region", startingValues.labels.length >= 2 && startingValues.labels.every((label: any) => label.inputId === label.htmlFor) && startingValues.labels.some((label: any) => label.text.includes("negative - expense, positive - income")) && startingValues.controls.filter((control: any) => control.id === "text" || control.id === "amount").every((control: any) => control.rect && control.rect.x >= startingValues.regions.entry.x && control.rect.right <= startingValues.regions.entry.right) && startingValues.headings.some((heading: string) => heading.toLowerCase() === "add new transaction"), {
       labels: startingValues.labels,
@@ -952,7 +962,16 @@ async function main(): Promise<void> {
     const textContrastPass = textRatios.every((entry: any) => entry.ratio >= 4.5);
     const inputBorderRatios = textMetrics.inputBorders.map((entry: any) => ({ color: entry.color, background: entry.background, ratio: contrastRatio(entry.color, entry.background) }));
     const inputBoundaryPass = inputBorderRatios.every((entry: any) => entry.ratio >= 3);
-    const expenseAccentRatios = textMetrics.expenseAccents.map((entry: any) => ({ ...entry, ratio: contrastRatio(entry.color, entry.background) }));
+    const transactionAccentRatios = textMetrics.transactionAccents.map((entry: any) => ({
+      ...entry,
+      width: Number.parseFloat(entry.width),
+      ratio: contrastRatio(entry.color, entry.background),
+    }));
+    const accentRoles = new Set(transactionAccentRatios.map((entry: any) => entry.polarity));
+    const accentPass = transactionAccentRatios.length === transactions.length
+      && accentRoles.has("income") && accentRoles.has("expense")
+      && transactionAccentRatios.every((entry: any) => entry.width >= 4 && entry.ratio >= 3);
+    record("req_b7row0001", "income/expense edge cues are present, at least 4px wide, and contrast at least 3:1", accentPass, transactionAccentRatios);
     await contrastPage.getByRole("button", { name: "Delete transaction" }).first().focus();
     const focusedContrast = await computedContrast(contrastPage);
     const focusMetric = focusedContrast.focusedDelete;
@@ -965,7 +984,7 @@ async function main(): Promise<void> {
     const activeBoundaryRatio = contrastRatio(activeContrastData.border, activeContrastData.fill);
     const activeIconRatio = contrastRatio(activeContrastData.icon, activeContrastData.fill);
     const restIconRatio = contrastRatio(restStyle.color, textMetrics.texts.find((entry: any) => entry.role === "delete-icon")?.background ?? "rgb(246, 246, 243)");
-    const controlContrastPass = inputBoundaryPass && hoverBoundaryRatio >= 3 && activeBoundaryRatio >= 3 && hoverIconRatio >= 3 && activeIconRatio >= 3 && restIconRatio >= 3;
+    const controlContrastPass = inputBoundaryPass && accentPass && hoverBoundaryRatio >= 3 && activeBoundaryRatio >= 3 && hoverIconRatio >= 3 && activeIconRatio >= 3 && restIconRatio >= 3;
     measurements.contrast = {
       text: textRatios,
       inputBorders: inputBorderRatios,
@@ -974,7 +993,7 @@ async function main(): Promise<void> {
       deleteIconRatios: { rest: restIconRatio, hover: hoverIconRatio, active: activeIconRatio },
       focus: focusMetric ? { ...focusMetric, ratio: contrastRatio(focusMetric.color, focusMetric.background) } : null,
       decorativeDividers: textMetrics.decorativeDividers,
-      expenseAccents: expenseAccentRatios,
+      transactionAccents: transactionAccentRatios,
       thresholds: { normalTextMinimum: 4.5, essentialNonTextMinimum: 3, focusVisibleAA: "visible and non-obscured; contrast measurement recorded separately" },
       axe: "Not run: @axe-core/playwright is not installed in the frozen experiment dependencies; these results are not a complete WCAG conformance claim.",
     };
@@ -991,7 +1010,10 @@ async function main(): Promise<void> {
       focusContrastPass,
       focusMetric,
       decorativeDividers: textMetrics.decorativeDividers,
-      expenseAccents: expenseAccentRatios,
+      transactionAccents: transactionAccentRatios,
+      accentPass,
+      summarySeparators: startingValues.summarySeparators,
+      summarySeparatorsAbsent,
     });
     record("req_b7pres01", "measured preservation checks include usable semantic controls and applicable contrast", textContrastPass && controlContrastPass && focusContrastPass, {
       textContrastPass, inputBoundaryPass, hoverBoundaryRatio, activeBoundaryRatio, focusContrastPass,
@@ -1072,7 +1094,7 @@ async function main(): Promise<void> {
   const screenshotsForRequirement: Record<string, string[]> = {
     req_b7layout01: ["desktop-populated-implementation-1280.png", "mobile-populated-implementation-375.png"],
     req_b7summary1: ["desktop-populated-implementation-1280.png", "mobile-populated-implementation-375.png"],
-    req_b7row0001: ["delete-hover-implementation-768.png", "delete-active-implementation-768.png", "delete-focus-implementation-768.png"],
+    req_b7row0001: ["mobile-populated-implementation-375.png", "delete-hover-implementation-768.png", "delete-active-implementation-768.png", "delete-focus-implementation-768.png"],
     req_b7state02: ["mobile-populated-implementation-375.png"],
     req_b7state04: ["post-submit-mobile-implementation-375.png"],
     req_b7state05: ["delete-focus-implementation-768.png"],
@@ -1108,27 +1130,53 @@ async function main(): Promise<void> {
   const humanReview = [
     {
       id: "b9review_threeway01",
-      status: "PENDING",
-      question: "Compare control → approved B6 and approved B6 → B8 at desktop and mobile. Did B8 preserve the approved relationships while using only the values B7 left provisional? Note any material drift; do not judge pixel equality.",
+      status: "COMPLETED",
+      disposition: "PASS",
+      rationale: "The human reviewer confirmed that the implementation preserved the approved wide history-led relationship and narrow entry → summary → history order, while using B7's provisional visual freedoms rather than copying the prototype mechanically.",
+      question: "Did the implementation preserve the approved desktop and mobile relationships?",
       evidenceRefs: ["desktop-populated-control-1280.png", "desktop-populated-candidate-1280.png", "desktop-populated-implementation-1280.png", "mobile-populated-control-375.png", "mobile-populated-candidate-375.png", "mobile-populated-implementation-375.png"].map((path) => screenshotEvidence.get(`captures/${path}`)).filter(Boolean),
     },
     {
       id: "b9review_widefocus01",
-      status: "PENDING",
-      question: "At 1280px, does focus moving from the right-side entry form to the left-side history feel logical to a sighted keyboard user? The sequence is recorded; visual/DOM divergence alone is not an automatic failure.",
+      status: "COMPLETED",
+      disposition: "PASS",
+      rationale: "The human reviewer found the form-to-history focus progression spatially noticeable but logical and operable; history remains the visual focal area without needing to be the first keyboard interaction.",
+      question: "At 1280px, does focus moving from the right-side entry form to the left-side history feel logical?",
       evidenceRefs: [screenshotEvidence.get("captures/wide-focus-order-implementation-1280.png")].filter(Boolean),
     },
     {
       id: "b9review_mobilecontent01",
-      status: "PENDING",
-      question: "At 375px, are the long descriptions and large signed amounts still legible and scannable in the populated layout?",
+      status: "COMPLETED",
+      disposition: "PASS",
+      rationale: "The human reviewer found long descriptions and large signed amounts legible at narrow width. Rapid income/expense classification was a separate localized concern and remains pending after strengthening the redundant color cue.",
+      question: "At 375px, are long descriptions and large signed amounts legible?",
       evidenceRefs: ["mobile-populated-control-375.png", "mobile-populated-candidate-375.png", "mobile-populated-implementation-375.png"].map((path) => screenshotEvidence.get(`captures/${path}`)).filter(Boolean),
     },
     {
-      id: "b9review_deletevisual01",
+      id: "b9review_postsubmit01",
       status: "PENDING",
-      question: "Does delete remain subordinate at rest, become clearly but restrainedly actionable on hover, and read as distinct when active/focused without competing with the expense accent?",
+      question: "After adding a transaction at 375px, is the changed balance and new row immediately understandable together in the same flow?",
+      evidenceRefs: ["post-submit-mobile-control-375.png", "post-submit-mobile-candidate-375.png", "post-submit-mobile-implementation-375.png"].map((path) => screenshotEvidence.get(`captures/${path}`)).filter(Boolean),
+    },
+    {
+      id: "b9review_deletevisual01",
+      status: "COMPLETED",
+      disposition: "PASS",
+      rationale: "The human reviewer approved the delete target's optical centering, 32×32 target, subordinate rest state, restrained hover, and distinct active/focus treatment. The newly strengthened ledger cue still needs review for visual competition with delete.",
+      question: "Does the delete control retain its approved hierarchy and state treatment?",
       evidenceRefs: ["delete-hover-control-768.png", "delete-hover-candidate-768.png", "delete-hover-implementation-768.png", "delete-active-control-768.png", "delete-active-candidate-768.png", "delete-active-implementation-768.png", "delete-focus-control-768.png", "delete-focus-candidate-768.png", "delete-focus-implementation-768.png"].map((path) => screenshotEvidence.get(`captures/${path}`)).filter(Boolean),
+    },
+    {
+      id: "b9review_polarity01",
+      status: "PENDING",
+      question: "Do the stronger 5px income/expense edge cues improve rapid classification while remaining redundant with signed values/labels and not competing with the delete control?",
+      evidenceRefs: ["mobile-populated-implementation-375.png", "desktop-populated-implementation-1280.png", "delete-hover-implementation-768.png", "delete-active-implementation-768.png"].map((path) => screenshotEvidence.get(`captures/${path}`)).filter(Boolean),
+    },
+    {
+      id: "b9review_summarydivider01",
+      status: "PENDING",
+      question: "Does the two-column Income/Expense summary remain clear and balanced after removing its vertical separator?",
+      evidenceRefs: ["desktop-populated-implementation-1280.png", "mobile-populated-implementation-375.png"].map((path) => screenshotEvidence.get(`captures/${path}`)).filter(Boolean),
     },
   ].map((item) => B9HumanReviewItem.parse(item));
   const deviation = {
@@ -1137,7 +1185,13 @@ async function main(): Promise<void> {
     detectedAt: "B8 browser smoke, before the final B8 implementation commit",
     disposition: "The initial DOM order made mobile keyboard navigation differ from the approved entry → summary → history sequence. The smoke caught it; the implementation changed source order, retained the wide CSS placement, and committed the correction before 2400196. B9 retests both narrow and wide sequences.",
   };
-  const reportId = `verify_b9${digest(`${runId}\0${preflightResult.contractSha256}\0${b8Commit}`).slice(0, 12)}`;
+  const styleReviewDeviation = {
+    id: "deviation_b9style01",
+    requirementRefs: ["req_b7summary1", "req_b7row0001", "req_b7a11y04"],
+    detectedAt: "Human review after the first B9 verification result",
+    disposition: "The human reviewer approved the implemented layout, focus sequence, mobile text legibility, and delete treatment, while requesting two changes within B7's provisional styling freedom: strengthen the redundant transaction-polarity edge cue and remove the unnecessary Income/Expense divider. Only these local styling changes were made; no B6/B7 decision was reopened.",
+  };
+  const reportId = `verify_b9${digest(`${runId}\0${preflightResult.contractSha256}\0${b9StyleRevisionCommit}`).slice(0, 12)}`;
   const report = B9VerificationReport.parse({
     schemaVersion: 1,
     id: reportId,
@@ -1151,7 +1205,7 @@ async function main(): Promise<void> {
       controlCommit: baseCommit,
       b6CandidateTreeSha256: preflightResult.b6TreeSha256,
       implementationBaseCommit: baseCommit,
-      implementationCommit: b8Commit,
+      implementationCommit: b9StyleRevisionCommit,
       renderingEnvironmentSha256: b8EnvironmentSha256,
       fontSha256: latoSha256,
     },
@@ -1169,7 +1223,7 @@ async function main(): Promise<void> {
     requirements,
     evidenceArtifacts,
     humanReview,
-    deviations: [deviation],
+    deviations: [deviation, styleReviewDeviation],
   });
 
   await writeFile(join(currentEvidenceDir, "report.json"), `${JSON.stringify(report, null, 2)}\n`, { flag: "wx" });
@@ -1178,7 +1232,7 @@ async function main(): Promise<void> {
     "",
     `Report status: **${status}**`,
     "",
-    "The exact control, approved B6 candidate, and B8 implementation are shown under the same pinned browser, Lato bytes, locale, timezone, and device scale factor. These are direct captures, not pixel-diff verdicts.",
+    "The exact control, approved B6 candidate, and B9-refined implementation are shown under the same pinned browser, Lato bytes, locale, timezone, and device scale factor. These are direct captures, not pixel-diff verdicts.",
     "",
     "## Desktop · 1280px · populated",
     "",
@@ -1187,6 +1241,12 @@ async function main(): Promise<void> {
     "## Mobile · 375px · populated",
     "",
     ...variants.map((variant) => `- [${variant}](captures/mobile-populated-${variant}-375.png)`),
+    "",
+    "## B9 localized revision review",
+    "",
+    "- [Revised summary and ledger cues · desktop](captures/desktop-populated-implementation-1280.png)",
+    "- [Revised summary and ledger cues · mobile](captures/mobile-populated-implementation-375.png)",
+    "- [Delete hover with revised expense cue](captures/delete-hover-implementation-768.png)",
     "",
     "## Mobile · 375px · post-submit",
     "",
@@ -1203,7 +1263,7 @@ async function main(): Promise<void> {
     "",
     "- [Wide focus order capture](captures/wide-focus-order-implementation-1280.png)",
     "",
-    "Review the four pending items in `report.json`; do not infer approval from the automated status.",
+    "Review the pending post-submit and localized revision questions in `report.json`; do not infer approval from the automated status.",
   ].join("\n");
   await writeFile(join(currentEvidenceDir, "human-review.md"), `${reviewMarkdown}\n`, { flag: "wx" });
   await writeFile(join(currentEvidenceDir, "evidence-index.json"), `${JSON.stringify(evidenceArtifacts, null, 2)}\n`, { flag: "wx" });
