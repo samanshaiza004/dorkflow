@@ -39,6 +39,7 @@ export const ImplementationContractId = opaque("contract");
 export const RequirementId = opaque("req");
 export const VerificationReportId = opaque("verify");
 export const DesignRunId = opaque("run");
+export const B9HumanReviewId = opaque("b9review");
 
 export const Sha256 = z.string().regex(/^[a-f0-9]{64}$/);
 export const DesignSlug = z.string().regex(/^[a-z][a-z0-9]*(?:-[a-z0-9]+)*$/).max(64);
@@ -72,6 +73,7 @@ export const ArtifactRef = z.union([
   RequirementId,
   EvidenceRequestId,
   VerificationReportId,
+  B9HumanReviewId,
   DesignRunId,
   ElementId,
   EvidenceId,

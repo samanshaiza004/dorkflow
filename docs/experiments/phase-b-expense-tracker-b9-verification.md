@@ -16,8 +16,20 @@ human-review requirements concern the no-divider summary, rapid polarity
 scanning/delete-cue balance, and the post-submit mobile state. The two actual
 style-revision questions are whether the divider-free summary reads clearly
 and whether the stronger edge cues aid scanning without competing with delete.
-This run does not claim that Dorkflow improves design quality or passes the
-Phase B product hypothesis.
+At report capture, this run did not claim that Dorkflow improves design
+quality or passes the Phase B product hypothesis.
+
+## Final human closure
+
+After reviewing the revised post-submit mobile, transaction-polarity, and
+divider-free summary captures, the human approved all three pending questions.
+The immutable report remains `REVIEW-PENDING` as originally recorded; the
+separate [`human-resolution.json`](phase-b-expense-tracker-b9-revision/human-resolution.json)
+binds the approval to its exact report hash, and
+[`closure.json`](phase-b-expense-tracker-b9-revision/closure.json) derives the
+final outcome. All 22 requirement IDs are `PASS`; none failed or remain
+pending. This closes the B9 verification gate, not the broader Phase B product
+hypothesis.
 
 ### Revision and provenance
 

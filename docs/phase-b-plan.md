@@ -302,11 +302,14 @@ review led to two implementation refinements inside B7's deliberately
 provisional styling scope: strengthening the redundant transaction-polarity
 edge cue and removing the unnecessary Income/Expense divider. The control,
 B6 candidate, B7 contract, layout, type hierarchy, and delete styling were not
-changed. The revised machine result has no failed assertions (18 requirements
-pass and 4 await human review); the overall result remains `REVIEW-PENDING`,
-not PASS. See
+changed. At capture, the revised report had no failed assertions (18
+requirements passed and 4 awaited human review). A separate resolution is now
+bound to that report's exact SHA-256; all three pending review items and their
+four requirement links are approved, closing B9 at 22 `PASS`, 0 `FAIL`. The
+original report remains immutable and retains its capture-time `REVIEW-PENDING`
+status. See
 [`docs/experiments/phase-b-expense-tracker-b9-verification.md`](experiments/phase-b-expense-tracker-b9-verification.md)
-and its preserved initial/revised run artifacts.
+and its preserved initial/revised run artifacts and hash-bound closure.
 The response JSON Schemas now include the profile reference kinds accepted by
 the runtime contracts, with regression coverage. The workflow's broader
 usefulness and the Phase B product hypothesis have not been established.
@@ -321,7 +324,9 @@ The B8 implementation is in a separate local checkout at commit
 base, contract hash, changed files, provisional choices, and smoke evidence.
 A narrowly scoped B9 refinement follows at
 `ee7e2167a1f85200c57136defda3a2e79ef791b9`. Its browser/build checks pass, but
-human review of the revised polarity cue, separator removal, and post-submit
-mobile state remains pending. The B9 report is not yet a completed human gate.
+the report's three pending human questions were subsequently approved and
+closed in a separate hash-bound artifact; the final requirement-addressed B9
+closure is PASS. The B9 product-quality review is not a claim that Dorkflow
+improves design quality or passes the Phase B product hypothesis.
 The experiment has not established that Dorkflow improves design quality or
 passes the Phase B product hypothesis.

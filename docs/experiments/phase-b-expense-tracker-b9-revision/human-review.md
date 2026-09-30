@@ -1,6 +1,11 @@
 # Expense Tracker B9 human review
 
-Report status: **REVIEW-PENDING**
+Report status at capture: **REVIEW-PENDING**
+
+The later human approval is recorded separately in
+[`human-resolution.json`](human-resolution.json), bound to the report's exact
+hash. The derived [`closure.json`](closure.json) closes the 22-requirement B9
+gate as **PASS** without editing this capture-time report or its evidence.
 
 The exact control, approved B6 candidate, and B9-refined implementation are shown under the same pinned browser, Lato bytes, locale, timezone, and device scale factor. These are direct captures, not pixel-diff verdicts.
 
@@ -49,4 +54,6 @@ The exact control, approved B6 candidate, and B9-refined implementation are show
 
 - [Wide focus order capture](captures/wide-focus-order-implementation-1280.png)
 
-Review the pending post-submit and localized revision questions in `report.json`; do not infer approval from the automated status.
+The post-submit mobile, revised polarity cue, and divider-free summary were
+approved after these captures. See the hash-bound resolution and closure for
+requirement-level outcomes.

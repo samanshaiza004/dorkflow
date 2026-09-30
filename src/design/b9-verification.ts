@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { EvidenceId } from "../contracts/ids.ts";
 import {
+  B9HumanReviewId,
   DesignRunId,
   ImplementationContractId,
   IsoTimestamp,
@@ -9,6 +10,7 @@ import {
   Sha256,
   VerificationReportId,
 } from "../contracts/design/common.ts";
+import { identityHash } from "../environment/hash.ts";
 
 export const B9RequirementStatus = z.enum([
   "PASS",
@@ -49,7 +51,7 @@ export const B9EvidenceArtifact = z
 
 export const B9HumanReviewItem = z
   .object({
-    id: z.string().regex(/^b9review_[a-z0-9]{8,64}$/),
+    id: B9HumanReviewId,
     status: z.enum(["PENDING", "COMPLETED"]),
     question: NonEmptyText,
     evidenceRefs: z.array(EvidenceId).min(1),
@@ -119,6 +121,125 @@ export const B9VerificationReport = z
   .strict();
 
 export type B9VerificationReport = z.infer<typeof B9VerificationReport>;
+
+export const B9HumanReviewResolutionItem = z
+  .object({
+    reviewItemRef: B9HumanReviewId,
+    disposition: z.enum(["PASS", "REVISE", "FAIL"]),
+    requirementRefs: z.array(RequirementId).min(1),
+    rationale: NonEmptyText,
+  })
+  .strict();
+export type B9HumanReviewResolutionItem = z.infer<typeof B9HumanReviewResolutionItem>;
+
+export const B9HumanReviewResolution = z
+  .object({
+    schemaVersion: z.literal(1),
+    reportRef: VerificationReportId,
+    reportSha256: Sha256,
+    decidedAt: IsoTimestamp,
+    resolutions: z.array(B9HumanReviewResolutionItem),
+  })
+  .strict()
+  .superRefine((resolution, context) => {
+    const reviewIds = resolution.resolutions.map(({ reviewItemRef }) => reviewItemRef);
+    if (new Set(reviewIds).size !== reviewIds.length) {
+      context.addIssue({ code: z.ZodIssueCode.custom, path: ["resolutions"], message: "B9 review item resolutions must be unique" });
+    }
+    const requirementIds = resolution.resolutions.flatMap(({ requirementRefs }) => requirementRefs);
+    if (new Set(requirementIds).size !== requirementIds.length) {
+      context.addIssue({ code: z.ZodIssueCode.custom, path: ["resolutions"], message: "A B9 requirement may be resolved only once" });
+    }
+  });
+export type B9HumanReviewResolution = z.infer<typeof B9HumanReviewResolution>;
+
+export const B9RequirementOutcome = z
+  .object({
+    requirementId: RequirementId,
+    status: B9RequirementStatus,
+    resolutionRefs: z.array(B9HumanReviewId),
+  })
+  .strict();
+export type B9RequirementOutcome = z.infer<typeof B9RequirementOutcome>;
+
+export const B9VerificationClosure = z
+  .object({
+    schemaVersion: z.literal(1),
+    reportRef: VerificationReportId,
+    reportSha256: Sha256,
+    resolutionSha256: Sha256,
+    decidedAt: IsoTimestamp,
+    status: z.enum(["PASS", "FAIL", "REVIEW-PENDING"]),
+    resolutions: z.array(B9HumanReviewResolutionItem),
+    requirementOutcomes: z.array(B9RequirementOutcome).min(1),
+  })
+  .strict();
+export type B9VerificationClosure = z.infer<typeof B9VerificationClosure>;
+
+/** Applies a separately recorded human resolution without mutating the frozen verification report. */
+export function resolveB9Verification(
+  reportValue: unknown,
+  actualReportSha256: string,
+  resolutionValue: unknown,
+): B9VerificationClosure {
+  const report = B9VerificationReport.parse(reportValue);
+  const resolution = B9HumanReviewResolution.parse(resolutionValue);
+  const reportSha256 = Sha256.parse(actualReportSha256);
+  if (resolution.reportRef !== report.id || resolution.reportSha256 !== reportSha256) {
+    throw new Error("B9 human resolution is not bound to this exact verification report");
+  }
+
+  const pendingReviews = report.humanReview.filter(({ status }) => status === "PENDING").map(({ id }) => id);
+  const resolutionRefs = resolution.resolutions.map(({ reviewItemRef }) => reviewItemRef);
+  if (pendingReviews.length !== resolutionRefs.length || pendingReviews.some((id) => !resolutionRefs.includes(id))) {
+    throw new Error("B9 human resolution must address every and only pending review item");
+  }
+
+  const requirementStatuses = new Map(report.requirements.map(({ requirementId, status }) => [requirementId, status]));
+  const resolutionByRequirement = new Map<string, B9HumanReviewResolutionItem>();
+  for (const item of resolution.resolutions) {
+    for (const requirementRef of item.requirementRefs) {
+      if (requirementStatuses.get(requirementRef) !== "HUMAN-REVIEW") {
+        throw new Error(`B9 resolution ${item.reviewItemRef} references a requirement that is not pending human review: ${requirementRef}`);
+      }
+      resolutionByRequirement.set(requirementRef, item);
+    }
+  }
+  const unresolvedRequirements = report.requirements
+    .filter(({ status }) => status === "HUMAN-REVIEW")
+    .map(({ requirementId }) => requirementId)
+    .filter((requirementId) => !resolutionByRequirement.has(requirementId));
+  if (unresolvedRequirements.length > 0) {
+    throw new Error(`B9 human resolution omits pending requirements: ${unresolvedRequirements.join(", ")}`);
+  }
+
+  const requirementOutcomes = report.requirements.map(({ requirementId, status }) => {
+    const resolution = resolutionByRequirement.get(requirementId);
+    const resolvedStatus = resolution?.disposition === "PASS"
+      ? "PASS"
+      : resolution?.disposition === "FAIL"
+        ? "FAIL"
+        : resolution?.disposition === "REVISE"
+          ? "HUMAN-REVIEW"
+          : status;
+    return B9RequirementOutcome.parse({
+      requirementId,
+      status: resolvedStatus,
+      resolutionRefs: resolution ? [resolution.reviewItemRef] : [],
+    });
+  });
+
+  return B9VerificationClosure.parse({
+    schemaVersion: 1,
+    reportRef: report.id,
+    reportSha256,
+    resolutionSha256: identityHash(resolution),
+    decidedAt: resolution.decidedAt,
+    status: summarizeB9Requirements(requirementOutcomes),
+    resolutions: resolution.resolutions,
+    requirementOutcomes,
+  });
+}
 
 /** Enforce one explicit B9 outcome for every requirement in the frozen contract. */
 export function completeB9RequirementResults(

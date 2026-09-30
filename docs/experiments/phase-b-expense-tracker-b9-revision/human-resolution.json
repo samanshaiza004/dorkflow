@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "reportRef": "verify_b9e8b6daaaa0de",
+  "reportSha256": "bae126e1f06341faf0c284307a196c07e113ed51faa965b1a2dafe2116fa71fa",
+  "decidedAt": "2026-09-29T20:01:56-05:00",
+  "resolutions": [
+    {
+      "reviewItemRef": "b9review_postsubmit01",
+      "disposition": "PASS",
+      "requirementRefs": ["req_b7state04"],
+      "rationale": "Human approval: \"I approve, move on.\" Applied to this pending B9 question after review of the revised post-submit mobile evidence."
+    },
+    {
+      "reviewItemRef": "b9review_polarity01",
+      "disposition": "PASS",
+      "requirementRefs": ["req_b7row0001", "req_b7state06"],
+      "rationale": "Human approval: \"I approve, move on.\" Applied to the revised transaction polarity cue and its interaction-state requirements after review of the updated captures."
+    },
+    {
+      "reviewItemRef": "b9review_summarydivider01",
+      "disposition": "PASS",
+      "requirementRefs": ["req_b7summary1"],
+      "rationale": "Human approval: \"I approve, move on.\" Applied to the revised divider-free summary after review of the updated captures."
+    }
+  ]
+}
